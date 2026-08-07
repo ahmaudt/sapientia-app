@@ -47,9 +47,20 @@ struct BlockedProfileStrategyFields: View {
   var showsSeparators: Bool = false
 
   var body: some View {
+    SapientiaSegmentedPicker(
+      options: BlockedProfileDraft.StrategyFamily.allCases,
+      label: { $0.rawValue },
+      selection: Binding(
+        get: { draft.strategyFamily },
+        set: { draft.strategyFamily = $0 }
+      )
+    )
+    .disabled(disabled)
+    .listRowSeparator(.hidden)
+
     Button(action: { showingStrategyPicker = true }) {
       HStack {
-        Text("Choose Strategy")
+        Text("Advanced strategies")
           .foregroundStyle(themeManager.themeColor)
         Spacer()
         Image(systemName: "chevron.right")
@@ -85,9 +96,9 @@ struct BlockedProfileStrategySection: View {
         disabled: disabled
       )
     } header: {
-      Text("Blocking Strategy")
+      Text("How it ends")
     } footer: {
-      Text("Choose how this profile starts and stops.")
+      Text("The session opens and closes by touch, not by will.")
     }
   }
 }
@@ -137,11 +148,17 @@ struct BlockedProfileAppsSection: View {
   var disabled: Bool
 
   var body: some View {
-    Section((draft.enableAllowMode ? "Allowed" : "Blocked") + " Apps") {
+    Section {
       BlockedProfileAppsFields(
         draft: draft,
         showingActivityPicker: $showingActivityPicker,
         disabled: disabled
+      )
+    } header: {
+      Text(draft.enableAllowMode ? "Set apart" : "Set aside")
+    } footer: {
+      Text(
+        "Chosen through Apple's Screen Time picker. Sapientia never sees which apps you named."
       )
     }
   }
@@ -409,6 +426,16 @@ struct BlockedProfileSessionSafeguardsFields: View {
       description:
         "Allow limited emergency unblocks during active sessions.",
       isOn: $draft.enableEmergencyUnblock,
+      isDisabled: disabled
+    )
+
+    ProfileFieldDivider(isVisible: showsSeparators)
+
+    CustomToggle(
+      title: "Pray Before Unblocking",
+      description:
+        "The Collect of the day stands in front of the tag.",
+      isOn: $draft.prayBeforeUnblocking,
       isDisabled: disabled
     )
   }

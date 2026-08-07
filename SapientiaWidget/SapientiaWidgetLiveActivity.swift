@@ -131,7 +131,7 @@ struct SapientiaWidgetLiveActivity: Widget {
           .frame(width: minimalLogoSize, height: minimalLogoSize)
       }
       .widgetURL(URL(string: "http://www.sapientia.app"))
-      .keylineTint(Color.purple)
+      .keylineTint(Color.sapientiaAccent)
     }
   }
 
@@ -209,7 +209,7 @@ struct SapientiaWidgetLiveActivity: Widget {
     .font(font)
     .fontWeight(.semibold)
     .monospacedDigit()
-    .foregroundColor(.purple)
+    .foregroundColor(.sapientiaAccent)
     .contentTransition(.numericText())
   }
 
@@ -225,7 +225,7 @@ struct SapientiaWidgetLiveActivity: Widget {
     .lineLimit(1)
     .minimumScaleFactor(0.76)
     .allowsTightening(true)
-    .foregroundColor(.purple)
+    .foregroundColor(.sapientiaAccent)
     .frame(width: expandedTimerWidth, alignment: .center)
     .contentTransition(.numericText())
   }
@@ -240,7 +240,7 @@ struct SapientiaWidgetLiveActivity: Widget {
     .lineLimit(1)
     .minimumScaleFactor(0.68)
     .allowsTightening(true)
-    .foregroundColor(.purple)
+    .foregroundColor(.sapientiaAccent)
     .frame(width: compactTimerWidth, alignment: .center)
     .contentTransition(.numericText())
   }

@@ -30,6 +30,9 @@ class StrategyManager: ObservableObject {
   @Published var customStrategyViewPresentationDetents: Set<PresentationDetent> = [
     .medium, .large,
   ]
+  /// NFC scan stages present as full-screen dark "ritual" covers; other
+  /// strategy views keep their sheets.
+  @Published var customStrategyViewUsesFullScreen: Bool = false
 
   @Published var errorMessage: String?
 
@@ -625,14 +628,17 @@ class StrategyManager: ObservableObject {
     showCustomStrategyView = false
     customStrategyView = nil
     customStrategyViewPresentationDetents = [.medium, .large]
+    customStrategyViewUsesFullScreen = false
   }
 
   private func presentCustomStrategyView(
     _ view: any View,
-    presentationDetents: Set<PresentationDetent>
+    presentationDetents: Set<PresentationDetent>,
+    fullScreen: Bool = false
   ) {
     customStrategyView = view
     customStrategyViewPresentationDetents = presentationDetents
+    customStrategyViewUsesFullScreen = fullScreen
     showCustomStrategyView = true
   }
 
@@ -695,7 +701,8 @@ class StrategyManager: ObservableObject {
       if let customView = view {
         presentCustomStrategyView(
           customView,
-          presentationDetents: strategy.startViewPresentationDetents
+          presentationDetents: strategy.startViewPresentationDetents,
+          fullScreen: strategy is NFCScanningStrategy
         )
       }
     }
@@ -714,9 +721,21 @@ class StrategyManager: ObservableObject {
       let view = strategy.stopBlocking(context: context, session: session)
 
       if let customView = view {
+        let isNFCStage = strategy is NFCScanningStrategy
+        // NFC scan stages carry their own prayer interstitial; other
+        // strategy stop views (QR scanners, pause pickers) get gated here.
+        let needsPrayer =
+          !isNFCStage
+          && ScanFlow.needsPrayer(
+            isStopping: true,
+            prayBeforeUnblocking: session.blockedProfile.prayBeforeUnblockingResolved
+          )
+        let finalView: any View =
+          needsPrayer ? PrayerGatedView(content: AnyView(customView)) : customView
         presentCustomStrategyView(
-          customView,
-          presentationDetents: [.medium, .large]
+          finalView,
+          presentationDetents: [.medium, .large],
+          fullScreen: isNFCStage || needsPrayer
         )
       }
     }

@@ -1,52 +1,31 @@
 import SwiftUI
 
+/// Sapientia uses one fixed, intentional palette (the Industry design
+/// system's slate blue). The class API survives because the ShieldConfig
+/// extension reads `themeColor`; the old 19-color picker is gone. The
+/// legacy stored color-name key is intentionally ignored (never read) so
+/// upgrading users cannot crash on a stale value.
 class ThemeManager: ObservableObject {
   static let shared = ThemeManager()
 
-  // Single source of truth for all theme colors
+  static let fixedColorName = "Sapientia Blue"
+
+  // Kept for API compatibility with call sites that enumerate colors.
   static let availableColors: [(name: String, color: Color)] = [
-    ("Grimace Purple", Color(hex: "#894fa3")),
-    ("Ocean Blue", Color(hex: "#007aff")),
-    ("Mint Fresh", Color(hex: "#00c6bf")),
-    ("Lime Zest", Color(hex: "#7fd800")),
-    ("Sunset Coral", Color(hex: "#ff5966")),
-    ("Hot Pink", Color(hex: "#ff2da5")),
-    ("Tangerine", Color(hex: "#ff9300")),
-    ("Lavender Dream", Color(hex: "#ba8eff")),
-    ("San Diego Merlot", Color(hex: "#7a1e3a")),
-    ("Forest Green", Color(hex: "#0b6e4f")),
-    ("Miami Vice", Color(hex: "#ff6ec7")),
-    ("Electric Lemonade", Color(hex: "#ccff00")),
-    ("Neon Grape", Color(hex: "#b026ff")),
-    ("Slate Stone", Color(hex: "#708090")),
-    ("Warm Sandstone", Color(hex: "#c4a77d")),
-    ("Midnight Navy", Color(hex: "#191970")),
-    ("Cherry Bomb", Color(hex: "#de3163")),
-    ("Turquoise Wave", Color(hex: "#40e0d0")),
-    ("Golden Hour", Color(hex: "#ffb347")),
+    (fixedColorName, Color(hex: "#5980a6"))
   ]
 
-  private static let defaultColorName = "Grimace Purple"
-
-  @AppStorage(
-    "sapientiaThemeColorName", store: UserDefaults(suiteName: "group.dev.ambitionsoftware.sapientia"))
-  private var themeColorName: String = defaultColorName
-
   var selectedColorName: String {
-    get { themeColorName }
-    set {
-      themeColorName = newValue
-      objectWillChange.send()
-    }
+    get { Self.fixedColorName }
+    set { _ = newValue }
   }
 
   var themeColor: Color {
-    Self.availableColors.first(where: { $0.name == themeColorName })?.color
-      ?? Self.availableColors.first!.color
+    Self.availableColors.first!.color
   }
 
   func setTheme(named name: String) {
-    selectedColorName = name
+    // Fixed palette: no-op.
   }
 }
 

@@ -129,7 +129,7 @@ struct ProfileWidgetEntryView: View {
 
                             Image(systemName: "hourglass")
                                 .font(.body)
-                                .foregroundColor(shouldUseWhiteText ? .white : .purple)
+                                .foregroundColor(shouldUseWhiteText ? .white : .sapientiaAccent)
                         }
                         .padding(.top, 8)
 

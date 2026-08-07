@@ -1,7 +1,7 @@
 import SwiftData
 import SwiftUI
 
-class NFCPauseTimerBlockingStrategy: BlockingStrategy {
+class NFCPauseTimerBlockingStrategy: BlockingStrategy, NFCScanningStrategy {
   static var id: String = "NFCPauseTimerBlockingStrategy"
 
   var name: String = "NFC + Pause Timer"
@@ -17,7 +17,7 @@ class NFCPauseTimerBlockingStrategy: BlockingStrategy {
   var onSessionCreation: ((SessionStatus) -> Void)?
   var onErrorMessage: ((String) -> Void)?
 
-  private let nfcScanner: NFCScannerUtil = NFCScannerUtil()
+  var nfcScanner: NFCScannerUtil = NFCScannerUtil()
   private let appBlocker: AppBlockerUtil = AppBlockerUtil()
 
   func getIdentifier() -> String {
@@ -91,12 +91,10 @@ class NFCPauseTimerBlockingStrategy: BlockingStrategy {
       }
     }
 
-    if isPauseActive {
-      nfcScanner.scan(profileName: session.blockedProfile.name)
-    } else {
-      nfcScanner.scan(profileName: "\(session.blockedProfile.name) - Pause")
-    }
-
-    return nil
+    let scanPrompt =
+      isPauseActive
+      ? session.blockedProfile.name
+      : "\(session.blockedProfile.name) - Pause"
+    return makeStopScanStage(for: session, scanPrompt: scanPrompt)
   }
 }

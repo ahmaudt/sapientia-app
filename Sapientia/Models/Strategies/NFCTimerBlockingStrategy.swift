@@ -1,7 +1,7 @@
 import SwiftData
 import SwiftUI
 
-class NFCTimerBlockingStrategy: BlockingStrategy {
+class NFCTimerBlockingStrategy: BlockingStrategy, NFCScanningStrategy {
   static var id: String = "NFCTimerBlockingStrategy"
 
   var name: String = "NFC + Timer"
@@ -17,7 +17,7 @@ class NFCTimerBlockingStrategy: BlockingStrategy {
   var onSessionCreation: ((SessionStatus) -> Void)?
   var onErrorMessage: ((String) -> Void)?
 
-  private let nfcScanner: NFCScannerUtil = NFCScannerUtil()
+  var nfcScanner: NFCScannerUtil = NFCScannerUtil()
   private let appBlocker: AppBlockerUtil = AppBlockerUtil()
 
   func getIdentifier() -> String {
@@ -78,8 +78,6 @@ class NFCTimerBlockingStrategy: BlockingStrategy {
       self.onSessionCreation?(.ended(session.blockedProfile))
     }
 
-    nfcScanner.scan(profileName: session.blockedProfile.name)
-
-    return nil
+    return makeStopScanStage(for: session)
   }
 }

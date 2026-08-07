@@ -21,6 +21,7 @@ final class BlockedProfileDraft: ObservableObject {
   @Published var enableMacSync: Bool
   @Published var disableBackgroundStops: Bool
   @Published var enableEmergencyUnblock: Bool
+  @Published var prayBeforeUnblocking: Bool
   @Published var domains: [String]
   @Published var physicalUnblockItems: [PhysicalUnblockItem]
   @Published var schedule: BlockedProfileSchedule
@@ -51,6 +52,7 @@ final class BlockedProfileDraft: ObservableObject {
     enableReminder = profile?.reminderTimeInSeconds != nil
     disableBackgroundStops = profile?.disableBackgroundStops ?? false
     enableEmergencyUnblock = profile?.enableEmergencyUnblock ?? true
+    prayBeforeUnblocking = profile?.prayBeforeUnblocking ?? false
     reminderTimeInMinutes = Int(profile?.reminderTimeInSeconds ?? 900) / 60
     customReminderMessage = profile?.customReminderMessage ?? ""
     domains = profile?.domains ?? []
@@ -81,6 +83,31 @@ final class BlockedProfileDraft: ObservableObject {
 
   var selectedStrategyAllowsTimedBreaks: Bool {
     return selectedStrategy?.allowsTimedBreaks ?? true
+  }
+
+  // MARK: - Strategy families ("How it ends" segmented control)
+
+  enum StrategyFamily: String, CaseIterable {
+    case nfc = "NFC tag"
+    case qr = "QR code"
+    case timer = "Timer"
+  }
+
+  var strategyFamily: StrategyFamily {
+    get {
+      let id = selectedStrategy?.getIdentifier() ?? NFCBlockingStrategy.id
+      if id.contains("NFC") { return .nfc }
+      if id.contains("QR") { return .qr }
+      return .timer
+    }
+    set {
+      guard newValue != strategyFamily else { return }
+      switch newValue {
+      case .nfc: selectedStrategy = NFCBlockingStrategy()
+      case .qr: selectedStrategy = QRCodeBlockingStrategy()
+      case .timer: selectedStrategy = ShortcutTimerBlockingStrategy()
+      }
+    }
   }
 
   func save(
@@ -119,7 +146,8 @@ final class BlockedProfileDraft: ObservableObject {
         physicalUnblockItems: .some(physicalUnblockItemsToSave),
         schedule: schedule,
         disableBackgroundStops: disableBackgroundStops,
-        enableEmergencyUnblock: enableEmergencyUnblock
+        enableEmergencyUnblock: enableEmergencyUnblock,
+        prayBeforeUnblocking: prayBeforeUnblocking
       )
 
       DeviceActivityCenterUtil.scheduleTimerActivity(for: updatedProfile)
@@ -148,7 +176,8 @@ final class BlockedProfileDraft: ObservableObject {
       physicalUnblockItems: physicalUnblockItemsToSave,
       schedule: schedule,
       disableBackgroundStops: disableBackgroundStops,
-      enableEmergencyUnblock: enableEmergencyUnblock
+      enableEmergencyUnblock: enableEmergencyUnblock,
+      prayBeforeUnblocking: prayBeforeUnblocking
     )
 
     DeviceActivityCenterUtil.scheduleTimerActivity(for: newProfile)

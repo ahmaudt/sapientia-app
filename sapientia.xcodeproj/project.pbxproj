@@ -151,6 +151,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				SapientiaWidgetLiveActivity.swift,
+				WidgetPalette.swift,
 			);
 			target = 801B20942CB363A10073E9E2 /* sapientia */;
 		};
@@ -183,11 +184,17 @@
 		803899772EF736BA009988BB /* Exceptions for "Sapientia" folder in "SapientiaShieldConfig" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Liturgy/LiturgicalDay.swift",
+				"Liturgy/OrdinariateCalendar+Seasons.swift",
+				"Liturgy/OrdinariateCalendar.swift",
+				"Liturgy/PrayerSettings.swift",
+				"Liturgy/ShieldContent.swift",
 				Models/PhysicalUnblockItem.swift,
 				Models/Schedule.swift,
 				Models/Shared.swift,
 				Models/SoftUnblockGrant.swift,
 				Models/Strategies/Data/SoftUnblockStrategyData.swift,
+				"Resources/Liturgy/ordinariate-calendar.json",
 				Utils/SoftUnblockGrantStore.swift,
 				Utils/ThemeManager.swift,
 			);

@@ -14,50 +14,132 @@ struct SettingsView: View {
   @EnvironmentObject var requestAuthorizer: RequestAuthorizer
   @EnvironmentObject var strategyManager: StrategyManager
 
+  @Query private var profiles: [BlockedProfiles]
+
+  @State private var blockScreenPrayer = PrayerSettings.blockScreenPrayer
+  @State private var calendarChoice = PrayerSettings.calendarChoice
+  @State private var feastNoticeEnabled = PrayerSettings.feastNoticeEnabled
+
   @State private var showResetBlockingStateAlert = false
   @State private var showDebugView = false
+  @State private var showSupportView = false
 
   private var appVersion: String {
     Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
       ?? "1.0"
   }
 
+  private var pairedItemCount: Int {
+    profiles.reduce(0) { $0 + ($1.physicalUnblockItems?.count ?? 0) }
+  }
+
   var body: some View {
     NavigationStack {
       Form {
-        Section("Theme") {
-          HStack {
-            Image(systemName: "paintpalette.fill")
-              .foregroundStyle(themeManager.themeColor)
-              .font(.title3)
+        Section {
+          SapientiaRadioRow(
+            title: "Prayer of St. Benedict",
+            subtitle: "The same words each time.",
+            isSelected: blockScreenPrayer == .benedict
+          ) {
+            blockScreenPrayer = .benedict
+            PrayerSettings.blockScreenPrayer = .benedict
+          }
+          SapientiaRadioRow(
+            title: "Collect of the day",
+            subtitle: "Follows the calendar below.",
+            isSelected: blockScreenPrayer == .collect
+          ) {
+            blockScreenPrayer = .collect
+            PrayerSettings.blockScreenPrayer = .collect
+          }
+        } header: {
+          Text("What the block screen says")
+        }
 
+        Section {
+          SapientiaSegmentedPicker(
+            options: [LiturgicalCalendarChoice.ordinariate, .roman],
+            label: { $0 == .ordinariate ? "Ordinariate" : "Roman" },
+            selection: $calendarChoice,
+            isDisabled: { $0 == .roman }
+          )
+          .listRowSeparator(.hidden)
+
+          Toggle(isOn: $feastNoticeEnabled) {
             VStack(alignment: .leading, spacing: 2) {
-              Text("Appearance")
-                .font(.headline)
-              Text("Customize the look of your app")
+              Text("Feast day notice")
+              Text("Each morning at 6:00.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             }
           }
-          .padding(.vertical, 8)
-
-          Picker("Theme Color", selection: $themeManager.selectedColorName) {
-            ForEach(ThemeManager.availableColors, id: \.name) { colorOption in
-              HStack {
-                Circle()
-                  .fill(colorOption.color)
-                  .frame(width: 20, height: 20)
-                Text(colorOption.name)
+          .onChange(of: feastNoticeEnabled) { _, enabled in
+            PrayerSettings.feastNoticeEnabled = enabled
+            let scheduler = FeastNotificationScheduler()
+            if enabled {
+              scheduler.center.requestAuthorization { _ in
+                scheduler.reschedule()
               }
-              .tag(colorOption.name)
+            } else {
+              scheduler.reschedule()
             }
           }
-          .onChange(of: themeManager.selectedColorName) { _, _ in
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        } header: {
+          Text("Calendar")
+        } footer: {
+          Text("The Roman calendar is coming soon.")
+        }
+
+        Section("Sessions") {
+          HStack {
+            Text("Emergency unblocks")
+            Spacer()
+            Text("\(strategyManager.getRemainingEmergencyUnblocks()) left")
+              .foregroundStyle(.secondary)
+          }
+          HStack {
+            Text("Paired tags & codes")
+            Spacer()
+            Text("\(pairedItemCount)")
+              .foregroundStyle(.secondary)
+          }
+          HStack {
+            Text("Screen Time permission")
+            Spacer()
+            Text(
+              requestAuthorizer.getAuthorizationStatus() == .approved
+                ? "Granted" : "Not granted"
+            )
+            .font(.sapientiaBody(13))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 3)
+            .background(
+              requestAuthorizer.getAuthorizationStatus() == .approved
+                ? SapientiaTheme.accent100 : SapientiaTheme.neutral200
+            )
+            .foregroundColor(
+              requestAuthorizer.getAuthorizationStatus() == .approved
+                ? SapientiaTheme.accent800 : SapientiaTheme.neutral700)
           }
         }
 
         AppIconPicker(selectionColor: themeManager.themeColor)
+
+        Section("Support") {
+          Button {
+            showSupportView = true
+          } label: {
+            HStack {
+              Text("Support Sapientia")
+                .foregroundColor(.primary)
+              Spacer()
+              Image(systemName: "chevron.right")
+                .foregroundColor(.secondary)
+                .font(.caption)
+            }
+          }
+        }
 
         Section("Help") {
           HStack {
@@ -68,6 +150,7 @@ struct SettingsView: View {
               .foregroundColor(.secondary)
               .font(.caption)
           }
+          .contentShape(Rectangle())
           .onTapGesture {
             showDebugView = true
           }
@@ -87,7 +170,7 @@ struct SettingsView: View {
               showResetBlockingStateAlert = true
             } label: {
               Text("Reset Blocking State")
-                .foregroundColor(themeManager.themeColor)
+                .foregroundColor(SapientiaTheme.accent700)
             }
           }
         }
@@ -99,23 +182,6 @@ struct SettingsView: View {
             Spacer()
             Text("v\(appVersion)")
               .foregroundStyle(.secondary)
-          }
-
-          HStack {
-            Text("Screen Time Access")
-              .foregroundStyle(.primary)
-            Spacer()
-            HStack(spacing: 8) {
-              Circle()
-                .fill(requestAuthorizer.getAuthorizationStatus() == .approved ? .green : .red)
-                .frame(width: 8, height: 8)
-              Text(
-                requestAuthorizer.getAuthorizationStatus() == .approved
-                  ? "Authorized" : "Not Authorized"
-              )
-              .foregroundStyle(.secondary)
-              .font(.subheadline)
-            }
           }
 
           HStack {
@@ -158,14 +224,25 @@ struct SettingsView: View {
           }
         }
 
+        Section {
+          BlueprintCard {
+            Text(
+              "Blocking runs on Apple's Screen Time API. Sapientia cannot see which apps you set aside, and no prayer text leaves the device."
+            )
+            .font(.sapientiaBody(13))
+            .lineSpacing(4)
+            .foregroundColor(SapientiaTheme.text.opacity(0.62))
+          }
+          .listRowInsets(EdgeInsets())
+          .listRowBackground(Color.clear)
+        }
+
       }
       .navigationTitle("Settings")
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          Button(action: { dismiss() }) {
-            Image(systemName: "xmark")
-          }
-          .accessibilityLabel("Close")
+          Button("Done") { dismiss() }
+            .accessibilityLabel("Close")
         }
       }
       .alert("Reset Blocking State", isPresented: $showResetBlockingStateAlert) {
@@ -180,6 +257,9 @@ struct SettingsView: View {
       }
       .sheet(isPresented: $showDebugView) {
         DebugView()
+      }
+      .sheet(isPresented: $showSupportView) {
+        SupportView()
       }
     }
   }

@@ -50,7 +50,16 @@ class BlockedProfiles {
 
   var enableEmergencyUnblock: Bool = true
 
+  /// Show a prayer (per the block-screen prayer setting) before the
+  /// unblock scan. Optional for lightweight migration from installs that
+  /// predate the field; nil reads as false.
+  var prayBeforeUnblocking: Bool? = nil
+
   var customReminderMessage: String?
+
+  var prayBeforeUnblockingResolved: Bool {
+    prayBeforeUnblocking ?? false
+  }
 
   @Relationship var sessions: [BlockedProfileSession] = []
 
@@ -119,7 +128,8 @@ class BlockedProfiles {
     physicalUnblockItems: [PhysicalUnblockItem]? = nil,
     schedule: BlockedProfileSchedule? = nil,
     disableBackgroundStops: Bool = false,
-    enableEmergencyUnblock: Bool = true
+    enableEmergencyUnblock: Bool = true,
+    prayBeforeUnblocking: Bool? = nil
   ) {
     self.id = id
     self.name = name
@@ -151,6 +161,7 @@ class BlockedProfiles {
 
     self.disableBackgroundStops = disableBackgroundStops
     self.enableEmergencyUnblock = enableEmergencyUnblock
+    self.prayBeforeUnblocking = prayBeforeUnblocking
   }
 
   func showStopButton(elapsedTime: TimeInterval) -> Bool {
@@ -220,7 +231,8 @@ class BlockedProfiles {
     physicalUnblockItems: [PhysicalUnblockItem]?? = nil,
     schedule: BlockedProfileSchedule? = nil,
     disableBackgroundStops: Bool? = nil,
-    enableEmergencyUnblock: Bool? = nil
+    enableEmergencyUnblock: Bool? = nil,
+    prayBeforeUnblocking: Bool? = nil
   ) throws -> BlockedProfiles {
     if let newName = name {
       profile.name = newName
@@ -322,6 +334,10 @@ class BlockedProfiles {
       profile.enableEmergencyUnblock = newEnableEmergencyUnblock
     }
 
+    if let newPrayBeforeUnblocking = prayBeforeUnblocking {
+      profile.prayBeforeUnblocking = newPrayBeforeUnblocking
+    }
+
     if let physicalUnblockItems {
       profile.physicalUnblockItems = PhysicalUnblockItem.normalizedItems(physicalUnblockItems)
     }
@@ -398,7 +414,8 @@ class BlockedProfiles {
       physicalUnblockItems: profile.physicalUnblockItems,
       schedule: profile.schedule,
       disableBackgroundStops: profile.disableBackgroundStops,
-      enableEmergencyUnblock: profile.enableEmergencyUnblock
+      enableEmergencyUnblock: profile.enableEmergencyUnblock,
+      prayBeforeUnblocking: profile.prayBeforeUnblocking
     )
   }
 
@@ -455,7 +472,8 @@ class BlockedProfiles {
     physicalUnblockItems: [PhysicalUnblockItem]? = nil,
     schedule: BlockedProfileSchedule? = nil,
     disableBackgroundStops: Bool = false,
-    enableEmergencyUnblock: Bool = true
+    enableEmergencyUnblock: Bool = true,
+    prayBeforeUnblocking: Bool? = nil
   ) throws -> BlockedProfiles {
     let profileOrder = getNextOrder(in: context)
 
@@ -481,7 +499,8 @@ class BlockedProfiles {
       domains: domains,
       physicalUnblockItems: physicalUnblockItems,
       disableBackgroundStops: disableBackgroundStops,
-      enableEmergencyUnblock: enableEmergencyUnblock
+      enableEmergencyUnblock: enableEmergencyUnblock,
+      prayBeforeUnblocking: prayBeforeUnblocking
     )
 
     if let schedule = schedule {

@@ -4,7 +4,7 @@ struct IntroView: View {
   let onRequestAuthorization: () -> Void
 
   var body: some View {
-    AnimatedIntroContainer(
+    SapientiaIntroView(
       onRequestAuthorization: onRequestAuthorization
     )
   }

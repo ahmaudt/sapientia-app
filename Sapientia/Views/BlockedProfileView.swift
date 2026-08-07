@@ -127,8 +127,20 @@ struct BlockedProfileView: View {
           disabled: isBlocking
         )
 
+        if !isBlocking {
+          Section {
+            Button(primaryCTATitle) {
+              isEditing ? saveProfile() : saveAndBegin()
+            }
+            .buttonStyle(BlueprintPrimaryButtonStyle())
+            .disabled(!draft.isValid)
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(Color.clear)
+          }
+        }
+
       }
-      .navigationTitle(isEditing ? "Edit Profile" : "New Profile")
+      .navigationTitle(isEditing ? "Edit Rule" : "New Session")
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button(action: { dismiss() }) {
@@ -339,10 +351,34 @@ struct BlockedProfileView: View {
     }
   }
 
+  private var primaryCTATitle: String {
+    if isEditing { return "Save" }
+    switch draft.strategyFamily {
+    case .nfc: return "Begin — tap your tag"
+    case .qr: return "Begin — scan your code"
+    case .timer: return "Begin"
+    }
+  }
+
   private func saveProfile() {
     do {
       _ = try draft.save(existingProfile: profile, in: modelContext)
       dismiss()
+    } catch {
+      alertIdentifier = AlertIdentifier(id: .error, errorMessage: error.localizedDescription)
+    }
+  }
+
+  /// Create-mode CTA: persist the profile, dismiss, and immediately start
+  /// the session (leading into the scan stage for NFC/QR strategies).
+  private func saveAndBegin() {
+    do {
+      let savedProfile = try draft.save(existingProfile: profile, in: modelContext)
+      dismiss()
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+        strategyManager.toggleBlocking(
+          context: modelContext, activeProfile: savedProfile)
+      }
     } catch {
       alertIdentifier = AlertIdentifier(id: .error, errorMessage: error.localizedDescription)
     }

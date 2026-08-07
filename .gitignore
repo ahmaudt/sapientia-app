@@ -64,3 +64,5 @@ fastlane/test_output
 build/
 
 .DS_Store
+# Spec plan files (local reference only)
+docs/plans/

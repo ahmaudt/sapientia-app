@@ -209,8 +209,20 @@ class TimersUtil {
   }
 
   func cancelAllNotifications() {
-    UNUserNotificationCenter.current()
-      .removeAllPendingNotificationRequests()
+    // Session cleanup must not wipe the 6:00 feast notices, which live
+    // outside the session lifecycle (identifiers prefixed "feast-").
+    Self.cancelNonFeastNotifications(center: SystemNotificationCenter())
+  }
+
+  static func cancelNonFeastNotifications(center: UserNotificationCentering) {
+    center.pendingRequestIdentifiers { identifiers in
+      let nonFeast = identifiers.filter {
+        !$0.hasPrefix(FeastNotificationScheduler.identifierPrefix)
+      }
+      if !nonFeast.isEmpty {
+        center.removePendingRequests(withIdentifiers: nonFeast)
+      }
+    }
   }
 
   func cancelAll() {

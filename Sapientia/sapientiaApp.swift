@@ -77,6 +77,10 @@ struct sapientiaApp: App {
         .environmentObject(ratingManager)
         .environmentObject(liveActivityManager)
         .environmentObject(themeManager)
+        // Fixed appearance (design decision): content screens are always
+        // light; ritual screens draw their own dark accent-900 backgrounds.
+        .preferredColorScheme(.light)
+        .tint(SapientiaTheme.accent)
     }
     .modelContainer(container)
   }

@@ -2,7 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct HomeView: View {
-  @Environment(\.modelContext) private var context
+  @Environment(\.modelContext) var context
   @Environment(\.openURL) var openURL
 
   @Environment(\.scenePhase) private var scenePhase
@@ -17,35 +17,43 @@ struct HomeView: View {
   @Query(sort: [
     SortDescriptor(\BlockedProfiles.order, order: .forward),
     SortDescriptor(\BlockedProfiles.createdAt, order: .reverse),
-  ]) private
-    var profiles: [BlockedProfiles]
+  ])
+  var profiles: [BlockedProfiles]
   @State private var isProfileListPresent = false
 
   // New profile view
-  @State private var showNewProfileView = false
-  @State private var showGuidedProfileCreationView = false
-  @State private var showStartProfilePicker = false
+  @State var showNewProfileView = false
+  @State var showGuidedProfileCreationView = false
+  @State var showStartProfilePicker = false
 
   // Edit profile
-  @State private var profileToEdit: BlockedProfiles? = nil
+  @State var profileToEdit: BlockedProfiles? = nil
 
   // Stats sheet
-  @State private var profileToShowStats: BlockedProfiles? = nil
+  @State var profileToShowStats: BlockedProfiles? = nil
 
   // Dashboard insights sheet
-  @State private var dashboardInsightsContext: DashboardInsightsContext? = nil
+  @State var dashboardInsightsContext: DashboardInsightsContext? = nil
 
   // Donation View
-  @State private var showDonationView = false
+  @State var showDonationView = false
 
   // Settings View
-  @State private var showSettingsView = false
+  @State var showSettingsView = false
 
   // Active session view
-  @State private var showActiveProfileSessionView = false
+  @State var showActiveProfileSessionView = false
 
   // Navigate to profile
-  @State private var navigateToProfileId: UUID? = nil
+  @State var navigateToProfileId: UUID? = nil
+
+  // Deep-link unblock held behind the prayer interstitial
+  struct PendingDeeplink: Identifiable {
+    let id = UUID()
+    let profileId: String
+    let url: URL
+  }
+  @State var pendingDeeplink: PendingDeeplink? = nil
 
   // Activity sessions
   @Query(
@@ -55,12 +63,12 @@ struct HomeView: View {
   ) private var recentCompletedSessions: [BlockedProfileSession]
 
   // Alerts
-  @State private var showingAlert = false
-  @State private var alertTitle = ""
-  @State private var alertMessage = ""
+  @State var showingAlert = false
+  @State var alertTitle = ""
+  @State var alertMessage = ""
 
   // Intro sheet
-  @AppStorage("showIntroScreen") private var showIntroScreen = true
+  @AppStorage("showIntroScreen") var showIntroScreen = true
 
   // UI States
   @State private var opacityValue = 1.0
@@ -90,95 +98,52 @@ struct HomeView: View {
   }
 
   var body: some View {
-    ScrollView(showsIndicators: false) {
-      VStack(alignment: .leading, spacing: 30) {
-        HStack(alignment: .center) {
-          AppTitle()
-          Spacer()
-          HStack(spacing: 8) {
-            RoundedButton(
-              "Support",
-              action: {
-                showDonationView = true
-              },
-              imageName: "SupportStickerLogo")
-            RoundedButton(
-              "",
-              action: {
-                showSettingsView = true
-              }, iconName: "gear")
+    homePresentations(mainStack)
+  }
+
+  private var mainStack: some View {
+    HomeScreenContent(
+      profiles: profiles,
+      recentCompletedSessions: recentCompletedSessions,
+      alerts: alertsManager.alerts,
+      isBlocking: isBlocking,
+      activeSessionProfileId: activeSessionProfileId,
+      emergencyUnblocksRemaining: strategyManager.getRemainingEmergencyUnblocks(),
+      actions: HomeScreenActions(
+        onSettings: { showSettingsView = true },
+        onAlertTapped: { alert in presentAlert(alert) },
+        onGuidedCreate: {
+          if canCreateProfiles {
+            showGuidedProfileCreationView = true
           }
-        }
-        .padding(.trailing, 16)
-        .padding(.top, 16)
-
-        HomeAlertsView(
-          alerts: alertsManager.alerts,
-          onAlertTapped: { alert in
-            presentAlert(alert)
+        },
+        onAdvancedCreate: {
+          if canCreateProfiles {
+            showNewProfileView = true
           }
-        )
-        .padding(.horizontal, 16)
-
-        if profiles.isEmpty {
-          Welcome(
-            onGuidedTap: {
-              if canCreateProfiles {
-                showGuidedProfileCreationView = true
-              }
-            },
-            onAdvancedTap: {
-              if canCreateProfiles {
-                showNewProfileView = true
-              }
-            }
+        },
+        onStart: { profile in startProfile(profile) },
+        onStop: { profile in strategyButtonPress(profile) },
+        onEdit: { profile in profileToEdit = profile },
+        onStats: { profile in profileToShowStats = profile },
+        onManage: { isProfileListPresent = true },
+        onInsights: { profile in
+          dashboardInsightsContext = DashboardInsightsContext(
+            profile: profile,
+            viewMode: .week,
+            selectedDate: Date()
           )
-          .padding(.horizontal, 16)
-        }
-
-        if !profiles.isEmpty {
-          BlockedSessionsHabitTracker(
-            sessions: recentCompletedSessions,
-            profiles: profiles,
-            onInsightsTapped: { context in
-              dashboardInsightsContext = context
-            }
-          )
-          .padding(.horizontal, 16)
-
-          HomeProfilesListView(
-            profiles: profiles,
-            isBlocking: isBlocking,
-            activeSessionProfileId: activeSessionProfileId,
-            elapsedTime: strategyManager.elapsedTime,
-            isPauseActive: isPauseActive,
-            onManageTapped: {
-              isProfileListPresent = true
-            },
-            onStartTapped: { profile in
-              startProfile(profile)
-            },
-            onStopTapped: { profile in
-              strategyButtonPress(profile)
-            },
-            onEditTapped: { profile in
-              profileToEdit = profile
-            },
-            onStatsTapped: { profile in
-              profileToShowStats = profile
-            }
-          )
-          .padding(.horizontal, 16)
-        }
-      }
-    }
+        },
+        onNewSession: { showStartProfilePicker = true }
+      )
+    )
     .refreshable {
       loadApp()
     }
     .safeAreaInset(edge: .bottom) {
-      if !profiles.isEmpty {
+      if !profiles.isEmpty && isBlocking {
         HomeProfileLauncher(
-          activeProfile: isBlocking ? strategyManager.activeSession?.blockedProfile : nil,
+          activeProfile: strategyManager.activeSession?.blockedProfile,
           displayTime: strategyManager.sessionDisplayTime,
           isBreakActive: isBreakActive,
           isPauseActive: isPauseActive,
@@ -206,7 +171,7 @@ struct HomeView: View {
     )
     .onChange(of: navigationManager.profileId) { _, newValue in
       if let profileId = newValue, let url = navigationManager.link {
-        toggleSessionFromDeeplink(profileId, link: url)
+        handleDeeplinkToggle(profileId, link: url)
         navigationManager.clearNavigation()
       }
     }
@@ -234,6 +199,7 @@ struct HomeView: View {
         requestAuthorizer.refreshAuthorizationStatus()
         loadApp()
         refreshAlerts()
+        FeastNotificationScheduler().reschedule()
       } else if newPhase == .background {
         unloadApp()
       }
@@ -242,6 +208,9 @@ struct HomeView: View {
       if !newValue {
         showActiveProfileSessionView = false
       }
+      // Session start/stop clears timer notifications — put the 6:00
+      // feast notices back afterwards.
+      FeastNotificationScheduler().reschedule()
     }
     .onReceive(strategyManager.$errorMessage) { errorMessage in
       guard let message = errorMessage, !showActiveProfileSessionView else { return }
@@ -250,184 +219,8 @@ struct HomeView: View {
     .onAppear {
       onAppearApp()
     }
-    .sheet(item: $alertsManager.selectedAlert) { alert in
-      HomeAlertDetailView(
-        alert: alert,
-        disabledReason: disabledReason(for: alert),
-        onPrimaryAction: {
-          runAlertPrimaryAction(for: alert)
-        }
-      )
-      .presentationDetents([.medium, .large])
-    }
-    .fullScreenCover(isPresented: $showIntroScreen) {
-      IntroView {
-        requestAuthorizer.requestAuthorization()
-      }.interactiveDismissDisabled()
-    }
-    .fullScreenCover(isPresented: $showActiveProfileSessionView) {
-      if let activeProfile = strategyManager.activeSession?.blockedProfile {
-        ActiveProfileSessionView(
-          profile: activeProfile,
-          elapsedTime: strategyManager.elapsedTime,
-          displayTime: strategyManager.sessionDisplayTime,
-          isBreakAvailable: isBreakAvailable,
-          isBreakActive: isBreakActive,
-          isPauseActive: isPauseActive,
-          onBreakTapped: {
-            strategyManager.toggleBreak(context: context)
-          },
-          onStopTapped: {
-            strategyButtonPress(activeProfile)
-          }
-        )
-      }
-    }
-    .sheet(item: $profileToShowStats) { profile in
-      ProfileInsightsView(profile: profile)
-    }
-    .sheet(item: $profileToEdit) { profile in
-      BlockedProfileView(profile: profile)
-    }
-    .sheet(item: $dashboardInsightsContext) { context in
-      ProfileInsightsView(
-        profile: context.profile,
-        initialViewMode: context.viewMode,
-        initialSelectedDate: context.selectedDate
-      )
-    }
-    .sheet(
-      isPresented: $showNewProfileView,
-    ) {
-      BlockedProfileView(profile: nil)
-    }
-    .sheet(
-      isPresented: $showGuidedProfileCreationView,
-    ) {
-      GuidedBlockedProfileCreationView()
-    }
-    .sheet(isPresented: $showStartProfilePicker) {
-      StartProfilePickerView(
-        profiles: profiles,
-        isBlocking: isBlocking,
-        activeSessionProfileId: activeSessionProfileId,
-        startingProfileId: navigateToProfileId,
-        onGoTapped: { profile in
-          startProfile(profile)
-        }
-      )
-      .presentationDetents([.medium, .large])
-    }
-    .sheet(isPresented: strategyActionSheetBinding) {
-      BlockingStrategyActionView(
-        customView: strategyManager.customStrategyView,
-        presentationDetents: strategyManager.customStrategyViewPresentationDetents
-      )
-    }
-    .sheet(isPresented: $showDonationView) {
-      SupportView()
-    }
-    .sheet(isPresented: $showSettingsView) {
-      SettingsView()
-    }
-    .alert(alertTitle, isPresented: $showingAlert) {
-      Button("OK", role: .cancel) { dismissAlert() }
-    } message: {
-      Text(alertMessage)
-    }
   }
 
-  private func toggleSessionFromDeeplink(_ profileId: String, link: URL) {
-    strategyManager
-      .toggleSessionFromDeeplink(profileId, url: link, context: context)
-  }
-
-  private func strategyButtonPress(_ profile: BlockedProfiles) {
-    strategyManager
-      .toggleBlocking(context: context, activeProfile: profile)
-
-    ratingManager.incrementLaunchCount()
-  }
-
-  private var strategyActionSheetBinding: Binding<Bool> {
-    Binding(
-      get: {
-        strategyManager.showCustomStrategyView && !showActiveProfileSessionView
-      },
-      set: { isPresented in
-        if !isPresented {
-          strategyManager.showCustomStrategyView = false
-        }
-      }
-    )
-  }
-
-  private func startProfile(_ profile: BlockedProfiles) {
-    guard !isBlocking else {
-      showErrorAlert(message: "Stop the active profile before starting another one.")
-      return
-    }
-
-    strategyButtonPress(profile)
-  }
-
-  private func loadApp() {
-    strategyManager.loadActiveSession(context: context)
-  }
-
-  private func onAppearApp() {
-    requestAuthorizer.refreshAuthorizationStatus()
-    strategyManager.loadActiveSession(context: context)
-    strategyManager.cleanUpGhostSchedules(context: context)
-    refreshAlerts()
-  }
-
-  private func refreshAlerts() {
-    alertsManager.refreshAlerts(
-      profiles: profiles,
-      authorizationStatus: requestAuthorizer.getAuthorizationStatus()
-    )
-  }
-
-  private func presentAlert(_ alert: HomeAlert) {
-    alertsManager.present(alert)
-  }
-
-  private func disabledReason(for alert: HomeAlert) -> String? {
-    return alertsManager.disabledReason(
-      for: alert,
-      profiles: profiles,
-      isBlocking: isBlocking
-    )
-  }
-
-  private func runAlertPrimaryAction(for alert: HomeAlert) {
-    alertsManager.runPrimaryAction(
-      for: alert,
-      profiles: profiles,
-      isBlocking: isBlocking,
-      requestAuthorizer: requestAuthorizer,
-      onScheduleRepaired: {
-        loadApp()
-        refreshAlerts()
-      }
-    )
-  }
-
-  private func unloadApp() {
-    strategyManager.stopTimer()
-  }
-
-  private func showErrorAlert(message: String) {
-    alertTitle = "Whoops"
-    alertMessage = message
-    showingAlert = true
-  }
-
-  private func dismissAlert() {
-    showingAlert = false
-    strategyManager.errorMessage = nil
-  }
 }
 
 #Preview {

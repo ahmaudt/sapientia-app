@@ -1,7 +1,7 @@
 import SwiftData
 import SwiftUI
 
-class NFCManualBlockingStrategy: BlockingStrategy {
+class NFCManualBlockingStrategy: BlockingStrategy, NFCScanningStrategy {
   static var id: String = "NFCManualBlockingStrategy"
 
   var name: String = "NFC + Manual"
@@ -17,7 +17,7 @@ class NFCManualBlockingStrategy: BlockingStrategy {
   var onSessionCreation: ((SessionStatus) -> Void)?
   var onErrorMessage: ((String) -> Void)?
 
-  private let nfcScanner: NFCScannerUtil = NFCScannerUtil()
+  var nfcScanner: NFCScannerUtil = NFCScannerUtil()
   private let appBlocker: AppBlockerUtil = AppBlockerUtil()
 
   func getIdentifier() -> String {
@@ -69,8 +69,29 @@ class NFCManualBlockingStrategy: BlockingStrategy {
       self.onSessionCreation?(.ended(session.blockedProfile))
     }
 
-    nfcScanner.scan(profileName: session.blockedProfile.name)
+    return makeStopScanStage(
+      for: session,
+      qrFallbackHandler: qrFallbackHandler(for: session)
+    )
+  }
 
-    return nil
+  /// Any paired QR code closes the session just the same (mockup 04).
+  private func qrFallbackHandler(
+    for session: BlockedProfileSession
+  ) -> ((String) -> Void)? {
+    guard session.blockedProfile.hasPhysicalUnblockItem(ofType: .qrCode) else {
+      return nil
+    }
+    return { code in
+      guard session.blockedProfile.canUnblock(withCode: code, type: .qrCode) else {
+        self.onErrorMessage?(
+          "This QR code is not allowed to unblock this profile.")
+        return
+      }
+      session.endSession()
+      try? session.modelContext?.save()
+      self.appBlocker.deactivateRestrictions()
+      self.onSessionCreation?(.ended(session.blockedProfile))
+    }
   }
 }

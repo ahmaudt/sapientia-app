@@ -41,8 +41,11 @@
                ReferencedContainer = "container:sapientia.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <!-- Skipped: the UI-test target has no sources in this repo
+              (vestigial from upstream); its runner fails simulator
+              preflight. Unskip when UI tests are added. -->
          <TestableReference
-            skipped = "NO"
+            skipped = "YES"
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
