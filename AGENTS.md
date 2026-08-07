@@ -1,6 +1,6 @@
-# Foqos Developer Guidelines
+# Sapientia Developer Guidelines
 
-This file provides guidelines for agentic coding assistants working on the Foqos iOS app codebase.
+This file provides guidelines for agentic coding assistants working on the Sapientia iOS app codebase.
 
 ## Build & Test Commands
 

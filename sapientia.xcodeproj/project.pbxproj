@@ -1,0 +1,1854 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8017130B2DE6C78C00B77FE1 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80DBF6132CB776D100EEA8A6 /* DeviceActivity.framework */; };
+		801713132DE6C78C00B77FE1 /* SapientiaDeviceMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8017130A2DE6C78C00B77FE1 /* SapientiaDeviceMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		803989B32CCC06D600E87F57 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803989B22CCC06D600E87F57 /* StoreKit.framework */; };
+		808A3C4C2E4ACD18002A7812 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808A3C4B2E4ACD18002A7812 /* ManagedSettings.framework */; };
+		808A3C4E2E4ACD18002A7812 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808A3C4D2E4ACD18002A7812 /* ManagedSettingsUI.framework */; };
+		808A3C562E4ACD18002A7812 /* SapientiaShieldConfig.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 808A3C4A2E4ACD18002A7812 /* SapientiaShieldConfig.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		80F674AB2D6185510056977F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 80F674AA2D6185510056977F /* CodeScanner */; };
+		80FF388E2D80DB540032BC5E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C6CAFA2D4301B3008680F4 /* WidgetKit.framework */; };
+		80FF388F2D80DB540032BC5E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C6CAFC2D4301B3008680F4 /* SwiftUI.framework */; };
+		80FF389C2D80DB560032BC5E /* SapientiaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 80FF388D2D80DB540032BC5E /* SapientiaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C8D73DC42F7C155D0028E76A /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808A3C4B2E4ACD18002A7812 /* ManagedSettings.framework */; };
+		C8D73DCC2F7C155D0028E76A /* SapientiaShieldAction.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F0A200052F80000200000001 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A200042F80000200000001 /* NetworkExtension.framework */; };
+		F0A200062F80000200000001 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A200042F80000200000001 /* NetworkExtension.framework */; };
+		F0A200072F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F0A200122F80000200000001 /* SystemExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A200132F80000200000001 /* SystemExtensions.framework */; };
+		F0A300052F80000300000001 /* FilterRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300012F80000300000001 /* FilterRules.swift */; };
+		F0A300062F80000300000001 /* FilterRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300012F80000300000001 /* FilterRules.swift */; };
+		F0A300072F80000300000001 /* ActiveProfileSyncRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300022F80000300000001 /* ActiveProfileSyncRecord.swift */; };
+		F0A300082F80000300000001 /* ActiveProfileSyncRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300022F80000300000001 /* ActiveProfileSyncRecord.swift */; };
+		F0A300092F80000300000001 /* FilterRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300012F80000300000001 /* FilterRules.swift */; };
+		F0A400022F80000400000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0A400012F80000400000001 /* Assets.xcassets */; };
+		F0A400042F80000400000001 /* sapientia-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = F0A400032F80000400000001 /* sapientia-icon.icon */; };
+		F0B100012F90000100000001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = F0B100032F90000100000001 /* Sparkle */; };
+		F0C100012FA0000100000001 /* TLSClientHelloParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C100022FA0000100000001 /* TLSClientHelloParser.swift */; };
+		F0C1000C2FA0000100000001 /* FilterRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300012F80000300000001 /* FilterRules.swift */; };
+		F0D100012FB0000100000001 /* FilterExtensionVersionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D100032FB0000100000001 /* FilterExtensionVersionPolicy.swift */; };
+		F0D100022FB0000100000001 /* FilterExtensionVersionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D100032FB0000100000001 /* FilterExtensionVersionPolicy.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		801713112DE6C78C00B77FE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 801713092DE6C78C00B77FE1;
+			remoteInfo = SapientiaDeviceMonitor;
+		};
+		801B20A72CB363A20073E9E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 801B20942CB363A10073E9E2;
+			remoteInfo = sapientia;
+		};
+		801B20B12CB363A20073E9E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 801B20942CB363A10073E9E2;
+			remoteInfo = sapientia;
+		};
+		808A3C542E4ACD18002A7812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 808A3C492E4ACD18002A7812;
+			remoteInfo = SapientiaShieldConfig;
+		};
+		80FF389A2D80DB560032BC5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 80FF388C2D80DB540032BC5E;
+			remoteInfo = SapientiaWidgetExtension;
+		};
+		C8D73DCA2F7C155D0028E76A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C8D73DC22F7C155C0028E76A;
+			remoteInfo = SapientiaShieldAction;
+		};
+		F0A200082F80000200000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 801B208D2CB363A10073E9E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0A200012F80000200000001;
+			remoteInfo = SapientiaFilter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		80DBF61D2CB776D100EEA8A6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				808A3C562E4ACD18002A7812 /* SapientiaShieldConfig.appex in Embed Foundation Extensions */,
+				801713132DE6C78C00B77FE1 /* SapientiaDeviceMonitor.appex in Embed Foundation Extensions */,
+				C8D73DCC2F7C155D0028E76A /* SapientiaShieldAction.appex in Embed Foundation Extensions */,
+				80FF389C2D80DB560032BC5E /* SapientiaWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A200092F80000200000001 /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/SystemExtensions;
+			dstSubfolderSpec = 1;
+			files = (
+				F0A200072F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension in Embed System Extensions */,
+			);
+			name = "Embed System Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8017130A2DE6C78C00B77FE1 /* SapientiaDeviceMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SapientiaDeviceMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		801B20952CB363A10073E9E2 /* sapientia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sapientia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		801B20A62CB363A20073E9E2 /* sapientiaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sapientiaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		801B20B02CB363A20073E9E2 /* sapientiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sapientiaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		803989B22CCC06D600E87F57 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		808A3C4A2E4ACD18002A7812 /* SapientiaShieldConfig.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SapientiaShieldConfig.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		808A3C4B2E4ACD18002A7812 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
+		808A3C4D2E4ACD18002A7812 /* ManagedSettingsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettingsUI.framework; path = Library/Frameworks/ManagedSettingsUI.framework; sourceTree = DEVELOPER_DIR; };
+		80C6CAFA2D4301B3008680F4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		80C6CAFC2D4301B3008680F4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		80DBF6132CB776D100EEA8A6 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
+		80FF388D2D80DB540032BC5E /* SapientiaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SapientiaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SapientiaShieldAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A100022F80000100000001 /* Sapientia for Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sapientia for Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = dev.ambitionsoftware.sapientia.mac.filter.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A200042F80000200000001 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		F0A200132F80000200000001 /* SystemExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemExtensions.framework; path = System/Library/Frameworks/SystemExtensions.framework; sourceTree = SDKROOT; };
+		F0A300012F80000300000001 /* FilterRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRules.swift; sourceTree = "<group>"; };
+		F0A300022F80000300000001 /* ActiveProfileSyncRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProfileSyncRecord.swift; sourceTree = "<group>"; };
+		F0A400012F80000400000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapientia/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		F0A400032F80000400000001 /* sapientia-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = sapientia-icon.icon; path = Sapientia/sapientia-icon.icon; sourceTree = SOURCE_ROOT; };
+		F0B100052F90000100000001 /* MacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacRelease.xcconfig; sourceTree = "<group>"; };
+		F0B100072F90000100000001 /* MacReleaseExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacReleaseExportOptions.plist; sourceTree = "<group>"; };
+		F0C100022FA0000100000001 /* TLSClientHelloParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TLSClientHelloParser.swift; path = SapientiaFilter/TLSClientHelloParser.swift; sourceTree = SOURCE_ROOT; };
+		F0C100032FA0000100000001 /* SapientiaMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SapientiaMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0D100032FB0000100000001 /* FilterExtensionVersionPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterExtensionVersionPolicy.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8015A1F62D80E29B0037DFE9 /* Exceptions for "SapientiaWidget" folder in "sapientia" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SapientiaWidgetLiveActivity.swift,
+			);
+			target = 801B20942CB363A10073E9E2 /* sapientia */;
+		};
+		801713172DE6C78C00B77FE1 /* Exceptions for "SapientiaDeviceMonitor" folder in "SapientiaDeviceMonitor" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 801713092DE6C78C00B77FE1 /* SapientiaDeviceMonitor */;
+		};
+		801713192DE6CCF400B77FE1 /* Exceptions for "SapientiaDeviceMonitor" folder in "sapientia" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DeviceActivityMonitorExtension.swift,
+			);
+			target = 801B20942CB363A10073E9E2 /* sapientia */;
+		};
+		801C99CE2E9C9B9D000E07CD /* Exceptions for "Sapientia" folder in "SapientiaWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/PhysicalUnblockItem.swift,
+				Models/Schedule.swift,
+				Models/Shared.swift,
+				Models/SoftUnblockGrant.swift,
+				Utils/AppBlockerUtil.swift,
+				Utils/SoftUnblockGrantStore.swift,
+			);
+			target = 80FF388C2D80DB540032BC5E /* SapientiaWidgetExtension */;
+		};
+		803899772EF736BA009988BB /* Exceptions for "Sapientia" folder in "SapientiaShieldConfig" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/PhysicalUnblockItem.swift,
+				Models/Schedule.swift,
+				Models/Shared.swift,
+				Models/SoftUnblockGrant.swift,
+				Models/Strategies/Data/SoftUnblockStrategyData.swift,
+				Utils/SoftUnblockGrantStore.swift,
+				Utils/ThemeManager.swift,
+			);
+			target = 808A3C492E4ACD18002A7812 /* SapientiaShieldConfig */;
+		};
+		804415942DE7E94B0000CAE4 /* Exceptions for "Sapientia" folder in "SapientiaDeviceMonitor" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/PhysicalUnblockItem.swift,
+				Models/Schedule.swift,
+				Models/Shared.swift,
+				Models/SoftUnblockGrant.swift,
+				Models/Timers/BreakTimerActivity.swift,
+				Models/Timers/PauseTimerActivity.swift,
+				Models/Timers/ScheduleTimerActivity.swift,
+				Models/Timers/SoftUnblockGrantTimerActivity.swift,
+				Models/Timers/StrategyTimerActivity.swift,
+				Models/Timers/TimerActivity.swift,
+				Models/Timers/TimerActivityUtil.swift,
+				Utils/AppBlockerUtil.swift,
+				Utils/SoftUnblockGrantScheduler.swift,
+				Utils/SoftUnblockGrantStore.swift,
+			);
+			target = 801713092DE6C78C00B77FE1 /* SapientiaDeviceMonitor */;
+		};
+		807B2B8A2CC0ACCD00944D2B /* Exceptions for "Sapientia" folder in "sapientia" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 801B20942CB363A10073E9E2 /* sapientia */;
+		};
+		808A3C5A2E4ACD18002A7812 /* Exceptions for "SapientiaShieldConfig" folder in "SapientiaShieldConfig" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 808A3C492E4ACD18002A7812 /* SapientiaShieldConfig */;
+		};
+		80FF38A02D80DB560032BC5E /* Exceptions for "SapientiaWidget" folder in "SapientiaWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 80FF388C2D80DB540032BC5E /* SapientiaWidgetExtension */;
+		};
+		C8D73DD02F7C155D0028E76A /* Exceptions for "SapientiaShieldAction" folder in "SapientiaShieldAction" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C8D73DC22F7C155C0028E76A /* SapientiaShieldAction */;
+		};
+		C8D73DE12F7C20000000A001 /* Exceptions for "Sapientia" folder in "SapientiaShieldAction" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/PhysicalUnblockItem.swift,
+				Models/Schedule.swift,
+				Models/Shared.swift,
+				Models/SoftUnblockGrant.swift,
+				Models/Strategies/Data/SoftUnblockStrategyData.swift,
+				Utils/AppBlockerUtil.swift,
+				Utils/SoftUnblockGrantScheduler.swift,
+				Utils/SoftUnblockGrantStore.swift,
+			);
+			target = C8D73DC22F7C155C0028E76A /* SapientiaShieldAction */;
+		};
+		F0A200112F80000200000001 /* Exceptions for "SapientiaFilter" folder in "SapientiaFilter" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F0A200012F80000200000001 /* SapientiaFilter */;
+		};
+		F0B100042F90000100000001 /* Exceptions for "SapientiaMac" folder in "Sapientia Mac" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F0A100012F80000100000001 /* Sapientia Mac */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8017130C2DE6C78C00B77FE1 /* SapientiaDeviceMonitor */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				801713192DE6CCF400B77FE1 /* Exceptions for "SapientiaDeviceMonitor" folder in "sapientia" target */,
+				801713172DE6C78C00B77FE1 /* Exceptions for "SapientiaDeviceMonitor" folder in "SapientiaDeviceMonitor" target */,
+			);
+			path = SapientiaDeviceMonitor;
+			sourceTree = "<group>";
+		};
+		801B20972CB363A10073E9E2 /* Sapientia */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				807B2B8A2CC0ACCD00944D2B /* Exceptions for "Sapientia" folder in "sapientia" target */,
+				801C99CE2E9C9B9D000E07CD /* Exceptions for "Sapientia" folder in "SapientiaWidgetExtension" target */,
+				804415942DE7E94B0000CAE4 /* Exceptions for "Sapientia" folder in "SapientiaDeviceMonitor" target */,
+				803899772EF736BA009988BB /* Exceptions for "Sapientia" folder in "SapientiaShieldConfig" target */,
+				C8D73DE12F7C20000000A001 /* Exceptions for "Sapientia" folder in "SapientiaShieldAction" target */,
+			);
+			path = Sapientia;
+			sourceTree = "<group>";
+		};
+		808A3C4F2E4ACD18002A7812 /* SapientiaShieldConfig */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				808A3C5A2E4ACD18002A7812 /* Exceptions for "SapientiaShieldConfig" folder in "SapientiaShieldConfig" target */,
+			);
+			path = SapientiaShieldConfig;
+			sourceTree = "<group>";
+		};
+		80AA00012F00000100000001 /* sapientiaTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = sapientiaTests;
+			sourceTree = "<group>";
+		};
+		80FF38902D80DB540032BC5E /* SapientiaWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8015A1F62D80E29B0037DFE9 /* Exceptions for "SapientiaWidget" folder in "sapientia" target */,
+				80FF38A02D80DB560032BC5E /* Exceptions for "SapientiaWidget" folder in "SapientiaWidgetExtension" target */,
+			);
+			path = SapientiaWidget;
+			sourceTree = "<group>";
+		};
+		C8D73DC52F7C155D0028E76A /* SapientiaShieldAction */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C8D73DD02F7C155D0028E76A /* Exceptions for "SapientiaShieldAction" folder in "SapientiaShieldAction" target */,
+			);
+			path = SapientiaShieldAction;
+			sourceTree = "<group>";
+		};
+		F0A100032F80000100000001 /* SapientiaMac */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F0B100042F90000100000001 /* Exceptions for "SapientiaMac" folder in "Sapientia Mac" target */,
+			);
+			path = SapientiaMac;
+			sourceTree = "<group>";
+		};
+		F0A200032F80000200000001 /* SapientiaFilter */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F0A200112F80000200000001 /* Exceptions for "SapientiaFilter" folder in "SapientiaFilter" target */,
+			);
+			path = SapientiaFilter;
+			sourceTree = "<group>";
+		};
+		F0C100042FA0000100000001 /* SapientiaMacTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SapientiaMacTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		801713072DE6C78C00B77FE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8017130B2DE6C78C00B77FE1 /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20922CB363A10073E9E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80F674AB2D6185510056977F /* CodeScanner in Frameworks */,
+				803989B32CCC06D600E87F57 /* StoreKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20A32CB363A20073E9E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20AD2CB363A20073E9E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808A3C472E4ACD18002A7812 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				808A3C4C2E4ACD18002A7812 /* ManagedSettings.framework in Frameworks */,
+				808A3C4E2E4ACD18002A7812 /* ManagedSettingsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80FF388A2D80DB540032BC5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80FF388F2D80DB540032BC5E /* SwiftUI.framework in Frameworks */,
+				80FF388E2D80DB540032BC5E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8D73DC02F7C155C0028E76A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8D73DC42F7C155D0028E76A /* ManagedSettings.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A100052F80000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A200122F80000200000001 /* SystemExtensions.framework in Frameworks */,
+				F0A200052F80000200000001 /* NetworkExtension.framework in Frameworks */,
+				F0B100012F90000100000001 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A2000B2F80000200000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A200062F80000200000001 /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0C100062FA0000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		801B208C2CB363A10073E9E2 = {
+			isa = PBXGroup;
+			children = (
+				F0B100062F90000100000001 /* Config */,
+				801B20972CB363A10073E9E2 /* Sapientia */,
+				80AA00012F00000100000001 /* sapientiaTests */,
+				F0C100042FA0000100000001 /* SapientiaMacTests */,
+				80FF38902D80DB540032BC5E /* SapientiaWidget */,
+				8017130C2DE6C78C00B77FE1 /* SapientiaDeviceMonitor */,
+				808A3C4F2E4ACD18002A7812 /* SapientiaShieldConfig */,
+				C8D73DC52F7C155D0028E76A /* SapientiaShieldAction */,
+				F0A100032F80000100000001 /* SapientiaMac */,
+				F0A200032F80000200000001 /* SapientiaFilter */,
+				F0A300032F80000300000001 /* SapientiaShared */,
+				80DBF6122CB776D100EEA8A6 /* Frameworks */,
+				801B20962CB363A10073E9E2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F0B100062F90000100000001 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				F0B100052F90000100000001 /* MacRelease.xcconfig */,
+				F0B100072F90000100000001 /* MacReleaseExportOptions.plist */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		801B20962CB363A10073E9E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				801B20952CB363A10073E9E2 /* sapientia.app */,
+				801B20A62CB363A20073E9E2 /* sapientiaTests.xctest */,
+				801B20B02CB363A20073E9E2 /* sapientiaUITests.xctest */,
+				80FF388D2D80DB540032BC5E /* SapientiaWidgetExtension.appex */,
+				8017130A2DE6C78C00B77FE1 /* SapientiaDeviceMonitor.appex */,
+				808A3C4A2E4ACD18002A7812 /* SapientiaShieldConfig.appex */,
+				C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */,
+				F0A100022F80000100000001 /* Sapientia for Mac.app */,
+				F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */,
+				F0C100032FA0000100000001 /* SapientiaMacTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		80DBF6122CB776D100EEA8A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				803989B22CCC06D600E87F57 /* StoreKit.framework */,
+				80DBF6132CB776D100EEA8A6 /* DeviceActivity.framework */,
+				80C6CAFA2D4301B3008680F4 /* WidgetKit.framework */,
+				80C6CAFC2D4301B3008680F4 /* SwiftUI.framework */,
+				808A3C4B2E4ACD18002A7812 /* ManagedSettings.framework */,
+				808A3C4D2E4ACD18002A7812 /* ManagedSettingsUI.framework */,
+				F0A200042F80000200000001 /* NetworkExtension.framework */,
+				F0A200132F80000200000001 /* SystemExtensions.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F0A300032F80000300000001 /* SapientiaShared */ = {
+			isa = PBXGroup;
+			children = (
+				F0D100032FB0000100000001 /* FilterExtensionVersionPolicy.swift */,
+				F0A300012F80000300000001 /* FilterRules.swift */,
+				F0A300022F80000300000001 /* ActiveProfileSyncRecord.swift */,
+				F0A400012F80000400000001 /* Assets.xcassets */,
+				F0A400032F80000400000001 /* sapientia-icon.icon */,
+			);
+			path = SapientiaShared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		801713092DE6C78C00B77FE1 /* SapientiaDeviceMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 801713162DE6C78C00B77FE1 /* Build configuration list for PBXNativeTarget "SapientiaDeviceMonitor" */;
+			buildPhases = (
+				801713062DE6C78C00B77FE1 /* Sources */,
+				801713072DE6C78C00B77FE1 /* Frameworks */,
+				801713082DE6C78C00B77FE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8017130C2DE6C78C00B77FE1 /* SapientiaDeviceMonitor */,
+			);
+			name = SapientiaDeviceMonitor;
+			packageProductDependencies = (
+			);
+			productName = SapientiaDeviceMonitor;
+			productReference = 8017130A2DE6C78C00B77FE1 /* SapientiaDeviceMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		801B20942CB363A10073E9E2 /* sapientia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 801B20BA2CB363A20073E9E2 /* Build configuration list for PBXNativeTarget "sapientia" */;
+			buildPhases = (
+				801B20912CB363A10073E9E2 /* Sources */,
+				801B20922CB363A10073E9E2 /* Frameworks */,
+				801B20932CB363A10073E9E2 /* Resources */,
+				80DBF61D2CB776D100EEA8A6 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				80FF389B2D80DB560032BC5E /* PBXTargetDependency */,
+				801713122DE6C78C00B77FE1 /* PBXTargetDependency */,
+				808A3C552E4ACD18002A7812 /* PBXTargetDependency */,
+				C8D73DCB2F7C155D0028E76A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				801B20972CB363A10073E9E2 /* Sapientia */,
+			);
+			name = sapientia;
+			packageProductDependencies = (
+				80F674AA2D6185510056977F /* CodeScanner */,
+			);
+			productName = sapientia;
+			productReference = 801B20952CB363A10073E9E2 /* sapientia.app */;
+			productType = "com.apple.product-type.application";
+		};
+		801B20A52CB363A20073E9E2 /* sapientiaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 801B20BD2CB363A20073E9E2 /* Build configuration list for PBXNativeTarget "sapientiaTests" */;
+			buildPhases = (
+				801B20A22CB363A20073E9E2 /* Sources */,
+				801B20A32CB363A20073E9E2 /* Frameworks */,
+				801B20A42CB363A20073E9E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				801B20A82CB363A20073E9E2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				80AA00012F00000100000001 /* sapientiaTests */,
+			);
+			name = sapientiaTests;
+			packageProductDependencies = (
+			);
+			productName = sapientiaTests;
+			productReference = 801B20A62CB363A20073E9E2 /* sapientiaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		801B20AF2CB363A20073E9E2 /* sapientiaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 801B20C02CB363A20073E9E2 /* Build configuration list for PBXNativeTarget "sapientiaUITests" */;
+			buildPhases = (
+				801B20AC2CB363A20073E9E2 /* Sources */,
+				801B20AD2CB363A20073E9E2 /* Frameworks */,
+				801B20AE2CB363A20073E9E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				801B20B22CB363A20073E9E2 /* PBXTargetDependency */,
+			);
+			name = sapientiaUITests;
+			packageProductDependencies = (
+			);
+			productName = sapientiaUITests;
+			productReference = 801B20B02CB363A20073E9E2 /* sapientiaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		808A3C492E4ACD18002A7812 /* SapientiaShieldConfig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 808A3C592E4ACD18002A7812 /* Build configuration list for PBXNativeTarget "SapientiaShieldConfig" */;
+			buildPhases = (
+				808A3C462E4ACD18002A7812 /* Sources */,
+				808A3C472E4ACD18002A7812 /* Frameworks */,
+				808A3C482E4ACD18002A7812 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				808A3C4F2E4ACD18002A7812 /* SapientiaShieldConfig */,
+			);
+			name = SapientiaShieldConfig;
+			packageProductDependencies = (
+			);
+			productName = SapientiaShieldConfig;
+			productReference = 808A3C4A2E4ACD18002A7812 /* SapientiaShieldConfig.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		80FF388C2D80DB540032BC5E /* SapientiaWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80FF389F2D80DB560032BC5E /* Build configuration list for PBXNativeTarget "SapientiaWidgetExtension" */;
+			buildPhases = (
+				80FF38892D80DB540032BC5E /* Sources */,
+				80FF388A2D80DB540032BC5E /* Frameworks */,
+				80FF388B2D80DB540032BC5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				80FF38902D80DB540032BC5E /* SapientiaWidget */,
+			);
+			name = SapientiaWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = SapientiaWidgetExtension;
+			productReference = 80FF388D2D80DB540032BC5E /* SapientiaWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		C8D73DC22F7C155C0028E76A /* SapientiaShieldAction */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8D73DCF2F7C155D0028E76A /* Build configuration list for PBXNativeTarget "SapientiaShieldAction" */;
+			buildPhases = (
+				C8D73DBF2F7C155C0028E76A /* Sources */,
+				C8D73DC02F7C155C0028E76A /* Frameworks */,
+				C8D73DC12F7C155C0028E76A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C8D73DC52F7C155D0028E76A /* SapientiaShieldAction */,
+			);
+			name = SapientiaShieldAction;
+			packageProductDependencies = (
+			);
+			productName = SapientiaShieldAction;
+			productReference = C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		F0A100012F80000100000001 /* Sapientia Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0A100092F80000100000001 /* Build configuration list for PBXNativeTarget "Sapientia Mac" */;
+			buildPhases = (
+				F0A100042F80000100000001 /* Sources */,
+				F0A100052F80000100000001 /* Frameworks */,
+				F0A100062F80000100000001 /* Resources */,
+				F0A200092F80000200000001 /* Embed System Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0A2000D2F80000200000001 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F0A100032F80000100000001 /* SapientiaMac */,
+			);
+			name = "Sapientia Mac";
+			packageProductDependencies = (
+				F0B100032F90000100000001 /* Sparkle */,
+			);
+			productName = "Sapientia for Mac";
+			productReference = F0A100022F80000100000001 /* Sapientia for Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F0A200012F80000200000001 /* SapientiaFilter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0A200102F80000200000001 /* Build configuration list for PBXNativeTarget "SapientiaFilter" */;
+			buildPhases = (
+				F0A2000A2F80000200000001 /* Sources */,
+				F0A2000B2F80000200000001 /* Frameworks */,
+				F0A2000C2F80000200000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F0A200032F80000200000001 /* SapientiaFilter */,
+			);
+			name = SapientiaFilter;
+			packageProductDependencies = (
+			);
+			productName = dev.ambitionsoftware.sapientia.mac.filter;
+			productReference = F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */;
+			productType = "com.apple.product-type.system-extension";
+		};
+		F0C100082FA0000100000001 /* SapientiaMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0C1000B2FA0000100000001 /* Build configuration list for PBXNativeTarget "SapientiaMacTests" */;
+			buildPhases = (
+				F0C100052FA0000100000001 /* Sources */,
+				F0C100062FA0000100000001 /* Frameworks */,
+				F0C100072FA0000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F0C100042FA0000100000001 /* SapientiaMacTests */,
+			);
+			name = SapientiaMacTests;
+			packageProductDependencies = (
+			);
+			productName = SapientiaMacTests;
+			productReference = F0C100032FA0000100000001 /* SapientiaMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		801B208D2CB363A10073E9E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					801713092DE6C78C00B77FE1 = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					801B20942CB363A10073E9E2 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					801B20A52CB363A20073E9E2 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 801B20942CB363A10073E9E2;
+					};
+					801B20AF2CB363A20073E9E2 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 801B20942CB363A10073E9E2;
+					};
+					808A3C492E4ACD18002A7812 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					80FF388C2D80DB540032BC5E = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					C8D73DC22F7C155C0028E76A = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					F0A100012F80000100000001 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					F0A200012F80000200000001 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					F0C100082FA0000100000001 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+				};
+			};
+			buildConfigurationList = 801B20902CB363A10073E9E2 /* Build configuration list for PBXProject "sapientia" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 801B208C2CB363A10073E9E2;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8021D2462D61837E00A92114 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				F0B100022F90000100000001 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 801B20962CB363A10073E9E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				801B20942CB363A10073E9E2 /* sapientia */,
+				801B20A52CB363A20073E9E2 /* sapientiaTests */,
+				801B20AF2CB363A20073E9E2 /* sapientiaUITests */,
+				80FF388C2D80DB540032BC5E /* SapientiaWidgetExtension */,
+				801713092DE6C78C00B77FE1 /* SapientiaDeviceMonitor */,
+				808A3C492E4ACD18002A7812 /* SapientiaShieldConfig */,
+				C8D73DC22F7C155C0028E76A /* SapientiaShieldAction */,
+				F0A100012F80000100000001 /* Sapientia Mac */,
+				F0A200012F80000200000001 /* SapientiaFilter */,
+				F0C100082FA0000100000001 /* SapientiaMacTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		801713082DE6C78C00B77FE1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20932CB363A10073E9E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20A42CB363A20073E9E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20AE2CB363A20073E9E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808A3C482E4ACD18002A7812 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80FF388B2D80DB540032BC5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8D73DC12F7C155C0028E76A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A100062F80000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A400022F80000400000001 /* Assets.xcassets in Resources */,
+				F0A400042F80000400000001 /* sapientia-icon.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A2000C2F80000200000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0C100072FA0000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		801713062DE6C78C00B77FE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20912CB363A10073E9E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A300082F80000300000001 /* ActiveProfileSyncRecord.swift in Sources */,
+				F0A300092F80000300000001 /* FilterRules.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20A22CB363A20073E9E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		801B20AC2CB363A20073E9E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808A3C462E4ACD18002A7812 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80FF38892D80DB540032BC5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8D73DBF2F7C155C0028E76A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A100042F80000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0D100012FB0000100000001 /* FilterExtensionVersionPolicy.swift in Sources */,
+				F0A300052F80000300000001 /* FilterRules.swift in Sources */,
+				F0A300072F80000300000001 /* ActiveProfileSyncRecord.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A2000A2F80000200000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A300062F80000300000001 /* FilterRules.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0C100052FA0000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0D100022FB0000100000001 /* FilterExtensionVersionPolicy.swift in Sources */,
+				F0C1000C2FA0000100000001 /* FilterRules.swift in Sources */,
+				F0C100012FA0000100000001 /* TLSClientHelloParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		801713122DE6C78C00B77FE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 801713092DE6C78C00B77FE1 /* SapientiaDeviceMonitor */;
+			targetProxy = 801713112DE6C78C00B77FE1 /* PBXContainerItemProxy */;
+		};
+		801B20A82CB363A20073E9E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 801B20942CB363A10073E9E2 /* sapientia */;
+			targetProxy = 801B20A72CB363A20073E9E2 /* PBXContainerItemProxy */;
+		};
+		801B20B22CB363A20073E9E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 801B20942CB363A10073E9E2 /* sapientia */;
+			targetProxy = 801B20B12CB363A20073E9E2 /* PBXContainerItemProxy */;
+		};
+		808A3C552E4ACD18002A7812 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 808A3C492E4ACD18002A7812 /* SapientiaShieldConfig */;
+			targetProxy = 808A3C542E4ACD18002A7812 /* PBXContainerItemProxy */;
+		};
+		80FF389B2D80DB560032BC5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 80FF388C2D80DB540032BC5E /* SapientiaWidgetExtension */;
+			targetProxy = 80FF389A2D80DB560032BC5E /* PBXContainerItemProxy */;
+		};
+		C8D73DCB2F7C155D0028E76A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C8D73DC22F7C155C0028E76A /* SapientiaShieldAction */;
+			targetProxy = C8D73DCA2F7C155D0028E76A /* PBXContainerItemProxy */;
+		};
+		F0A2000D2F80000200000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0A200012F80000200000001 /* SapientiaFilter */;
+			targetProxy = F0A200082F80000200000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		801713142DE6C78C00B77FE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaDeviceMonitor/SapientiaDeviceMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaDeviceMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaDeviceMonitor;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaDeviceMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		801713152DE6C78C00B77FE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaDeviceMonitor/SapientiaDeviceMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaDeviceMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaDeviceMonitor;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaDeviceMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		801B20B82CB363A20073E9E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		801B20B92CB363A20073E9E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		801B20BB2CB363A20073E9E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "sapientia-icon-blue sapientia-icon-cat sapientia-icon-original sapientia-icon-pop";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = sapientia/sapientia.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"sapientia/Preview Content\"";
+				DEVELOPMENT_TEAM = YR54789JNV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sapientia/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Sapientia;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "This app uses NFC to scan tags for item identification.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to scan QR codes to active/deactivate profiles";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		801B20BC2CB363A20073E9E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "sapientia-icon-blue sapientia-icon-cat sapientia-icon-original sapientia-icon-pop";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = sapientia/sapientia.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"sapientia/Preview Content\"";
+				DEVELOPMENT_TEAM = YR54789JNV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sapientia/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Sapientia;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "This app uses NFC to scan tags for item identification.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to scan QR codes to active/deactivate profiles";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		801B20BE2CB363A20073E9E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 2.1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sapientia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sapientia";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		801B20BF2CB363A20073E9E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 2.1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sapientia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sapientia";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		801B20C12CB363A20073E9E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 2.1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = sapientia;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		801B20C22CB363A20073E9E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 2.1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = sapientia;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		808A3C572E4ACD18002A7812 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaShieldConfig/SapientiaShieldConfig.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaShieldConfig/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldConfig;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldConfig;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		808A3C582E4ACD18002A7812 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaShieldConfig/SapientiaShieldConfig.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaShieldConfig/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldConfig;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldConfig;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		80FF389D2D80DB560032BC5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SapientiaWidget/SapientiaWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		80FF389E2D80DB560032BC5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SapientiaWidget/SapientiaWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C8D73DCD2F7C155D0028E76A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaShieldAction/SapientiaShieldAction.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaShieldAction/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldAction;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldAction;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C8D73DCE2F7C155D0028E76A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaShieldAction/SapientiaShieldAction.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SapientiaShieldAction/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldAction;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldAction;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F0A100072F80000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				CODE_SIGN_ENTITLEMENTS = SapientiaMac/SapientiaMac.Debug.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SapientiaMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac;
+				PRODUCT_NAME = "Sapientia for Mac";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F0A100082F80000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0B100052F90000100000001 /* MacRelease.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				CODE_SIGN_ENTITLEMENTS = SapientiaMac/SapientiaMac.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SapientiaMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac;
+				PRODUCT_NAME = "Sapientia for Mac";
+				PROVISIONING_PROFILE_SPECIFIER = "Sapientia Mac Developer ID";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F0A2000E2F80000200000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaFilter/SapientiaFilter.Debug.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SapientiaFilter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac.filter;
+				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F0A2000F2F80000200000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0B100052F90000100000001 /* MacRelease.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SapientiaFilter/SapientiaFilter.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SapientiaFilter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac.filter;
+				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				PROVISIONING_PROFILE_SPECIFIER = "Sapientia Filter Developer ID";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F0C100092FA0000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F0C1000A2FA0000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = YR54789JNV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		801713162DE6C78C00B77FE1 /* Build configuration list for PBXNativeTarget "SapientiaDeviceMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				801713142DE6C78C00B77FE1 /* Debug */,
+				801713152DE6C78C00B77FE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		801B20902CB363A10073E9E2 /* Build configuration list for PBXProject "sapientia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				801B20B82CB363A20073E9E2 /* Debug */,
+				801B20B92CB363A20073E9E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		801B20BA2CB363A20073E9E2 /* Build configuration list for PBXNativeTarget "sapientia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				801B20BB2CB363A20073E9E2 /* Debug */,
+				801B20BC2CB363A20073E9E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		801B20BD2CB363A20073E9E2 /* Build configuration list for PBXNativeTarget "sapientiaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				801B20BE2CB363A20073E9E2 /* Debug */,
+				801B20BF2CB363A20073E9E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		801B20C02CB363A20073E9E2 /* Build configuration list for PBXNativeTarget "sapientiaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				801B20C12CB363A20073E9E2 /* Debug */,
+				801B20C22CB363A20073E9E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		808A3C592E4ACD18002A7812 /* Build configuration list for PBXNativeTarget "SapientiaShieldConfig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				808A3C572E4ACD18002A7812 /* Debug */,
+				808A3C582E4ACD18002A7812 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		80FF389F2D80DB560032BC5E /* Build configuration list for PBXNativeTarget "SapientiaWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80FF389D2D80DB560032BC5E /* Debug */,
+				80FF389E2D80DB560032BC5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C8D73DCF2F7C155D0028E76A /* Build configuration list for PBXNativeTarget "SapientiaShieldAction" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8D73DCD2F7C155D0028E76A /* Debug */,
+				C8D73DCE2F7C155D0028E76A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F0A100092F80000100000001 /* Build configuration list for PBXNativeTarget "Sapientia Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0A100072F80000100000001 /* Debug */,
+				F0A100082F80000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F0A200102F80000200000001 /* Build configuration list for PBXNativeTarget "SapientiaFilter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0A2000E2F80000200000001 /* Debug */,
+				F0A2000F2F80000200000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F0C1000B2FA0000100000001 /* Build configuration list for PBXNativeTarget "SapientiaMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0C100092FA0000100000001 /* Debug */,
+				F0C1000A2FA0000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8021D2462D61837E00A92114 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.2;
+			};
+		};
+		F0B100022F90000100000001 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		80F674AA2D6185510056977F /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8021D2462D61837E00A92114 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+		F0B100032F90000100000001 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0B100022F90000100000001 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 801B208D2CB363A10073E9E2 /* Project object */;
+}

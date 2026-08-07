@@ -5,15 +5,15 @@
 	<key>destination</key>
 	<string>export</string>
 	<key>distributionBundleIdentifier</key>
-	<string>dev.ambitionsoftware.foqos.mac</string>
+	<string>dev.ambitionsoftware.sapientia.mac</string>
 	<key>method</key>
 	<string>developer-id</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>dev.ambitionsoftware.foqos.mac</key>
-		<string>Foqos Mac Developer ID</string>
-		<key>dev.ambitionsoftware.foqos.mac.filter</key>
-		<string>Foqos Filter Developer ID</string>
+		<key>dev.ambitionsoftware.sapientia.mac</key>
+		<string>Sapientia Mac Developer ID</string>
+		<key>dev.ambitionsoftware.sapientia.mac.filter</key>
+		<string>Sapientia Filter Developer ID</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Developer ID Application</string>

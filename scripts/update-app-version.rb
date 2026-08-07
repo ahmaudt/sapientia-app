@@ -2,14 +2,14 @@
 # frozen_string_literal: true
 
 IOS_RELEASE_TARGETS = [
-  "foqos",
-  "FoqosDeviceMonitor",
-  "FoqosShieldConfig",
-  "FoqosWidgetExtension",
-  "FoqosShieldAction"
+  "sapientia",
+  "SapientiaDeviceMonitor",
+  "SapientiaShieldConfig",
+  "SapientiaWidgetExtension",
+  "SapientiaShieldAction"
 ].freeze
-MAIN_APP_TARGET = "foqos"
-DEFAULT_PROJECT_FILE = File.expand_path("../foqos.xcodeproj/project.pbxproj", __dir__)
+MAIN_APP_TARGET = "sapientia"
+DEFAULT_PROJECT_FILE = File.expand_path("../sapientia.xcodeproj/project.pbxproj", __dir__)
 VERSION_PATTERN = /\A\d+\.\d+(?:\.\d+)?\z/.freeze
 
 def fail(message)

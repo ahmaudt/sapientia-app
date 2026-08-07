@@ -4,25 +4,25 @@
 .DEFAULT_GOAL := help
 
 # Variables
-PROJECT := foqos.xcodeproj
-SCHEME := foqos
+PROJECT := sapientia.xcodeproj
+SCHEME := sapientia
 CONFIGURATION := Debug
 DESTINATION := generic/platform=iOS Simulator
 TEST_DESTINATION ?= platform=iOS Simulator,name=iPhone 17,OS=latest
-UNIT_TEST_TARGET ?= foqosTests
-MAC_SCHEME := Foqos Mac
-MAC_TEST_SCHEME := FoqosMacTests
+UNIT_TEST_TARGET ?= sapientiaTests
+MAC_SCHEME := Sapientia Mac
+MAC_TEST_SCHEME := SapientiaMacTests
 MAC_CONFIGURATION ?= Debug
 MAC_DESTINATION := platform=macOS
-MAC_DERIVED_DATA ?= $(TMPDIR)foqos-mac-derived-data
-MAC_APP := $(MAC_DERIVED_DATA)/Build/Products/$(MAC_CONFIGURATION)/Foqos for Mac.app
-MAC_INSTALL_PATH ?= /Applications/Foqos for Mac.app
-MAC_LEGACY_INSTALL_PATH := /Applications/Foqos Mac.app
-MAC_BUNDLE_IDENTIFIER := dev.ambitionsoftware.foqos.mac
+MAC_DERIVED_DATA ?= $(TMPDIR)sapientia-mac-derived-data
+MAC_APP := $(MAC_DERIVED_DATA)/Build/Products/$(MAC_CONFIGURATION)/Sapientia for Mac.app
+MAC_INSTALL_PATH ?= /Applications/Sapientia for Mac.app
+MAC_LEGACY_INSTALL_PATH := /Applications/Sapientia Mac.app
+MAC_BUNDLE_IDENTIFIER := dev.ambitionsoftware.sapientia.mac
 BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
-NOTARY_PROFILE ?= foqos-notary
+NOTARY_PROFILE ?= sapientia-notary
 SPARKLE_KEY_ACCOUNT ?= ambitionsoftware
-GITHUB_REPOSITORY ?= awaseem/foqos
+GITHUB_REPOSITORY ?= ahmaudt/sapientia-app
 RELEASE_NOTES_FILE ?=
 LSREGISTER := /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
 
@@ -43,8 +43,8 @@ mac-clean: ## Clean local Mac build artifacts
 	xcodebuild -project $(PROJECT) -scheme '$(MAC_SCHEME)' -configuration $(MAC_CONFIGURATION) -derivedDataPath '$(MAC_DERIVED_DATA)' clean
 
 mac-install: mac-build
-	@pkill -x 'Foqos for Mac' >/dev/null 2>&1 || true
-	@pkill -x 'Foqos Mac' >/dev/null 2>&1 || true
+	@pkill -x 'Sapientia for Mac' >/dev/null 2>&1 || true
+	@pkill -x 'Sapientia Mac' >/dev/null 2>&1 || true
 	rm -rf '$(MAC_INSTALL_PATH)'
 	rm -rf '$(MAC_LEGACY_INSTALL_PATH)'
 	ditto '$(MAC_APP)' '$(MAC_INSTALL_PATH)'
@@ -60,14 +60,14 @@ mac-dev: mac-install ## Install the local Mac build in Applications and launch i
 	open '$(MAC_INSTALL_PATH)'
 
 mac-reset: MAC_CONFIGURATION := Debug
-mac-reset: mac-install ## Remove the local Foqos filter configuration and system extension
-	'$(MAC_INSTALL_PATH)/Contents/MacOS/Foqos for Mac' --reset-network-extension
+mac-reset: mac-install ## Remove the local Sapientia filter configuration and system extension
+	'$(MAC_INSTALL_PATH)/Contents/MacOS/Sapientia for Mac' --reset-network-extension
 	@if /usr/bin/systemextensionsctl list | grep -Fq '$(MAC_BUNDLE_IDENTIFIER).filter'; then \
-		echo 'macOS still has Foqos extension records. Restart this Mac before testing a fresh install.'; \
+		echo 'macOS still has Sapientia extension records. Restart this Mac before testing a fresh install.'; \
 	fi
 
 mac-logs: ## Stream structured Mac filter observations and verdicts
-	log stream --style compact --level info --predicate 'subsystem == "dev.ambitionsoftware.foqos.mac.filter"'
+	log stream --style compact --level info --predicate 'subsystem == "dev.ambitionsoftware.sapientia.mac.filter"'
 
 mac-test: ## Run Mac TCP/TLS filter unit tests
 	xcodebuild -project $(PROJECT) -scheme '$(MAC_TEST_SCHEME)' -configuration Debug -destination '$(MAC_DESTINATION)' CODE_SIGNING_ALLOWED=NO test

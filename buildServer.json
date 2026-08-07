@@ -12,8 +12,7 @@
 	"argv": [
 		"/opt/homebrew/bin/xcode-build-server"
 	],
-	"workspace": "/Users/awaseem/Sandbox/foqos/foqos.xcodeproj/project.xcworkspace",
-	"build_root": "/Users/awaseem/Library/Developer/Xcode/DerivedData/foqos-eniuxedmvkmdhcfookyponipurdt",
-	"scheme": "foqos",
+	"workspace": "/Users/ahmaud/code/sapientia-app/sapientia.xcodeproj/project.xcworkspace",
+	"scheme": "sapientia",
 	"kind": "xcode"
 }

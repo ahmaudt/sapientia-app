@@ -8,21 +8,21 @@ export PAGER=cat
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-readonly PROJECT="$REPO_ROOT/foqos.xcodeproj"
-readonly SCHEME="Foqos Mac"
+readonly PROJECT="$REPO_ROOT/sapientia.xcodeproj"
+readonly SCHEME="Sapientia Mac"
 readonly VERSION_CONFIG="$REPO_ROOT/Config/MacRelease.xcconfig"
 readonly EXPORT_OPTIONS="$REPO_ROOT/Config/MacReleaseExportOptions.plist"
 readonly APPCAST_FILE="$REPO_ROOT/appcast-macos.xml"
-readonly INFO_PLIST="$REPO_ROOT/FoqosMac/Info.plist"
+readonly INFO_PLIST="$REPO_ROOT/SapientiaMac/Info.plist"
 readonly TEAM_ID="YR54789JNV"
 readonly DEVELOPER_ID_NAME="Developer ID Application: Ali Waseem ($TEAM_ID)"
 readonly RELEASE_BRANCH="main"
 
 VERSION="${VERSION:-}"
 BUILD_NUMBER="${BUILD_NUMBER:-}"
-NOTARY_PROFILE="${NOTARY_PROFILE:-foqos-notary}"
+NOTARY_PROFILE="${NOTARY_PROFILE:-sapientia-notary}"
 SPARKLE_KEY_ACCOUNT="${SPARKLE_KEY_ACCOUNT:-ambitionsoftware}"
-GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-awaseem/foqos}"
+GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-ahmaudt/sapientia-app}"
 RELEASE_NOTES_FILE="${RELEASE_NOTES_FILE:-}"
 
 fail() {
@@ -73,17 +73,17 @@ validate_source_changes() {
 [[ "$BUILD_NUMBER" =~ ^[1-9][0-9]*$ ]] || fail "BUILD_NUMBER must be a positive integer."
 
 readonly TAG="mac-v$VERSION"
-readonly DMG_NAME="Foqos-for-Mac-$VERSION.dmg"
+readonly DMG_NAME="Sapientia-for-Mac-$VERSION.dmg"
 readonly FEED_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/appcast-macos.xml"
 readonly RELEASE_URL="https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG"
 readonly DOWNLOAD_PREFIX="https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/"
 readonly RELEASE_RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
 readonly RELEASE_DIR="$REPO_ROOT/.build/mac-release/$TAG-$BUILD_NUMBER-$RELEASE_RUN_ID"
 readonly DERIVED_DATA="$RELEASE_DIR/DerivedData"
-readonly ARCHIVE_PATH="$RELEASE_DIR/Foqos-for-Mac.xcarchive"
+readonly ARCHIVE_PATH="$RELEASE_DIR/Sapientia-for-Mac.xcarchive"
 readonly EXPORT_PATH="$RELEASE_DIR/Export"
-readonly APP_PATH="$EXPORT_PATH/Foqos for Mac.app"
-readonly APP_ZIP="$RELEASE_DIR/Foqos-for-Mac-$VERSION.zip"
+readonly APP_PATH="$EXPORT_PATH/Sapientia for Mac.app"
+readonly APP_ZIP="$RELEASE_DIR/Sapientia-for-Mac-$VERSION.zip"
 readonly DMG_ROOT="$RELEASE_DIR/DMG"
 readonly DMG_PATH="$RELEASE_DIR/$DMG_NAME"
 readonly APPCAST_DIR="$RELEASE_DIR/Appcast"
@@ -167,7 +167,7 @@ readonly GENERATE_APPCAST="$SPARKLE_TOOLS/generate_appcast"
 keychain_public_key="$($GENERATE_KEYS --account "$SPARKLE_KEY_ACCOUNT" -p)"
 app_public_key="$(plutil -extract SUPublicEDKey raw "$INFO_PLIST")"
 [[ "$keychain_public_key" == "$app_public_key" ]] ||
-  fail "The Sparkle Keychain key does not match SUPublicEDKey in FoqosMac/Info.plist."
+  fail "The Sparkle Keychain key does not match SUPublicEDKey in SapientiaMac/Info.plist."
 [[ "$(plutil -extract SUFeedURL raw "$INFO_PLIST")" == "$FEED_URL" ]] ||
   fail "SUFeedURL does not match the configured GitHub repository."
 
@@ -201,13 +201,13 @@ xcodebuild \
 [[ "$(plutil -extract CFBundleVersion raw "$APP_PATH/Contents/Info.plist")" == "$BUILD_NUMBER" ]] ||
   fail "Exported app build number does not match $BUILD_NUMBER."
 
-filter_info="$APP_PATH/Contents/Library/SystemExtensions/dev.ambitionsoftware.foqos.mac.filter.systemextension/Contents/Info.plist"
+filter_info="$APP_PATH/Contents/Library/SystemExtensions/dev.ambitionsoftware.sapientia.mac.filter.systemextension/Contents/Info.plist"
 [[ "$(plutil -extract CFBundleShortVersionString raw "$filter_info")" == "$VERSION" ]] ||
   fail "System extension marketing version does not match $VERSION."
 [[ "$(plutil -extract CFBundleVersion raw "$filter_info")" == "$BUILD_NUMBER" ]] ||
   fail "System extension build number does not match $BUILD_NUMBER."
 
-app_architectures="$(lipo -archs "$APP_PATH/Contents/MacOS/Foqos for Mac")"
+app_architectures="$(lipo -archs "$APP_PATH/Contents/MacOS/Sapientia for Mac")"
 [[ "$app_architectures" == *arm64* && "$app_architectures" == *x86_64* ]] ||
   fail "Exported app is not universal: $app_architectures"
 
@@ -215,7 +215,7 @@ codesign --verify --deep --strict --verbose=2 "$APP_PATH"
 codesign -dv --verbose=4 "$APP_PATH" 2>&1 | grep -F "Authority=$DEVELOPER_ID_NAME" >/dev/null ||
   fail "Exported app is not signed with the expected Developer ID identity."
 
-entitlements_file="$RELEASE_DIR/Foqos-entitlements.plist"
+entitlements_file="$RELEASE_DIR/Sapientia-entitlements.plist"
 codesign -d --entitlements :- "$APP_PATH" >"$entitlements_file" 2>/dev/null
 if [[ "$(plutil -extract com.apple.security.get-task-allow raw "$entitlements_file" 2>/dev/null || true)" == "true" ]]; then
   fail "The exported app allows debugging. Regenerate the Developer ID provisioning profile."
@@ -233,10 +233,10 @@ spctl --assess --type execute --verbose=4 "$APP_PATH"
 
 step "Creating the DMG"
 mkdir -p "$DMG_ROOT"
-ditto "$APP_PATH" "$DMG_ROOT/Foqos for Mac.app"
+ditto "$APP_PATH" "$DMG_ROOT/Sapientia for Mac.app"
 ln -s /Applications "$DMG_ROOT/Applications"
 hdiutil create \
-  -volname "Foqos for Mac" \
+  -volname "Sapientia for Mac" \
   -srcfolder "$DMG_ROOT" \
   -format UDZO \
   -ov \
@@ -266,9 +266,9 @@ if [[ -n "$RELEASE_NOTES_FILE" ]]; then
   release_notes="$RELEASE_NOTES_FILE"
 else
   release_notes="$RELEASE_DIR/release-notes.md"
-  printf '# Foqos for Mac %s\n\nSee the GitHub release for details.\n' "$VERSION" >"$release_notes"
+  printf '# Sapientia for Mac %s\n\nSee the GitHub release for details.\n' "$VERSION" >"$release_notes"
 fi
-ditto "$release_notes" "$APPCAST_DIR/Foqos-for-Mac-$VERSION.md"
+ditto "$release_notes" "$APPCAST_DIR/Sapientia-for-Mac-$VERSION.md"
 
 (
   cd "$APPCAST_DIR"
@@ -295,7 +295,7 @@ git diff --check
 step "Committing the Mac version"
 git add -- "$VERSION_CONFIG"
 git diff --cached --quiet && fail "The Mac version file did not change."
-git commit -m "Release Foqos for Mac $VERSION"
+git commit -m "Release Sapientia for Mac $VERSION"
 source_changes_committed="YES"
 git push origin "$RELEASE_BRANCH"
 release_commit="$(git rev-parse HEAD)"
@@ -304,7 +304,7 @@ step "Uploading a draft GitHub release"
 gh release create "$TAG" "$DMG_PATH" \
   --repo "$GITHUB_REPOSITORY" \
   --target "$release_commit" \
-  --title "Foqos for Mac $VERSION" \
+  --title "Sapientia for Mac $VERSION" \
   --notes-file "$release_notes" \
   --draft \
   --latest=false
@@ -326,7 +326,7 @@ curl --fail --location --head --retry 5 --retry-delay 2 \
 curl --fail --location --retry 5 --retry-delay 2 \
   "$FEED_URL?build=$BUILD_NUMBER" | xmllint --noout -
 
-printf '\nFoqos for Mac %s (%s) is published.\n' "$VERSION" "$BUILD_NUMBER"
+printf '\nSapientia for Mac %s (%s) is published.\n' "$VERSION" "$BUILD_NUMBER"
 printf 'Release: %s\n' "$RELEASE_URL"
 printf 'DMG: %s\n' "$DMG_PATH"
 printf 'Appcast: %s\n' "$FEED_URL"

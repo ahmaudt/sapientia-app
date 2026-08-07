@@ -8,7 +8,7 @@ export PAGER=cat
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-readonly PROJECT_RELATIVE_PATH="foqos.xcodeproj/project.pbxproj"
+readonly PROJECT_RELATIVE_PATH="sapientia.xcodeproj/project.pbxproj"
 readonly VERSION_UPDATER="$SCRIPT_DIR/update-app-version.rb"
 readonly RELEASE_BRANCH="main"
 
@@ -92,7 +92,7 @@ printf '  Current version: %s\n' "$current_version"
 printf '  New version:     %s\n' "$VERSION"
 printf '  Build:           1\n'
 printf '  Git tag:         %s\n' "$TAG"
-printf '  GitHub release:  Foqos for iOS %s\n' "$VERSION"
+printf '  GitHub release:  Sapientia for iOS %s\n' "$VERSION"
 printf '  GitHub repo:     %s\n' "$github_repository"
 printf '  Trigger:         push to main for Xcode Cloud\n'
 
@@ -113,7 +113,7 @@ release_exit() {
     [[ "$github_release_created" == "NO" ]]; then
     printf 'The version and tag were pushed, but the GitHub release was not created.\n' >&2
     printf 'Retry with: gh release create %q --repo %q --verify-tag --title %q --generate-notes' \
-      "$TAG" "$github_repository" "Foqos for iOS $VERSION" >&2
+      "$TAG" "$github_repository" "Sapientia for iOS $VERSION" >&2
     if [[ -n "$previous_ios_tag" ]]; then
       printf ' --notes-start-tag %q' "$previous_ios_tag" >&2
     fi
@@ -148,7 +148,7 @@ step "Creating the GitHub release"
 release_options=(
   --repo "$github_repository"
   --verify-tag
-  --title "Foqos for iOS $VERSION"
+  --title "Sapientia for iOS $VERSION"
   --generate-notes
   --fail-on-no-commits
   --latest
@@ -160,6 +160,6 @@ release_url="$(gh release create "$TAG" "${release_options[@]}")"
 github_release_created="YES"
 
 trap - EXIT
-printf '\nFoqos for iOS %s was released successfully.\n' "$VERSION"
+printf '\nSapientia for iOS %s was released successfully.\n' "$VERSION"
 printf 'Xcode Cloud was triggered by the main branch push.\n'
 printf 'GitHub release: %s\n' "$release_url"
