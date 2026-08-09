@@ -17,7 +17,7 @@ enum LiturgicalCalendarChoice: String {
 /// SapientiaShieldConfig extension alike.
 enum PrayerSettings {
   private static let suite = UserDefaults(
-    suiteName: "group.dev.ambitionsoftware.sapientia"
+    suiteName: "group.com.artempleton.sapientia"
   )!
 
   private enum Key: String {

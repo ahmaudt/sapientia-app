@@ -10,7 +10,7 @@ enum SoftUnblockGrantStore {
   }
 
   private static let suite = UserDefaults(
-    suiteName: "group.dev.ambitionsoftware.sapientia"
+    suiteName: "group.com.artempleton.sapientia"
   )!
 
   private static let activeSessionKey = "softUnblock.activeSession"

@@ -15,12 +15,12 @@ final class SapientiaFilterManager: NSObject, ObservableObject {
     case unknown
   }
 
-  static let extensionIdentifier = "dev.ambitionsoftware.sapientia.mac.filter"
+  static let extensionIdentifier = "com.artempleton.sapientia.mac.filter"
 
   @Published private(set) var status: Status = .unknown
 
   private let logger = Logger(
-    subsystem: "dev.ambitionsoftware.sapientia.mac",
+    subsystem: "com.artempleton.sapientia.mac",
     category: "filter-manager"
   )
   private var configurationObserver: NSObjectProtocol?

@@ -122,17 +122,8 @@ struct SapientiaIntroView: View {
   }
 
   private var crossMark: some View {
-    ZStack {
-      Rectangle()
-        .strokeBorder(SapientiaTheme.onDark(0.45), lineWidth: 1)
-      Rectangle()
-        .fill(SapientiaTheme.onDark(0.8))
-        .frame(width: 1, height: 22)
-      Rectangle()
-        .fill(SapientiaTheme.onDark(0.8))
-        .frame(width: 22, height: 1)
-    }
-    .frame(width: 40, height: 40)
+    SapientiaMark.steel(showLetters: false)
+      .frame(width: 48, height: 48)
   }
 }
 

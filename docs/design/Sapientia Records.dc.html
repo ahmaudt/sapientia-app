@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/styles.css">
+<script src="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/_ds_bundle.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-neutral-200); }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<div style="padding: var(--space-8) calc(var(--space-8) * 1.8) calc(var(--space-8) * 3); display: flex; flex-direction: column; gap: calc(var(--space-8) * 1.6)">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-8); border-bottom: 1px solid var(--color-divider); padding-bottom: var(--space-6)">
+    <div>
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sapientia &mdash; iOS &mdash; records</h6>
+      <h1 style="margin: var(--space-1) 0 0">Days observed</h1>
+    </div>
+    <div style="max-width: 440px; font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">foqos counted hours blocked. This counts days kept, and it counts them in weeks the calendar already names &mdash; each row of the grid is the Sunday that governs it. Hours are still there, under the calendar, as a bar chart.</div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: calc(var(--space-8) * 2) calc(var(--space-8) * 1.5)">
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">19 &nbsp;/&nbsp; Observance</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Done</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Deep Work</h6>
+            <div style="opacity: 0">Done</div>
+          </div>
+
+          <div>
+            <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 64px; line-height: 1">23</div>
+            <h6 style="margin: var(--space-1) 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Days observed since Trinity</h6>
+          </div>
+
+          <div class="seg" style="width: 100%">
+            <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="span" checked="{{ true }}">Season</label>
+            <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="span">Month</label>
+            <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="span">All</label>
+          </div>
+
+          <div>
+            <div style="display: grid; grid-template-columns: 86px repeat(7, 1fr); gap: var(--space-2); align-items: center; padding-bottom: var(--space-2)">
+              <div></div>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">S</h6>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">M</h6>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">T</h6>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">W</h6>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">T</h6>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">F</h6>
+              <h6 style="margin: 0; font-size: 11px; text-align: center; color: color-mix(in srgb, var(--color-text) 45%, transparent)">S</h6>
+            </div>
+
+            <sc-for list="{{ weeks }}" as="week" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 86px repeat(7, 1fr); gap: var(--space-2); align-items: center; padding: var(--space-2) 0; border-top: 1px solid var(--color-divider)">
+                <h6 style="margin: 0; font-size: 12px; color: color-mix(in srgb, var(--color-text) 62%, transparent)">{{ week.name }}</h6>
+                <sc-for list="{{ week.days }}" as="day" hint-placeholder-count="7">
+                  <div style="aspect-ratio: 1; border: 1px solid var(--color-divider); background: {{ day.fill }}; position: relative"></div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; gap: var(--space-4); font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent); align-items: center">
+            <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: var(--color-accent); display: inline-block"></span>Kept</span>
+            <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: var(--color-accent-200); display: inline-block"></span>Part kept</span>
+            <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border: 1px solid var(--color-divider); display: inline-block"></span>Not held</span>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Hours held, by day</h6>
+            <div style="display: flex; align-items: flex-end; gap: 5px; height: 110px; margin-top: var(--space-4); border-bottom: 1px solid var(--color-divider); padding-bottom: 1px">
+              <div style="flex: 1; background: var(--color-accent); height: 44%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 71%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 88%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 62%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 100%"></div>
+              <div style="flex: 1; background: var(--color-accent-300); height: 22%"></div>
+              <div style="flex: 1; border-top: 1px solid var(--color-divider); height: 1px"></div>
+            </div>
+            <div style="display: flex; gap: 5px; margin-top: var(--space-2)">
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">S</h6>
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">M</h6>
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">T</h6>
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">W</h6>
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">T</h6>
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">F</h6>
+              <h6 style="margin: 0; flex: 1; text-align: center; font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent)">S</h6>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-divider); border: 1px solid var(--color-divider)">
+            <div style="background: var(--color-bg); padding: var(--space-3) var(--space-4)">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 30px; line-height: 1">12h 40m</div>
+              <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 12px">This week</h6>
+            </div>
+            <div style="background: var(--color-bg); padding: var(--space-3) var(--space-4)">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 30px; line-height: 1">6</div>
+              <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 12px">Longest run of days</h6>
+            </div>
+          </div>
+
+          <button class="btn btn-secondary btn-block" style="padding: var(--space-3); font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-700)">All sessions</button>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">20 &nbsp;/&nbsp; Sessions</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Back</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sessions</h6>
+            <div>Edit</div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Week of Trinity IX</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider); gap: var(--space-4)">
+              <div>
+                <h4 style="margin: 0">Friday &middot; 09:14</h4>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Deep Work &middot; ended by tag</div>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; line-height: 1; white-space: nowrap">3h 06m</div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider); gap: var(--space-4)">
+              <div>
+                <h4 style="margin: 0">Thursday &middot; 21:00</h4>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Great Silence &middot; ended by schedule</div>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; line-height: 1; white-space: nowrap">9h 00m</div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider); gap: var(--space-4)">
+              <div>
+                <h4 style="margin: 0">Thursday &middot; 08:40</h4>
+                <div style="font-size: 13px; color: var(--color-accent-700)">Deep Work &middot; emergency unblock</div>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; line-height: 1; white-space: nowrap">1h 12m</div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider); gap: var(--space-4)">
+              <div>
+                <h4 style="margin: 0">Wednesday &middot; 09:02</h4>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Deep Work &middot; ended by tag &middot; one break</div>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; line-height: 1; white-space: nowrap">4h 21m</div>
+            </div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Week of Trinity VIII</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider); gap: var(--space-4)">
+              <div>
+                <h4 style="margin: 0">Sunday &middot; 07:30</h4>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sunday &middot; ended by tag</div>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; line-height: 1; white-space: nowrap">11h 48m</div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider); gap: var(--space-4)">
+              <div>
+                <h4 style="margin: 0">Saturday &middot; 21:00</h4>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Great Silence &middot; ended by schedule</div>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; line-height: 1; white-space: nowrap">9h 00m</div>
+            </div>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">21 &nbsp;/&nbsp; One session</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Close</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Session</h6>
+            <div style="opacity: 0">Close</div>
+          </div>
+
+          <div>
+            <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 56px; line-height: 1">3h 06m</div>
+            <h6 style="margin: var(--space-1) 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Friday after Trinity IX</h6>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Rule</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Name<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">Deep Work</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Ended by<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">NFC tag &mdash; Oratory shelf</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Started by hand<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">No</span></div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Times</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Began<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">7 Aug, 09:14</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Ended<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">7 Aug, 12:20</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Held for<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">3h 06m</span></div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Break</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Taken<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">10:41 &ndash; 10:51</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Length<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">10m</span></div>
+          </div>
+
+          <div class="card blueprint" style="padding: var(--space-4); gap: 0">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <div class="card-kicker" style="font-size: 12px">The day&rsquo;s Collect</div>
+            <div style="font-size: 15px; line-height: 1.65; margin-top: var(--space-2)">Grant to us, Lord, we beseech thee, the spirit to think and do always such things as are right&hellip;</div>
+          </div>
+
+          <div style="text-align: center; font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700)">Delete this session</div>
+        </div>
+      </x-import>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const K = "var(--color-accent)";
+    const P = "var(--color-accent-200)";
+    const N = "transparent";
+    const rows = [
+      ["Trinity V", [N, K, K, P, K, K, N]],
+      ["Trinity VI", [N, K, K, K, K, K, N]],
+      ["Trinity VII", [K, K, P, K, K, K, N]],
+      ["Trinity VIII", [K, K, K, K, K, P, N]],
+      ["Trinity IX", [K, K, K, K, K, K, N]],
+    ];
+    return {
+      weeks: rows.map(([name, fills]) => ({
+        name,
+        days: fills.map((fill) => ({ fill })),
+      })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
+

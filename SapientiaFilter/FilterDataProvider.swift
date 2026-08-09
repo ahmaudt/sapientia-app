@@ -5,7 +5,7 @@ import OSLog
 
 final class FilterDataProvider: NEFilterDataProvider {
   private let logger = Logger(
-    subsystem: "dev.ambitionsoftware.sapientia.mac.filter",
+    subsystem: "com.artempleton.sapientia.mac.filter",
     category: "filter"
   )
   private let stateLock = NSLock()

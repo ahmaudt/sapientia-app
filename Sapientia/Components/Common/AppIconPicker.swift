@@ -21,9 +21,7 @@ struct AppIconPicker: View {
             select(icon)
           } label: {
             VStack(spacing: 8) {
-              Image(icon.previewAssetName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+              icon.preview
                 .frame(width: 64, height: 64)
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .overlay {
@@ -106,47 +104,58 @@ struct AppIconPicker: View {
 }
 
 private enum AppIconOption: String, CaseIterable, Identifiable {
-  case defaultIcon
-  case blue
-  case cat
-  case pop
-  case original
+  case steel
+  case paper
+  case accent
 
   var id: String { rawValue }
 
   var displayName: String {
     switch self {
-    case .defaultIcon: "Default"
-    case .blue: "Blue"
-    case .cat: "Cat"
-    case .pop: "Pop"
-    case .original: "Original"
+    case .steel: "Steel"
+    case .paper: "Paper"
+    case .accent: "Accent"
     }
   }
 
+  /// nil = the primary (default) app icon.
   var alternateIconName: String? {
     switch self {
-    case .defaultIcon: nil
-    case .blue: "sapientia-icon-blue"
-    case .cat: "sapientia-icon-cat"
-    case .pop: "sapientia-icon-pop"
-    case .original: "sapientia-icon-original"
+    case .steel: nil
+    case .paper: "AppIcon-Paper"
+    case .accent: "AppIcon-Accent"
     }
   }
 
-  var previewAssetName: String {
+  /// Live vector preview of the mark on its field.
+  @ViewBuilder var preview: some View {
     switch self {
-    case .defaultIcon: "AppIconDefaultPreview"
-    case .blue: "AppIconBluePreview"
-    case .cat: "AppIconCatPreview"
-    case .pop: "AppIconPopPreview"
-    case .original: "AppIconOriginalPreview"
+    case .steel:
+      SapientiaMark.steel(showLetters: false)
+        .padding(14)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(SapientiaTheme.accent900)
+    case .paper:
+      SapientiaMark.paper(showLetters: false)
+        .padding(14)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(SapientiaTheme.background)
+    case .accent:
+      SapientiaMark(
+        ringColor: SapientiaTheme.background,
+        crossColor: SapientiaTheme.accent900,
+        letterColor: SapientiaTheme.background,
+        showLetters: false
+      )
+      .padding(14)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .background(SapientiaTheme.accent)
     }
   }
 }
 
 #Preview {
   Form {
-    AppIconPicker(selectionColor: .purple)
+    AppIconPicker(selectionColor: SapientiaTheme.accent)
   }
 }

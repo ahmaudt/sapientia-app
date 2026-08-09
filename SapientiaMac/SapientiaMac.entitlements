@@ -18,6 +18,6 @@
 	<key>com.apple.developer.system-extension.install</key>
 	<true/>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
-	<string>$(TeamIdentifierPrefix)dev.ambitionsoftware.sapientia</string>
+	<string>$(TeamIdentifierPrefix)com.artempleton.sapientia</string>
 </dict>
 </plist>

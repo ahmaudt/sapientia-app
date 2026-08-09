@@ -5,14 +5,14 @@
 	<key>destination</key>
 	<string>export</string>
 	<key>distributionBundleIdentifier</key>
-	<string>dev.ambitionsoftware.sapientia.mac</string>
+	<string>com.artempleton.sapientia.mac</string>
 	<key>method</key>
 	<string>developer-id</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>dev.ambitionsoftware.sapientia.mac</key>
+		<key>com.artempleton.sapientia.mac</key>
 		<string>Sapientia Mac Developer ID</string>
-		<key>dev.ambitionsoftware.sapientia.mac.filter</key>
+		<key>com.artempleton.sapientia.mac.filter</key>
 		<string>Sapientia Filter Developer ID</string>
 	</dict>
 	<key>signingCertificate</key>

@@ -2,7 +2,7 @@ import DeviceActivity
 import OSLog
 
 private let log = Logger(
-  subsystem: "dev.ambitionsoftware.sapientia",
+  subsystem: "com.artempleton.sapientia",
   category: SoftUnblockGrantTimerActivity.id
 )
 

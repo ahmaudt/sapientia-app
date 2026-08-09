@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.dev.ambitionsoftware.sapientia</string>
+		<string>group.com.artempleton.sapientia</string>
 	</array>
 </dict>
 </plist>

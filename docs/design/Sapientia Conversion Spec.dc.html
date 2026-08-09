@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/styles.css">
+<script src="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/_ds_bundle.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-bg); }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86em; }
+</style>
+</helmet>
+
+<div style="max-width: 1180px; margin: 0 auto; padding: var(--space-8) var(--space-8) calc(var(--space-8) * 3); display: flex; flex-direction: column; gap: calc(var(--space-8) * 1.4)">
+
+  <div style="border-bottom: 1px solid var(--color-divider); padding-bottom: var(--space-6)">
+    <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sapientia &mdash; iOS &mdash; conversion spec</h6>
+    <h1 style="margin: var(--space-1) 0 0; font-size: 52px">Every foqos pattern, and what replaces it</h1>
+    <div style="max-width: 640px; font-size: 15px; line-height: 1.7; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin-top: var(--space-4)">Task 9 of the redesign plan restyled the retained screens without changing their layout, which is why they still read as foqos. This is the layout pass. It is written against the code as it stands: the file paths are real and the classes named exist in <code>Sapientia/Theme/</code>.</div>
+  </div>
+
+  <div>
+    <h6 style="margin: 0 0 var(--space-4); color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">The five rules</h6>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--color-divider); border: 1px solid var(--color-divider)">
+      <div style="background: var(--color-bg); padding: var(--space-4)">
+        <div style="font-family: var(--font-heading); font-size: 15px; color: var(--color-accent-700)">01</div>
+        <h4 style="margin: var(--space-1) 0 var(--space-2)">Nothing is rounded</h4>
+        <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 65%, transparent)">Corner radius is 0 everywhere but the radio dot. No <code>RoundedRectangle</code> survives outside the mark.</div>
+      </div>
+      <div style="background: var(--color-bg); padding: var(--space-4)">
+        <div style="font-family: var(--font-heading); font-size: 15px; color: var(--color-accent-700)">02</div>
+        <h4 style="margin: var(--space-1) 0 var(--space-2)">Cards are line drawings</h4>
+        <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 65%, transparent)">No surface fill, no shadow, no material. A hairline border and four registration marks.</div>
+      </div>
+      <div style="background: var(--color-bg); padding: var(--space-4)">
+        <div style="font-family: var(--font-heading); font-size: 15px; color: var(--color-accent-700)">03</div>
+        <h4 style="margin: var(--space-1) 0 var(--space-2)">Rules replace containers</h4>
+        <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 65%, transparent)">A list is an uppercase header with a rule under it and a rule under each row &mdash; not a grouped-list card.</div>
+      </div>
+      <div style="background: var(--color-bg); padding: var(--space-4)">
+        <div style="font-family: var(--font-heading); font-size: 15px; color: var(--color-accent-700)">04</div>
+        <h4 style="margin: var(--space-1) 0 var(--space-2)">One solid object</h4>
+        <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 65%, transparent)">The accent fill belongs to the primary button, the selected segment, and data bars. Nothing else is filled.</div>
+      </div>
+      <div style="background: var(--color-bg); padding: var(--space-4)">
+        <div style="font-family: var(--font-heading); font-size: 15px; color: var(--color-accent-700)">05</div>
+        <h4 style="margin: var(--space-1) 0 var(--space-2)">Dark means rite</h4>
+        <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 65%, transparent)"><code>accent-900</code> is the ground for onboarding, the scan, the prayer and the timer set. Everything else is paper.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h6 style="margin: 0 0 var(--space-4); color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Pattern conversion</h6>
+    <table class="table" style="width: 100%">
+      <thead>
+        <tr><th style="width: 27%">foqos pattern</th><th style="width: 38%">Replace with</th><th>Where it lives now</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>CardBackground</code> &mdash; 24pt radius, fill, 0.3 gray stroke</td>
+          <td><code>BlueprintCard</code>. Padding <code>space-4</code>, border <code>divider</code>, four corner marks. Drop <code>isActive</code> gradients; an active card is marked by an <code>accent-100</code> row tint and a <code>tag-accent</code>, not by a glow.</td>
+          <td><code>Components/Common/CardBackground.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>RoundedButton</code> + <code>glassEffect</code></td>
+          <td><code>BlueprintSecondaryButtonStyle</code>. Glass and material are removed entirely &mdash; the system has no translucency.</td>
+          <td><code>Components/Common/RoundedButton.swift</code>, <code>ActionButton.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>Color(.systemGroupedBackground)</code> / <code>.secondarySystemGroupedBackground</code></td>
+          <td><code>SapientiaTheme.background</code> on the screen; nothing on the row. Rows sit directly on the ground, separated by 1px <code>divider</code>.</td>
+          <td>AppPicker, StrategyPicker, StartProfilePickerView, GuidedBlockedProfileCreationView</td>
+        </tr>
+        <tr>
+          <td>SwiftUI <code>Form</code> / <code>Section("Timing")</code></td>
+          <td><code>VStack</code> + <code>SectionHeaderLabel</code> + hairline rows. Screens 07, 21 and 22 are the reference.</td>
+          <td><code>SessionDetailsView.swift</code>, <code>BlockedProfileFormSections.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>.foregroundStyle(.gray)</code>, <code>.secondary</code></td>
+          <td><code>SapientiaTheme.text.opacity(0.55)</code> for meta, <code>0.62</code> for body. Never a system gray &mdash; they shift with appearance and the app is fixed light.</td>
+          <td>All <code>BlockedProfileView/</code> selectors, <code>EmptyView.swift</code></td>
+        </tr>
+        <tr>
+          <td>Charts with <code>cornerRadius(2&ndash;6)</code> and gray tracks</td>
+          <td>Square <code>accent</code> bars on a drawn baseline; partial days in <code>accent-300</code>. Axis labels are 11pt uppercase Barlow Condensed.</td>
+          <td><code>WeeklySessionChart.swift</code>, <code>MonthlySessionChart.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>Menu</code> with <code>gearshape.fill</code> in a gray circle</td>
+          <td>A named row with its value at the right, opening a full-screen stage. No circular icon chrome.</td>
+          <td><code>EmergencyView.swift</code>, insights pickers</td>
+        </tr>
+        <tr>
+          <td>&ldquo;Tap the glass&rdquo; break-glass button</td>
+          <td>Screen 18: a stated reason, then a hold button that fills with <code>accent</code> as it is held. The allowance is three cells, spent left to right.</td>
+          <td><code>Components/Common/BreakGlassButton.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>ShimmerLauncherButton</code>, rotating <code>FocusMessages</code></td>
+          <td>Delete both. The running session says one fixed sentence (screen 13); nothing shimmers.</td>
+          <td><code>ShimmerLauncherButton.swift</code>, <code>Utils/FocusMessages.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>ActiveSessionGradientBackground</code></td>
+          <td>Flat <code>accent-900</code> band over a paper body. No gradient anywhere in the app.</td>
+          <td><code>ActiveProfileSessionView.swift</code></td>
+        </tr>
+        <tr>
+          <td><code>SupportView</code>, tip StoreKit product</td>
+          <td>Removed. The Settings row goes with it; keep the source link on About (screen 24).</td>
+          <td><code>Views/SupportView.swift</code>, <code>Tip for developer.storekit</code></td>
+        </tr>
+        <tr>
+          <td>System <code>.alert</code> for errors</td>
+          <td>Screen 15&rsquo;s notice plate: a bordered card in <code>accent</code>, an icon at 1.5 stroke, two text buttons. Reserve system alerts for destructive confirmations.</td>
+          <td><code>HomeAlertsView.swift</code>, <code>AlertsManager.swift</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h6 style="margin: 0 0 var(--space-4); color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Screen to file</h6>
+    <table class="table" style="width: 100%">
+      <thead>
+        <tr><th style="width: 8%">No.</th><th style="width: 27%">Screen</th><th>Files</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>07</td><td>Rule &mdash; all options</td><td><code>BlockedProfileView.swift</code>, <code>BlockedProfileFormSections.swift</code>, <code>BlockedProfileRow.swift</code></td></tr>
+        <tr><td>08</td><td>Set aside</td><td><code>AppPicker.swift</code>, <code>BlockedProfileAppSelector.swift</code></td></tr>
+        <tr><td>09</td><td>Websites</td><td><code>DomainPicker.swift</code>, <code>BlockedProfileDomainSelector.swift</code></td></tr>
+        <tr><td>10</td><td>Schedule</td><td><code>SchedulePicker.swift</code>, <code>BlockedProfileScheduleSelector.swift</code></td></tr>
+        <tr><td>11</td><td>How it ends</td><td><code>StrategyPicker.swift</code>, <code>StrategyPickerCard.swift</code>, <code>StrategyPickerSection.swift</code>, <code>BlockingStrategyRow.swift</code></td></tr>
+        <tr><td>12</td><td>Guided creation</td><td><code>GuidedBlockedProfileCreationView.swift</code></td></tr>
+        <tr><td>13</td><td>Active session</td><td><code>ActiveProfileSessionView.swift</code></td></tr>
+        <tr><td>14</td><td>Home &mdash; running</td><td><code>HomeProfileLauncher.swift</code>, <code>HomeScreenContent.swift</code>, <code>RulesListSection.swift</code></td></tr>
+        <tr><td>15</td><td>Home &mdash; a notice</td><td><code>HomeAlertsView.swift</code></td></tr>
+        <tr><td>16</td><td>How long</td><td><code>TimerDurationView.swift</code>, <code>PauseDurationView.swift</code></td></tr>
+        <tr><td>17</td><td>Your code</td><td><code>QRCodeView.swift</code>, <code>BlockedProfilePhysicalUnblockSelector.swift</code></td></tr>
+        <tr><td>18</td><td>Emergency access</td><td><code>EmergencyView.swift</code>, <code>BreakGlassButton.swift</code></td></tr>
+        <tr><td>19</td><td>Observance</td><td><code>ProfileInsightsView.swift</code>, <code>WeeklySessionChart.swift</code>, <code>InsightsSummaryView.swift</code>; new: an observed-days aggregator beside <code>WeeklySessionAggregator</code></td></tr>
+        <tr><td>20</td><td>Sessions</td><td><code>SessionRow.swift</code>, <code>ProfileInsightsView.swift</code></td></tr>
+        <tr><td>21</td><td>One session</td><td><code>SessionDetailsView.swift</code></td></tr>
+        <tr><td>22</td><td>Export</td><td><code>BlockedProfileDataExportView.swift</code>, <code>DataExporter.swift</code></td></tr>
+        <tr><td>23</td><td>Diagnostics</td><td><code>DebugView.swift</code>, <code>Components/Debug/*</code></td></tr>
+        <tr><td>24</td><td>About</td><td><code>SettingsView.swift</code> (About and Reset sections)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h6 style="margin: 0 0 var(--space-4); color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">New to <code>BlueprintComponents.swift</code></h6>
+    <table class="table" style="width: 100%">
+      <thead>
+        <tr><th style="width: 27%">Component</th><th>What it is</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>BlueprintListRow</code></td><td>Title, optional caption, trailing value or control, bottom hairline. The single row used on screens 07, 09, 20, 21, 22 and 24 &mdash; it replaces every <code>Form</code> row in the app.</td></tr>
+        <tr><td><code>BlueprintStatGrid</code></td><td>Two or three cells, 1px gutters over a <code>divider</code> ground, numeral in Barlow Condensed at 24&ndash;30pt over an 11&ndash;12pt uppercase label. Already drawn inline in <code>StatsGrid.swift</code>; lift it out.</td></tr>
+        <tr><td><code>BlueprintHoldButton</code></td><td>Fills left to right with <code>accent</code> as it is held, label flipping to <code>accent-900</code> over the fill. Used by break, emergency unblock and erase.</td></tr>
+        <tr><td><code>BlueprintBarChart</code></td><td>Square bars, drawn baseline, <code>accent</code> full / <code>accent-300</code> partial, uppercase axis labels.</td></tr>
+        <tr><td><code>ObservanceGrid</code></td><td>Screen 19&rsquo;s calendar: rows named by the governing Sunday, seven square cells, filled when the day was kept.</td></tr>
+        <tr><td><code>BlueprintStage</code></td><td>Full-screen presentation shell replacing <code>.sheet</code> detents: Cancel / title / action header, body, optional bottom action block. Light or <code>accent-900</code>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="border-top: 1px solid var(--color-divider); padding-top: var(--space-6); font-size: 14px; line-height: 1.7; color: color-mix(in srgb, var(--color-text) 62%, transparent); max-width: 640px">
+    Two things the mockups cannot do. Apple&rsquo;s Screen Time picker (screen 08) and the NFC sheet render themselves and take no styling &mdash; frame them, do not fight them. And the shield extension still allows only title, subtitle, icon and two buttons in system fonts, so the block screen remains the one place where the type is not ours.
+  </div>
+
+</div>
+
+</x-dc>
+</body>
+</html>
+

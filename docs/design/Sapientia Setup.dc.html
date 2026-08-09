@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/styles.css">
+<script src="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/_ds_bundle.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-neutral-200); }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<div style="padding: var(--space-8) calc(var(--space-8) * 1.8) calc(var(--space-8) * 3); display: flex; flex-direction: column; gap: calc(var(--space-8) * 1.6)">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-8); border-bottom: 1px solid var(--color-divider); padding-bottom: var(--space-6)">
+    <div>
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sapientia &mdash; iOS &mdash; setup flow</h6>
+      <h1 style="margin: var(--space-1) 0 0">Making a rule</h1>
+    </div>
+    <div style="max-width: 440px; font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">The six screens between &ldquo;New session&rdquo; and a running rule. Every option foqos carried is kept; the rounded cards, grouped-list grays and glass buttons are replaced by hairline plates, section rules and blueprint stages.</div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: calc(var(--space-8) * 2) calc(var(--space-8) * 1.5)">
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">07 &nbsp;/&nbsp; Rule &mdash; all options</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Cancel</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Deep Work</h6>
+            <div>Save</div>
+          </div>
+
+          <div class="field">
+            <label>Name</label>
+            <div class="input" style="font-size: 17px; min-height: 48px; display: flex; align-items: center">Deep Work</div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">What is set aside</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Apps &amp; categories</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">14 apps &middot; 3 categories</div>
+              </div>
+              <span style="font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700)">Edit</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Websites</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">6 domains blocked</div>
+              </div>
+              <span style="font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700)">Edit</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Allow list instead</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Everything is set aside except what you name.</div>
+              </div>
+              <div style="width: 44px; height: 26px; border: 1px solid var(--color-divider); background: var(--color-surface); position: relative; flex: none; margin-left: var(--space-3)"><span style="position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: var(--color-bg); border: 1px solid var(--color-divider)"></span></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>How it ends</label>
+            <div class="seg" style="width: 100%">
+              <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="ends7" checked="{{ isNfc }}">NFC tag</label>
+              <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="ends7" checked="{{ isQr }}">QR code</label>
+              <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="ends7" checked="{{ isTimer }}">Timer</label>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <span style="font-size: 17px">{{ pairedLabel }}</span>
+              <span style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">{{ pairedValue }}</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <span style="font-size: 17px">All ending methods</span>
+              <span style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">7 available</span>
+            </div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Rigour</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Strict mode</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">The app cannot be deleted or the rule edited mid&ndash;session.</div>
+              </div>
+              <div style="width: 44px; height: 26px; border: 1px solid var(--color-accent); background: var(--color-accent); position: relative; flex: none; margin-left: var(--space-3)"><span style="position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: var(--color-bg)"></span></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Pray before unblocking</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">The Collect of the day stands in front of the tag.</div>
+              </div>
+              <div style="width: 44px; height: 26px; border: 1px solid var(--color-accent); background: var(--color-accent); position: relative; flex: none; margin-left: var(--space-3)"><span style="position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: var(--color-bg)"></span></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Breaks</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">One 10&ndash;minute break per session.</div>
+              </div>
+              <span style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">10 min</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Schedule</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Mon&ndash;Fri &middot; 09:00&ndash;17:00</div>
+              </div>
+              <span style="font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700)">Edit</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <div>
+                <div style="font-size: 17px">Live Activity</div>
+                <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Show the session on the Lock Screen.</div>
+              </div>
+              <div style="width: 44px; height: 26px; border: 1px solid var(--color-accent); background: var(--color-accent); position: relative; flex: none; margin-left: var(--space-3)"><span style="position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: var(--color-bg)"></span></div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block blueprint" style="padding: var(--space-4); font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            Save
+          </button>
+          <div style="text-align: center; font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700)">Delete this rule</div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">08 &nbsp;/&nbsp; Set aside &mdash; Screen Time</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Cancel</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Set aside</h6>
+            <div>Done</div>
+          </div>
+
+          <div style="font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">Chosen through Apple&rsquo;s own picker. Sapientia never sees which apps you named &mdash; only how many.</div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-divider); border: 1px solid var(--color-divider)">
+            <div style="background: var(--color-bg); padding: var(--space-3) var(--space-4)">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 30px; line-height: 1">14</div>
+              <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 12px">Apps</h6>
+            </div>
+            <div style="background: var(--color-bg); padding: var(--space-3) var(--space-4)">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 30px; line-height: 1">3</div>
+              <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 12px">Categories</h6>
+            </div>
+          </div>
+
+          <div style="flex: 1; border: 1px solid var(--color-divider); position: relative; display: flex; flex-direction: column; min-height: 380px">
+            <div style="padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; justify-content: space-between">
+              <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 12px">Apple Screen Time picker</h6>
+              <span class="tag tag-outline" style="font-size: 11px">System UI</span>
+            </div>
+            <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: var(--space-6); text-align: center; background: repeating-linear-gradient(135deg, transparent 0 11px, color-mix(in srgb, var(--color-text) 5%, transparent) 11px 12px)">
+              <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 55%, transparent); max-width: 240px">Apple renders this list and will not take our styling. It is framed, not restyled.</div>
+            </div>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">09 &nbsp;/&nbsp; Websites</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Cancel</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Websites</h6>
+            <div>Done</div>
+          </div>
+
+          <div class="field">
+            <label>Add a domain</label>
+            <div style="display: flex; gap: var(--space-2)">
+              <div class="input" style="flex: 1; font-size: 17px; min-height: 48px; display: flex; align-items: center; color: color-mix(in srgb, var(--color-text) 40%, transparent)">news.example.com</div>
+              <button class="btn btn-secondary" style="color: var(--color-accent-700); letter-spacing: 0.08em; text-transform: uppercase; padding-left: var(--space-4); padding-right: var(--space-4)">Add</button>
+            </div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Blocked &mdash; 6</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">reddit.com<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">Remove</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">x.com<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">Remove</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">youtube.com<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">Remove</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">news.ycombinator.com<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">Remove</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">instagram.com<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">Remove</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">tiktok.com<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">Remove</span></div>
+          </div>
+
+          <div class="card blueprint" style="padding: var(--space-4); font-size: 13px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            Websites are held by the on&ndash;device filter. Sub&ndash;domains are covered; the address itself never leaves the phone.
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">10 &nbsp;/&nbsp; Schedule</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Cancel</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Schedule</h6>
+            <div>Done</div>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-divider)">
+            <div>
+              <div style="font-size: 17px">Run on a schedule</div>
+              <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">The rule begins and ends without you.</div>
+            </div>
+            <div style="width: 44px; height: 26px; border: 1px solid var(--color-accent); background: var(--color-accent); position: relative; flex: none; margin-left: var(--space-3)"><span style="position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: var(--color-bg)"></span></div>
+          </div>
+
+          <div class="field">
+            <label>Days</label>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--color-divider); border: 1px solid var(--color-divider)">
+              <div style="background: var(--color-accent); color: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0">M</div>
+              <div style="background: var(--color-accent); color: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0">T</div>
+              <div style="background: var(--color-accent); color: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0">W</div>
+              <div style="background: var(--color-accent); color: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0">T</div>
+              <div style="background: var(--color-accent); color: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0">F</div>
+              <div style="background: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0; color: color-mix(in srgb, var(--color-text) 45%, transparent)">S</div>
+              <div style="background: var(--color-bg); font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; text-align: center; padding: var(--space-3) 0; color: color-mix(in srgb, var(--color-text) 45%, transparent)">S</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-4)">
+            <div class="field" style="flex: 1">
+              <label>From</label>
+              <div class="input" style="font-family: var(--font-heading); font-size: 28px; min-height: 56px; display: flex; align-items: center; justify-content: center">09:00</div>
+            </div>
+            <div class="field" style="flex: 1">
+              <label>Until</label>
+              <div class="input" style="font-family: var(--font-heading); font-size: 28px; min-height: 56px; display: flex; align-items: center; justify-content: center">17:00</div>
+            </div>
+          </div>
+
+          <div class="card blueprint" style="padding: var(--space-4); gap: 0">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <div class="card-kicker" style="font-size: 12px">This week</div>
+            <div style="display: flex; align-items: flex-end; gap: 4px; height: 76px; margin-top: var(--space-3)">
+              <div style="flex: 1; background: var(--color-accent); height: 100%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 100%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 100%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 100%"></div>
+              <div style="flex: 1; background: var(--color-accent); height: 100%"></div>
+              <div style="flex: 1; border: 1px solid var(--color-divider); height: 100%"></div>
+              <div style="flex: 1; border: 1px solid var(--color-divider); height: 100%"></div>
+            </div>
+            <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-3)">40 hours held, Monday to Friday.</div>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">11 &nbsp;/&nbsp; How it ends &mdash; all methods</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Back</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">How it ends</h6>
+            <div style="opacity: 0">Back</div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">By touch</h6>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method" checked="{{ true }}">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">NFC tag</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Hold the phone to a paired tag to open and close.</span>
+              </span>
+            </label>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">QR code</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">A printed code does the same work as a tag.</span>
+              </span>
+            </label>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">Tag, then a timer</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">The tag begins it; the clock ends it.</span>
+              </span>
+            </label>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">By time or by hand</h6>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">Timer only</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Set a length; it lifts when the time is up.</span>
+              </span>
+            </label>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">By hand</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Stop it from the app. The lightest hold.</span>
+              </span>
+            </label>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Soft unblock</h6>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">Tag, with short leave</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Three five&ndash;minute openings a day, each recorded.</span>
+              </span>
+            </label>
+            <label class="radio" style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-divider)">
+              <input type="radio" name="method">
+              <span class="dot" style="width: 20px; height: 20px"></span>
+              <span>
+                <span style="display: block; font-size: 17px">Code, with short leave</span>
+                <span style="display: block; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">The same allowance, opened by a printed code.</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">12 &nbsp;/&nbsp; Guided creation &mdash; step 2</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Back</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Step 2 of 4</h6>
+            <div>Skip</div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px">
+            <div style="height: 2px; background: var(--color-accent)"></div>
+            <div style="height: 2px; background: var(--color-accent)"></div>
+            <div style="height: 2px; background: var(--color-divider)"></div>
+            <div style="height: 2px; background: var(--color-divider)"></div>
+          </div>
+
+          <div style="margin-top: var(--space-6)">
+            <h6 style="margin: 0; color: var(--color-accent-700)">What is set aside</h6>
+            <h2 style="margin: var(--space-2) 0 0; font-size: 34px; line-height: 1.1">Name the apps that take the hour from you.</h2>
+            <div style="font-size: 15px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 62%, transparent); margin-top: var(--space-4)">Most people begin with three or four. You can widen the rule later, and a rule that is too wide is usually abandoned.</div>
+          </div>
+
+          <div class="card blueprint" style="padding: var(--space-6) var(--space-4); gap: 0; margin-top: var(--space-2)">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <div style="display: flex; align-items: baseline; gap: var(--space-3)">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 44px; line-height: 1">14</div>
+              <div style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 62%, transparent)">apps &middot; 3 categories chosen</div>
+            </div>
+            <div style="height: 1px; background: var(--color-divider); margin: var(--space-4) 0"></div>
+            <div style="font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700)">Change the selection</div>
+          </div>
+
+          <div style="flex: 1"></div>
+
+          <button class="btn btn-primary btn-block blueprint" style="padding: var(--space-4); font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            Continue
+          </button>
+        </div>
+      </x-import>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;endingMethod&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;NFC tag&quot;,&quot;QR code&quot;,&quot;Timer&quot;],&quot;default&quot;:&quot;NFC tag&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Rule&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.props.endingMethod ?? "NFC tag";
+    const paired = {
+      "NFC tag": ["Paired tag", "Oratory shelf"],
+      "QR code": ["Paired code", "Study door"],
+      "Timer": ["Length", "1h 30m"],
+    }[s] || ["Paired tag", "Oratory shelf"];
+    return {
+      isNfc: s === "NFC tag",
+      isQr: s === "QR code",
+      isTimer: s === "Timer",
+      pairedLabel: paired[0],
+      pairedValue: paired[1],
+    };
+  }
+}
+
+</script>
+</body>
+</html>
+

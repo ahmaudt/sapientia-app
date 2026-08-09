@@ -21,7 +21,7 @@
 		C8D73DCC2F7C155D0028E76A /* SapientiaShieldAction.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F0A200052F80000200000001 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A200042F80000200000001 /* NetworkExtension.framework */; };
 		F0A200062F80000200000001 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A200042F80000200000001 /* NetworkExtension.framework */; };
-		F0A200072F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F0A200072F80000200000001 /* com.artempleton.sapientia.mac.filter.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = F0A200022F80000200000001 /* com.artempleton.sapientia.mac.filter.systemextension */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F0A200122F80000200000001 /* SystemExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A200132F80000200000001 /* SystemExtensions.framework */; };
 		F0A300052F80000300000001 /* FilterRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300012F80000300000001 /* FilterRules.swift */; };
 		F0A300062F80000300000001 /* FilterRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A300012F80000300000001 /* FilterRules.swift */; };
@@ -110,7 +110,7 @@
 			dstPath = Contents/Library/SystemExtensions;
 			dstSubfolderSpec = 1;
 			files = (
-				F0A200072F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension in Embed System Extensions */,
+				F0A200072F80000200000001 /* com.artempleton.sapientia.mac.filter.systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,7 +132,7 @@
 		80FF388D2D80DB540032BC5E /* SapientiaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SapientiaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SapientiaShieldAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0A100022F80000100000001 /* Sapientia for Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sapientia for Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = dev.ambitionsoftware.sapientia.mac.filter.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A200022F80000200000001 /* com.artempleton.sapientia.mac.filter.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = com.artempleton.sapientia.mac.filter.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0A200042F80000200000001 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		F0A200132F80000200000001 /* SystemExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemExtensions.framework; path = System/Library/Frameworks/SystemExtensions.framework; sourceTree = SDKROOT; };
 		F0A300012F80000300000001 /* FilterRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRules.swift; sourceTree = "<group>"; };
@@ -478,7 +478,7 @@
 				808A3C4A2E4ACD18002A7812 /* SapientiaShieldConfig.appex */,
 				C8D73DC32F7C155C0028E76A /* SapientiaShieldAction.appex */,
 				F0A100022F80000100000001 /* Sapientia for Mac.app */,
-				F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */,
+				F0A200022F80000200000001 /* com.artempleton.sapientia.mac.filter.systemextension */,
 				F0C100032FA0000100000001 /* SapientiaMacTests.xctest */,
 			);
 			name = Products;
@@ -716,8 +716,8 @@
 			name = SapientiaFilter;
 			packageProductDependencies = (
 			);
-			productName = dev.ambitionsoftware.sapientia.mac.filter;
-			productReference = F0A200022F80000200000001 /* dev.ambitionsoftware.sapientia.mac.filter.systemextension */;
+			productName = com.artempleton.sapientia.mac.filter;
+			productReference = F0A200022F80000200000001 /* com.artempleton.sapientia.mac.filter.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 		F0C100082FA0000100000001 /* SapientiaMacTests */ = {
@@ -1020,7 +1020,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaDeviceMonitor/SapientiaDeviceMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaDeviceMonitor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaDeviceMonitor;
@@ -1032,7 +1032,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaDeviceMonitor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaDeviceMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1053,7 +1053,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaDeviceMonitor/SapientiaDeviceMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaDeviceMonitor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaDeviceMonitor;
@@ -1065,7 +1065,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaDeviceMonitor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaDeviceMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1200,8 +1200,8 @@
 		801B20BB2CB363A20073E9E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "sapientia-icon-blue sapientia-icon-cat sapientia-icon-original sapientia-icon-pop";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Paper AppIcon-Accent";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = sapientia/sapientia.entitlements;
@@ -1210,7 +1210,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"sapientia/Preview Content\"";
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1234,7 +1234,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1249,8 +1249,8 @@
 		801B20BC2CB363A20073E9E2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "sapientia-icon-blue sapientia-icon-cat sapientia-icon-original sapientia-icon-pop";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Paper AppIcon-Accent";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = sapientia/sapientia.entitlements;
@@ -1259,7 +1259,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"sapientia/Preview Content\"";
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1283,7 +1283,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1302,12 +1302,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 2.1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientiaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -1326,12 +1326,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 2.1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientiaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -1349,12 +1349,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 2.1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientiaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -1372,12 +1372,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 2.1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientiaUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientiaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -1395,7 +1395,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldConfig/SapientiaShieldConfig.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldConfig/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldConfig;
@@ -1407,7 +1407,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldConfig;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaShieldConfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1423,7 +1423,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldConfig/SapientiaShieldConfig.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldConfig/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldConfig;
@@ -1435,7 +1435,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldConfig;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaShieldConfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1454,7 +1454,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaWidget/SapientiaWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaWidget;
@@ -1466,7 +1466,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1484,7 +1484,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaWidget/SapientiaWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaWidget;
@@ -1496,7 +1496,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1513,7 +1513,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldAction/SapientiaShieldAction.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldAction/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldAction;
@@ -1525,7 +1525,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldAction;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaShieldAction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1541,7 +1541,7 @@
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldAction/SapientiaShieldAction.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldAction/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SapientiaShieldAction;
@@ -1553,7 +1553,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaShieldAction;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaShieldAction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1567,12 +1567,12 @@
 		F0A100072F80000100000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SapientiaMac/SapientiaMac.Debug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1584,7 +1584,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.mac;
 				PRODUCT_NAME = "Sapientia for Mac";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
@@ -1597,12 +1597,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F0B100052F90000100000001 /* MacRelease.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "sapientia-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SapientiaMac/SapientiaMac.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1612,7 +1612,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.mac;
 				PRODUCT_NAME = "Sapientia for Mac";
 				PROVISIONING_PROFILE_SPECIFIER = "Sapientia Mac Developer ID";
 				SDKROOT = macosx;
@@ -1631,7 +1631,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1643,7 +1643,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac.filter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.mac.filter;
 				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1661,7 +1661,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1672,7 +1672,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.mac.filter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.mac.filter;
 				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PROVISIONING_PROFILE_SPECIFIER = "Sapientia Filter Developer ID";
 				SDKROOT = macosx;
@@ -1691,10 +1691,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaMacTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaMacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
@@ -1709,10 +1709,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = YR54789JNV;
+				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.ambitionsoftware.sapientia.SapientiaMacTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artempleton.sapientia.SapientiaMacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;

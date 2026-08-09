@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/styles.css">
+<script src="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/_ds_bundle.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-neutral-200); }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<div style="padding: var(--space-8) calc(var(--space-8) * 1.8) calc(var(--space-8) * 3); display: flex; flex-direction: column; gap: calc(var(--space-8) * 1.6)">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-8); border-bottom: 1px solid var(--color-divider); padding-bottom: var(--space-6)">
+    <div>
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sapientia &mdash; iOS &mdash; system</h6>
+      <h1 style="margin: var(--space-1) 0 0">Data, diagnostics, about</h1>
+    </div>
+    <div style="max-width: 440px; font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">The three screens behind Settings. Debug keeps its density &mdash; it is a readout, and it should look like one &mdash; but it reads in the same monospaced ledger the export screen uses. The tip jar is gone.</div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: calc(var(--space-8) * 2) calc(var(--space-8) * 1.5)">
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">22 &nbsp;/&nbsp; Export</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Back</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Export</h6>
+            <div style="opacity: 0">Back</div>
+          </div>
+
+          <div style="font-size: 15px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 62%, transparent)">Everything Sapientia holds about you is on this phone. This writes it out as a file you keep.</div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">What is written</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Rules<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">3</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Sessions<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">148</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Paired tags &amp; codes<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">3</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Emergency unblocks<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 15px">7, with reasons</span></div>
+          </div>
+
+          <div class="field">
+            <label>Format</label>
+            <div class="seg" style="width: 100%">
+              <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="fmt" checked="{{ true }}">CSV</label>
+              <label class="seg-opt" style="flex: 1; justify-content: center; font-size: 16px; text-transform: uppercase; font-family: var(--font-heading)"><input type="radio" name="fmt">JSON</label>
+            </div>
+          </div>
+
+          <div class="card blueprint" style="padding: 0; gap: 0; overflow: hidden">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <div style="padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider)">
+              <h6 style="margin: 0; font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">sapientia-sessions.csv &mdash; first lines</h6>
+            </div>
+            <div style="padding: var(--space-3) var(--space-4); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 1.9; color: color-mix(in srgb, var(--color-text) 72%, transparent); white-space: pre; overflow: hidden">rule,started,ended,minutes,ended_by
+Deep Work,2026-08-07T09:14,12:20,186,tag
+Great Silence,2026-08-06T21:00,06:00,540,sched
+Deep Work,2026-08-06T08:40,09:52,72,emergency</div>
+          </div>
+
+          <div style="margin-top: auto; display: flex; flex-direction: column; gap: var(--space-3)">
+            <button class="btn btn-primary btn-block blueprint" style="padding: var(--space-4); font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              Write the file
+            </button>
+            <div style="text-align: center; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Nothing is uploaded. The file goes where you send it.</div>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">23 &nbsp;/&nbsp; Diagnostics</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Back</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Diagnostics</h6>
+            <div>Copy</div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Session</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">isBlocking<span class="tag tag-accent" style="font-size: 11px">true</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">activeProfile<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent)">Deep Work</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">strategy<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent)">NFCBlocking</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">elapsed<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent)">4324 s</span></div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Permissions</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">familyControls<span class="tag tag-accent" style="font-size: 11px">approved</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">notifications<span class="tag tag-accent" style="font-size: 11px">granted</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">nfcReadable<span class="tag tag-neutral" style="font-size: 11px">device only</span></div>
+          </div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Calendar</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">day<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent)">Fri &rarr; Trinity IX</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">collectSource<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent)">temporale</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace">feastNotices<span style="color: color-mix(in srgb, var(--color-text) 62%, transparent)">14 pending</span></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-3)">
+            <button class="btn btn-secondary btn-block" style="padding: var(--space-3); font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-700)">Reschedule feast notices</button>
+            <button class="btn btn-secondary btn-block" style="padding: var(--space-3); font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-700)">Clear stored shield state</button>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">24 &nbsp;/&nbsp; About</h6>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="min-height: 100%; background: var(--color-bg); padding: 50px var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6)">
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--color-accent-700)">
+            <div>Back</div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">About</h6>
+            <div style="opacity: 0">Back</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding: var(--space-6) 0">
+            <div style="width: 64px; height: 64px; border: 1px solid var(--color-text); position: relative">
+              <span style="position: absolute; inset: 0; margin: auto; width: 1px; height: 34px; background: var(--color-accent)"></span>
+              <span style="position: absolute; inset: 0; margin: auto; width: 34px; height: 1px; background: var(--color-accent)"></span>
+            </div>
+            <div style="text-align: center">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 34px; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1">Sapientia</div>
+              <h6 style="margin: var(--space-1) 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Version 3.0.0 &middot; build 214</h6>
+            </div>
+          </div>
+
+          <div style="font-size: 15px; line-height: 1.7; text-wrap: pretty">Built on foqos, which is open source, and kept open in turn. The Collects are of the Anglican patrimony and in the public domain; the calendar follows Divine Worship.</div>
+
+          <div>
+            <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider)">Elsewhere</h6>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Source code<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">github</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Where to buy tags<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">sapientia.app</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Report a fault<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">email</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-divider); font-size: 17px">Diagnostics<span style="color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 15px">&rsaquo;</span></div>
+          </div>
+
+          <div class="card blueprint" style="padding: var(--space-4); gap: 0">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <h4 style="margin: 0">Start again</h4>
+            <div style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent); margin-top: var(--space-1)">Deletes every rule, session and paired tag from this phone. Nothing is kept anywhere else, so nothing can be recovered.</div>
+            <button class="btn btn-secondary btn-block" style="padding: var(--space-3); font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-700); margin-top: var(--space-4)">Hold to erase</button>
+          </div>
+        </div>
+      </x-import>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+</body>
+</html>
+

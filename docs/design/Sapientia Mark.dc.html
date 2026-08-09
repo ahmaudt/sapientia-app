@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/styles.css">
+<script src="_ds/industry-f05aa267-e988-4c9a-8adb-01afd1c6080d/_ds_bundle.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-neutral-200); }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<div style="padding: var(--space-8) calc(var(--space-8) * 1.8) calc(var(--space-8) * 3); display: flex; flex-direction: column; gap: calc(var(--space-8) * 1.6); max-width: 1180px">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-8); border-bottom: 1px solid var(--color-divider); padding-bottom: var(--space-6)">
+    <div>
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Sapientia &mdash; identity</h6>
+      <h1 style="margin: var(--space-1) 0 0">The mark</h1>
+    </div>
+    <div style="max-width: 440px; font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">The medal of St. Benedict redrawn as a wireframe object: two hairline rings, a flared cross on the centre axes, and the four letters of <em>Crux Sancti Patris Benedicti</em> filling the quadrants. Nothing filled, nothing rounded.</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--space-8) * 1.5); align-items: start">
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+      <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">01 &nbsp;/&nbsp; Mark on the drawing board</h6>
+      <div class="card blueprint" style="padding: calc(var(--space-8) * 1.5); align-items: center; background: var(--color-bg)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <svg width="300" height="300" viewBox="0 0 200 200" role="img" aria-label="Sapientia mark">
+          <g stroke="var(--color-accent-200)" stroke-width="1" fill="none">
+            <circle cx="100" cy="100" r="96"></circle>
+            <line x1="4" y1="100" x2="196" y2="100"></line>
+            <line x1="100" y1="4" x2="100" y2="196"></line>
+          </g>
+          <g stroke="var(--color-text)" stroke-width="1.5" fill="none">
+            <circle cx="100" cy="100" r="88"></circle>
+            <circle cx="100" cy="100" r="80"></circle>
+          </g>
+          <path d="M 87 46 L 113 46 L 113 54 L 108 58 L 108 92 L 142 92 L 146 87 L 154 87 L 154 113 L 146 113 L 142 108 L 108 108 L 108 142 L 113 146 L 113 154 L 87 154 L 87 146 L 92 142 L 92 108 L 58 108 L 54 113 L 46 113 L 46 87 L 54 87 L 58 92 L 92 92 L 92 58 L 87 54 Z" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linejoin="miter"></path>
+          <g fill="var(--color-text)" font-family="var(--font-heading)" font-weight="600" font-size="24" text-anchor="middle">
+            <text x="66" y="76">C</text>
+            <text x="134" y="76">S</text>
+            <text x="66" y="142">P</text>
+            <text x="134" y="142">B</text>
+          </g>
+        </svg>
+      </div>
+      <div style="font-size: 13px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">Construction: the outer guide circle and the two axes are drawing aids, printed here in <code>--color-accent-200</code>. They are not part of the artwork.</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: calc(var(--space-8) * 1.2)">
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+        <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">02 &nbsp;/&nbsp; Primary lockup</h6>
+        <div class="card blueprint" style="padding: var(--space-8); gap: var(--space-6); background: var(--color-bg)">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div style="display: flex; align-items: center; gap: var(--space-6)">
+            <svg width="72" height="72" viewBox="0 0 200 200" role="img" aria-label="Sapientia">
+              <g stroke="var(--color-text)" stroke-width="4" fill="none">
+                <circle cx="100" cy="100" r="88"></circle>
+                <circle cx="100" cy="100" r="80"></circle>
+              </g>
+              <path d="M 87 46 L 113 46 L 113 54 L 108 58 L 108 92 L 142 92 L 146 87 L 154 87 L 154 113 L 146 113 L 142 108 L 108 108 L 108 142 L 113 146 L 113 154 L 87 154 L 87 146 L 92 142 L 92 108 L 58 108 L 54 113 L 46 113 L 46 87 L 54 87 L 58 92 L 92 92 L 92 58 L 87 54 Z" fill="none" stroke="var(--color-accent)" stroke-width="4"></path>
+              <g fill="var(--color-text)" font-family="var(--font-heading)" font-weight="600" font-size="22" text-anchor="middle">
+                <text x="68" y="76">C</text>
+                <text x="132" y="76">S</text>
+                <text x="68" y="140">P</text>
+                <text x="132" y="140">B</text>
+              </g>
+            </svg>
+            <div>
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 42px; line-height: 1; letter-spacing: 0.16em; text-transform: uppercase">Sapientia</div>
+              <div style="height: 1px; background: var(--color-divider); margin: var(--space-3) 0 var(--space-2)"></div>
+              <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Wisdom to perceive thee</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+        <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">03 &nbsp;/&nbsp; App icon</h6>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6)">
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-2)">
+            <div class="blueprint" style="aspect-ratio: 1; background: var(--color-accent-900); display: grid; place-items: center">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <svg width="76%" height="76%" viewBox="0 0 200 200" role="img" aria-label="Sapientia icon, steel field">
+                <g stroke="var(--color-bg)" stroke-width="5" fill="none">
+                  <circle cx="100" cy="100" r="88"></circle>
+                  <circle cx="100" cy="100" r="80"></circle>
+                </g>
+                <path d="M 87 46 L 113 46 L 113 54 L 108 58 L 108 92 L 142 92 L 146 87 L 154 87 L 154 113 L 146 113 L 142 108 L 108 108 L 108 142 L 113 146 L 113 154 L 87 154 L 87 146 L 92 142 L 92 108 L 58 108 L 54 113 L 46 113 L 46 87 L 54 87 L 58 92 L 92 92 L 92 58 L 87 54 Z" fill="none" stroke="var(--color-accent-300)" stroke-width="5"></path>
+                <g fill="var(--color-bg)" font-family="var(--font-heading)" font-weight="600" font-size="24" text-anchor="middle">
+                  <text x="66" y="76">C</text>
+                  <text x="134" y="76">S</text>
+                  <text x="66" y="142">P</text>
+                  <text x="134" y="142">B</text>
+                </g>
+              </svg>
+            </div>
+            <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Steel field &mdash; default</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-2)">
+            <div class="blueprint" style="aspect-ratio: 1; background: var(--color-bg); display: grid; place-items: center">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <svg width="76%" height="76%" viewBox="0 0 200 200" role="img" aria-label="Sapientia icon, paper">
+                <g stroke="var(--color-text)" stroke-width="5" fill="none">
+                  <circle cx="100" cy="100" r="88"></circle>
+                  <circle cx="100" cy="100" r="80"></circle>
+                </g>
+                <path d="M 87 46 L 113 46 L 113 54 L 108 58 L 108 92 L 142 92 L 146 87 L 154 87 L 154 113 L 146 113 L 142 108 L 108 108 L 108 142 L 113 146 L 113 154 L 87 154 L 87 146 L 92 142 L 92 108 L 58 108 L 54 113 L 46 113 L 46 87 L 54 87 L 58 92 L 92 92 L 92 58 L 87 54 Z" fill="none" stroke="var(--color-accent)" stroke-width="5"></path>
+                <g fill="var(--color-text)" font-family="var(--font-heading)" font-weight="600" font-size="24" text-anchor="middle">
+                  <text x="66" y="76">C</text>
+                  <text x="134" y="76">S</text>
+                  <text x="66" y="142">P</text>
+                  <text x="134" y="142">B</text>
+                </g>
+              </svg>
+            </div>
+            <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Paper</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-2)">
+            <div class="blueprint" style="aspect-ratio: 1; background: var(--color-accent); display: grid; place-items: center">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <svg width="76%" height="76%" viewBox="0 0 200 200" role="img" aria-label="Sapientia icon, accent">
+                <g stroke="var(--color-bg)" stroke-width="5" fill="none">
+                  <circle cx="100" cy="100" r="88"></circle>
+                  <circle cx="100" cy="100" r="80"></circle>
+                </g>
+                <path d="M 87 46 L 113 46 L 113 54 L 108 58 L 108 92 L 142 92 L 146 87 L 154 87 L 154 113 L 146 113 L 142 108 L 108 108 L 108 142 L 113 146 L 113 154 L 87 154 L 87 146 L 92 142 L 92 108 L 58 108 L 54 113 L 46 113 L 46 87 L 54 87 L 58 92 L 92 92 L 92 58 L 87 54 Z" fill="none" stroke="var(--color-accent-900)" stroke-width="5"></path>
+                <g fill="var(--color-bg)" font-family="var(--font-heading)" font-weight="600" font-size="24" text-anchor="middle">
+                  <text x="66" y="76">C</text>
+                  <text x="134" y="76">S</text>
+                  <text x="66" y="142">P</text>
+                  <text x="134" y="142">B</text>
+                </g>
+              </svg>
+            </div>
+            <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent)">Accent</div>
+          </div>
+
+        </div>
+        <div style="font-size: 13px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent)">Drawn on a square artboard; iOS applies its own corner mask at install. Same geometry as the large mark, with the construction guides dropped and the strokes weighted up to hold at small sizes.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+        <h6 style="margin: 0; color: color-mix(in srgb, var(--color-text) 55%, transparent)">04 &nbsp;/&nbsp; Small sizes</h6>
+        <div style="display: flex; align-items: flex-end; gap: var(--space-8); padding: var(--space-6); border: 1px solid var(--color-divider); background: var(--color-bg)">
+          <svg width="60" height="60" style="flex: none" viewBox="0 0 200 200" role="img" aria-label="Mark at 60px">
+            <g stroke="var(--color-text)" stroke-width="6" fill="none">
+              <circle cx="100" cy="100" r="88"></circle>
+              <circle cx="100" cy="100" r="80"></circle>
+            </g>
+            <path d="M 87 46 L 113 46 L 113 54 L 108 58 L 108 92 L 142 92 L 146 87 L 154 87 L 154 113 L 146 113 L 142 108 L 108 108 L 108 142 L 113 146 L 113 154 L 87 154 L 87 146 L 92 142 L 92 108 L 58 108 L 54 113 L 46 113 L 46 87 L 54 87 L 58 92 L 92 92 L 92 58 L 87 54 Z" fill="none" stroke="var(--color-accent)" stroke-width="6"></path>
+          </svg>
+          <svg width="36" height="36" style="flex: none" viewBox="0 0 200 200" role="img" aria-label="Mark at 36px">
+            <g stroke="var(--color-text)" stroke-width="9" fill="none">
+              <circle cx="100" cy="100" r="86"></circle>
+            </g>
+            <g stroke="var(--color-accent)" stroke-width="12" fill="none" stroke-linecap="square">
+              <line x1="100" y1="30" x2="100" y2="170"></line>
+              <line x1="30" y1="100" x2="170" y2="100"></line>
+            </g>
+          </svg>
+          <svg width="22" height="22" style="flex: none" viewBox="0 0 200 200" role="img" aria-label="Mark at 22px">
+            <g stroke="var(--color-text)" stroke-width="13" fill="none">
+              <circle cx="100" cy="100" r="83"></circle>
+            </g>
+            <g stroke="var(--color-accent)" stroke-width="17" fill="none" stroke-linecap="square">
+              <line x1="100" y1="26" x2="100" y2="174"></line>
+              <line x1="26" y1="100" x2="174" y2="100"></line>
+            </g>
+          </svg>
+          <div style="font-size: 13px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 62%, transparent); max-width: 240px">Below 60px the quadrant letters go, below 36px the flared cross and inner ring go with them. The cross in a circle is the irreducible mark.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+</body>
+</html>
+
