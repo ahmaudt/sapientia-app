@@ -57,7 +57,7 @@ struct ScanSessionView: View {
           .font(.sapientiaHeading(32))
           .kerning(1.2)
           .textCase(.uppercase)
-          .foregroundColor(SapientiaTheme.background)
+          .foregroundColor(SapientiaTheme.paper)
         if let caption {
           Text(caption)
             .font(.sapientiaBody(15))
@@ -93,7 +93,7 @@ struct ScanSessionView: View {
           .buttonStyle(
             BlueprintSecondaryButtonStyle(
               fontSize: 19,
-              foreground: SapientiaTheme.background,
+              foreground: SapientiaTheme.paper,
               borderColor: SapientiaTheme.onDark(0.45))
           )
           .frame(maxWidth: .infinity)

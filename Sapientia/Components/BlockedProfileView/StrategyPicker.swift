@@ -1,19 +1,17 @@
 import SwiftUI
 
+/// Screen 11 — How it ends. Grouped radio rows: each ending method shows its
+/// name and description inline, selected by a radio dot (per flow 11). The
+/// old two-step details sheet is gone; the description moved into the row.
 struct StrategyPicker: View {
-  @EnvironmentObject var themeManager: ThemeManager
-
   let strategies: [BlockingStrategy]
   @Binding var selectedStrategy: BlockingStrategy?
   @Binding var isPresented: Bool
 
-  @State private var strategyDetails: StrategyDetailsPresentation?
-
   private var sections: [StrategyPickerSection] {
-    return BlockingStrategyPickerCategory.allCases.compactMap { category in
+    BlockingStrategyPickerCategory.allCases.compactMap { category in
       let categoryStrategies = strategies.filter { $0.pickerCategory == category }
       guard !categoryStrategies.isEmpty else { return nil }
-
       return StrategyPickerSection(
         title: category.title,
         description: category.description,
@@ -23,52 +21,34 @@ struct StrategyPicker: View {
   }
 
   var body: some View {
-    NavigationStack {
-      ScrollView {
-        LazyVStack(alignment: .leading, spacing: 30) {
-          ForEach(sections) { section in
-            StrategyPickerHorizontalSection(
-              section: section,
-              selectedStrategyId: selectedStrategy?.getIdentifier(),
-              onSelect: { strategy in
-                strategyDetails = StrategyDetailsPresentation(strategy: strategy)
+    BlueprintStage(
+      title: "How it ends",
+      leadingLabel: "Cancel",
+      leadingAction: { isPresented = false },
+      trailingLabel: "Done",
+      trailingAction: { isPresented = false }
+    ) {
+      VStack(alignment: .leading, spacing: SapientiaTheme.space6) {
+        ForEach(sections) { section in
+          VStack(alignment: .leading, spacing: 0) {
+            SectionHeaderLabel(title: section.title)
+            ForEach(section.strategies.indices, id: \.self) { index in
+              let strategy = section.strategies[index]
+              SapientiaRadioRow(
+                title: strategy.name,
+                subtitle: strategy.description,
+                isSelected: selectedStrategy?.getIdentifier() == strategy.getIdentifier()
+              ) {
+                selectedStrategy = strategy
+                isPresented = false
               }
-            )
+              Rectangle().fill(SapientiaTheme.divider).frame(height: 1)
+            }
           }
         }
-        .padding(.vertical, 18)
-      }
-      .background(Color(.systemGroupedBackground))
-      .navigationTitle("Blocking Strategy")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button {
-            isPresented = false
-          } label: {
-            Image(systemName: "checkmark")
-          }
-          .accessibilityLabel("Done")
-        }
-      }
-      .sheet(item: $strategyDetails) { details in
-        StrategyDetailsSheet(
-          strategy: details.strategy,
-          isSelected: selectedStrategy?.getIdentifier() == details.id,
-          onCancel: {
-            strategyDetails = nil
-          },
-          onSelect: {
-            selectedStrategy = details.strategy
-            strategyDetails = nil
-            isPresented = false
-          }
-        )
-        .presentationDetents([.medium, .large])
       }
     }
   }
-
 }
 
 #Preview {
@@ -76,19 +56,8 @@ struct StrategyPicker: View {
   @Previewable @State var isPresented = true
 
   StrategyPicker(
-    strategies: [
-      NFCBlockingStrategy(),
-      QRCodeBlockingStrategy(),
-      ManualBlockingStrategy(),
-      NFCManualBlockingStrategy(),
-      QRManualBlockingStrategy(),
-      NFCTimerBlockingStrategy(),
-      QRTimerBlockingStrategy(),
-      NFCPauseTimerBlockingStrategy(),
-      QRPauseTimerBlockingStrategy(),
-    ],
+    strategies: StrategyManager.availableStrategies,
     selectedStrategy: $selectedStrategy,
     isPresented: $isPresented
   )
-  .environmentObject(ThemeManager())
 }

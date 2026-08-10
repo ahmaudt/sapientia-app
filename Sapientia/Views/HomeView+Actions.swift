@@ -96,9 +96,6 @@ extension HomeView {
           }
         )
       }
-      .sheet(isPresented: $showDonationView) {
-        SupportView()
-      }
       .sheet(isPresented: $showSettingsView) {
         SettingsView()
       }

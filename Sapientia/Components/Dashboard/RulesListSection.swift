@@ -58,7 +58,7 @@ struct RulesListSection: View {
           .buttonStyle(
             BlueprintSecondaryButtonStyle(
               fontSize: 14,
-              foreground: isActive ? SapientiaTheme.background : SapientiaTheme.accent700)
+              foreground: isActive ? SapientiaTheme.paper : SapientiaTheme.accent700)
           )
           .background(isActive ? SapientiaTheme.accent : Color.clear)
           .textCase(.uppercase)

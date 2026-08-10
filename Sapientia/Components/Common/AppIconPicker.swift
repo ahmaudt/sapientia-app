@@ -14,7 +14,7 @@ struct AppIconPicker: View {
   )
 
   var body: some View {
-    Section("App Icon") {
+    BlueprintFormSection(title: "App icon") {
       LazyVGrid(columns: columns, spacing: 12) {
         ForEach(AppIconOption.allCases) { icon in
           Button {
@@ -23,27 +23,17 @@ struct AppIconPicker: View {
             VStack(spacing: 8) {
               icon.preview
                 .frame(width: 64, height: 64)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .overlay {
-                  RoundedRectangle(cornerRadius: 14, style: .continuous)
+                  Rectangle()
                     .stroke(
-                      isSelected(icon) ? selectionColor : .clear,
-                      lineWidth: 3
+                      isSelected(icon) ? selectionColor : SapientiaTheme.divider,
+                      lineWidth: isSelected(icon) ? 2 : 1
                     )
-                }
-                .overlay(alignment: .topTrailing) {
-                  if isSelected(icon) {
-                    Image(systemName: "checkmark.circle.fill")
-                      .symbolRenderingMode(.palette)
-                      .foregroundStyle(.white, selectionColor)
-                      .background(Circle().fill(.background))
-                      .offset(x: 6, y: -6)
-                  }
                 }
 
               Text(icon.displayName)
                 .font(.caption)
-                .foregroundStyle(.primary)
+                .foregroundColor(SapientiaTheme.text)
                 .lineLimit(1)
             }
             .frame(maxWidth: .infinity)
@@ -60,7 +50,7 @@ struct AppIconPicker: View {
       if !UIApplication.shared.supportsAlternateIcons {
         Text("Alternate app icons are not available on this device.")
           .font(.caption)
-          .foregroundStyle(.secondary)
+          .foregroundColor(SapientiaTheme.text.opacity(0.55))
       }
     }
     .alert("Unable to Change App Icon", isPresented: $showError) {
@@ -139,12 +129,12 @@ private enum AppIconOption: String, CaseIterable, Identifiable {
       SapientiaMark.paper(showLetters: false)
         .padding(14)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SapientiaTheme.background)
+        .background(SapientiaTheme.paper)
     case .accent:
       SapientiaMark(
-        ringColor: SapientiaTheme.background,
+        ringColor: SapientiaTheme.paper,
         crossColor: SapientiaTheme.accent900,
-        letterColor: SapientiaTheme.background,
+        letterColor: SapientiaTheme.paper,
         showLetters: false
       )
       .padding(14)

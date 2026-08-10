@@ -1,8 +1,16 @@
 import SwiftUI
 
+/// Screen 09 — Websites. A BlueprintStage framing an add-field and a ruled
+/// list of blocked domains. The domain add/remove logic is unchanged; only
+/// the layout and (full-screen) presentation moved off the grouped Form.
+///
+/// STAGE RECIPE (reference for the other Setup pickers):
+///   1. The picker's own body = `BlueprintStage(title:leading:trailing:) { … }`
+///      — no NavigationStack/Form/toolbar of its own.
+///   2. Both presenters (`BlockedProfileView`, `GuidedBlockedProfileCreationView`)
+///      present it via `.fullScreenCover(isPresented:)`, not `.sheet`.
+///   3. Dismiss with `isPresented = false` (works under fullScreenCover).
 struct DomainPicker: View {
-  @EnvironmentObject var themeManager: ThemeManager
-
   @Binding var domains: [String]
   @Binding var isPresented: Bool
 
@@ -12,160 +20,97 @@ struct DomainPicker: View {
   @State private var showingError: Bool = false
   @State private var errorMessage: String = ""
 
-  private let maxDomains = 50
-
-  private var message: String {
-    return allowMode
-      ? "Apple limits this to 50 domains. Add domains that you want to remain accessible during sessions."
-      : "Apple limits this to 50 domains. Add domains that you want to restrict during sessions."
+  private var subtitle: String {
+    "Websites are held by the on-device filter. Sub-domains are covered; the address itself never leaves the phone."
   }
 
   var body: some View {
-    NavigationStack {
-      Form {
-        Section {
-          HStack {
-            TextField("Enter domain (e.g., example.com)", text: $newDomain)
-              .autocapitalization(.none)
-              .keyboardType(.URL)
-              .textContentType(.URL)
-              .onSubmit {
-                addDomain()
-              }
-
-            Button(action: addDomain) {
-              Image(systemName: "plus.circle.fill")
-                .foregroundStyle(themeManager.themeColor)
-                .font(.title2)
-            }
-            .disabled(newDomain.isEmpty || domains.count >= maxDomains)
-          }
-        } header: {
-          Text("Add Domain")
-        } footer: {
-          Text(
-            "Enter a domain (e.g., reddit.com, facebook.com, instagram.com). This will also \(allowMode ? "allow" : "block") all subpaths (e.g., reddit.com/r/popular) automatically."
-          )
-          .font(.caption)
-        }
-
-        Section {
-          ForEach(domains, id: \.self) { domain in
-            Text(domain)
-              .font(.subheadline)
-          }
-          .onDelete(perform: deleteDomains)
-
-          if domains.isEmpty {
-            Text("No domains added")
-              .foregroundStyle(.secondary)
-              .font(.subheadline)
-          }
-        } header: {
-          HStack {
-            Text(allowMode ? "Allowed Domains" : "Blocked Domains")
-            Spacer()
-            Text("\(domains.count)/\(maxDomains)")
-              .foregroundStyle(.secondary)
-          }
-        } footer: {
-          VStack(alignment: .leading, spacing: 4) {
-            Text(message)
-              .font(.caption)
-
-            if domains.count >= maxDomains {
-              Text("⚠️ Maximum of 50 domains reached (Apple's limit)")
-                .font(.caption)
-                .foregroundStyle(.orange)
-            }
-          }
-        }
+    BlueprintStage(
+      title: "Websites",
+      leadingLabel: "Cancel",
+      leadingAction: { isPresented = false },
+      trailingLabel: "Done",
+      trailingAction: { isPresented = false }
+    ) {
+      VStack(alignment: .leading, spacing: SapientiaTheme.space6) {
+        addField
+        list
+        Text(subtitle)
+          .font(.sapientiaBody(13))
+          .lineSpacing(3)
+          .foregroundColor(SapientiaTheme.text.opacity(0.62))
       }
-      .navigationTitle(allowMode ? "Allow Domains" : "Block Domains")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button(action: { isPresented = false }) {
-            Image(systemName: "checkmark")
-          }
-          .accessibilityLabel("Done")
-        }
+    }
+    .alert("Error", isPresented: $showingError) {
+      Button("OK") {}
+    } message: {
+      Text(errorMessage)
+    }
+  }
+
+  private var addField: some View {
+    VStack(alignment: .leading, spacing: SapientiaTheme.space3) {
+      SectionHeaderLabel(title: "Add a domain")
+      HStack(spacing: SapientiaTheme.space3) {
+        TextField("news.example.com", text: $newDomain)
+          .font(.sapientiaBody(17))
+          .autocapitalization(.none)
+          .keyboardType(.URL)
+          .textContentType(.URL)
+          .onSubmit { addDomain() }
+        Button("Add") { addDomain() }
+          .buttonStyle(BlueprintSecondaryButtonStyle())
+          .disabled(newDomain.isEmpty || domains.count >= DomainValidation.maxDomains)
       }
-      .alert("Error", isPresented: $showingError) {
-        Button("OK") {}
-      } message: {
-        Text(errorMessage)
+      .padding(.bottom, SapientiaTheme.space2)
+    }
+  }
+
+  private var list: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      SectionHeaderLabel(
+        title: (allowMode ? "Allowed" : "Blocked") + " — \(domains.count)")
+      if domains.isEmpty {
+        Text("No websites yet")
+          .font(.sapientiaBody(15))
+          .foregroundColor(SapientiaTheme.text.opacity(0.55))
+          .padding(.vertical, SapientiaTheme.space4)
+      } else {
+        ForEach(domains, id: \.self) { domain in
+          BlueprintListRow(title: domain) {
+            BlueprintRowAction(label: "Remove") { remove(domain) }
+          }
+        }
       }
     }
   }
 
   private func addDomain() {
-    let trimmedDomain = newDomain.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-
-    guard !trimmedDomain.isEmpty else {
-      showError("Please enter a domain")
-      return
+    let trimmed = DomainValidation.normalize(newDomain)
+    guard !trimmed.isEmpty else { return showError("Please enter a domain") }
+    guard domains.count < DomainValidation.maxDomains else {
+      return showError("Maximum of \(DomainValidation.maxDomains) domains reached")
     }
-
-    guard domains.count < maxDomains else {
-      showError("Maximum number of domains (\(maxDomains)) reached")
-      return
+    guard !domains.contains(trimmed) else { return showError("Domain already exists") }
+    guard DomainValidation.isValid(trimmed) else {
+      return showError(
+        "Enter a valid domain without https:// or www. (e.g., reddit.com)")
     }
-
-    guard !domains.contains(trimmedDomain) else {
-      showError("Domain already exists")
-      return
-    }
-
-    guard isValidDomain(trimmedDomain) else {
-      showError(
-        "Enter a valid domain without https:// or www. (e.g., google.com, reddit.com, facebook.com)"
-      )
-      return
-    }
-
-    domains.append(trimmedDomain)
+    domains.append(trimmed)
     newDomain = ""
   }
 
-  private func deleteDomains(at offsets: IndexSet) {
-    domains.remove(atOffsets: offsets)
+  private func remove(_ domain: String) {
+    domains.removeAll { $0 == domain }
   }
 
   private func showError(_ message: String) {
     errorMessage = message
     showingError = true
   }
-
-  private func isValidDomain(_ domain: String) -> Bool {
-    // Basic domain validation
-    let domainRegex =
-      #"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"#
-    let predicate = NSPredicate(format: "SELF MATCHES %@", domainRegex)
-
-    // Additional checks
-    guard domain.count <= 253 else { return false }  // Max domain length
-    guard !domain.hasPrefix(".") && !domain.hasSuffix(".") else { return false }
-    guard !domain.contains("..") else { return false }  // No consecutive dots
-    guard domain.contains(".") else { return false }  // Must have at least one dot
-
-    return predicate.evaluate(with: domain)
-  }
 }
 
 #Preview {
-  @Previewable @State var domains: [String] = ["example.com", "test.org"]
-
-  VStack(spacing: 20) {
-    DomainPicker(
-      domains: $domains,
-      isPresented: .constant(true)
-    )
-
-    DomainPicker(
-      domains: $domains,
-      isPresented: .constant(true),
-      allowMode: true
-    )
-  }
+  @Previewable @State var domains: [String] = ["reddit.com", "x.com", "youtube.com"]
+  DomainPicker(domains: $domains, isPresented: .constant(true))
 }

@@ -14,54 +14,35 @@ struct AlertIdentifier: Identifiable {
   var errorMessage: String?
 }
 
+/// Screen 07 — the rule editor. A `BlueprintStage` of ruled sections; every
+/// Foqos option is kept, only its presentation changed. Sheet/cover/alert
+/// modifiers live in `BlockedProfileView+Presentation.swift`.
 struct BlockedProfileView: View {
-  @Environment(\.modelContext) private var modelContext
-  @Environment(\.dismiss) private var dismiss
+  @Environment(\.modelContext) var modelContext
+  @Environment(\.dismiss) var dismiss
 
-  @EnvironmentObject private var nfcWriter: NFCWriter
-  @EnvironmentObject private var strategyManager: StrategyManager
+  @EnvironmentObject var nfcWriter: NFCWriter
+  @EnvironmentObject var strategyManager: StrategyManager
 
   // If profile is nil, we're creating a new profile
   var profile: BlockedProfiles?
 
-  @StateObject private var draft: BlockedProfileDraft
+  @StateObject var draft: BlockedProfileDraft
 
-  // QR code generator
-  @State private var showingGeneratedQRCode = false
+  @State var showingGeneratedQRCode = false
+  @State var showingActivityPicker = false
+  @State var showingDomainPicker = false
+  @State var showingSchedulePicker = false
+  @State var showingStrategyPicker = false
+  @State var alertIdentifier: AlertIdentifier?
+  @State var pendingNFCWriteURL: String?
+  @State var showingStrictNFCWriteWarning = false
+  @State var showingClonePrompt = false
+  @State var cloneName: String = ""
+  @State var showingInsights = false
 
-  // Sheet for activity picker
-  @State private var showingActivityPicker = false
-
-  // Sheet for domain picker
-  @State private var showingDomainPicker = false
-
-  // Sheet for schedule picker
-  @State private var showingSchedulePicker = false
-
-  // Sheet for strategy picker
-  @State private var showingStrategyPicker = false
-
-  // Alert management
-  @State private var alertIdentifier: AlertIdentifier?
-
-  // NFC write URL storage for overwrite warning
-  @State private var pendingNFCWriteURL: String?
-  @State private var showingStrictNFCWriteWarning = false
-
-  // Alert for cloning
-  @State private var showingClonePrompt = false
-  @State private var cloneName: String = ""
-
-  // Sheet for insights modal
-  @State private var showingInsights = false
-
-  private var isEditing: Bool {
-    profile != nil
-  }
-
-  private var isBlocking: Bool {
-    strategyManager.activeSession?.isActive ?? false
-  }
+  var isEditing: Bool { profile != nil }
+  var isBlocking: Bool { strategyManager.activeSession?.isActive ?? false }
 
   init(profile: BlockedProfiles? = nil) {
     self.profile = profile
@@ -69,289 +50,89 @@ struct BlockedProfileView: View {
   }
 
   var body: some View {
-    NavigationStack {
-      Form {
-        // Show lock status when profile is active
-        if isBlocking {
-          Section {
-            HStack {
-              Image(systemName: "lock.fill")
-                .font(.title2)
-                .foregroundColor(.orange)
-              Text("A session is active. Stop it before editing this profile.")
-                .font(.subheadline)
-                .foregroundColor(.red)
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, 4)
-          }
-        }
+    blockedProfilePresentations(stage)
+  }
+
+  private var stage: some View {
+    BlueprintStage(
+      title: draft.name.isEmpty ? (isEditing ? "Edit rule" : "New session") : draft.name,
+      leadingLabel: "Cancel",
+      leadingAction: { dismiss() },
+      trailingLabel: (isEditing && !isBlocking) ? "Save" : nil,
+      trailingAction: { saveProfile() }
+    ) {
+      VStack(alignment: .leading, spacing: SapientiaTheme.space6) {
+        if isBlocking { activeNotice }
 
         BlockedProfileNameSection(draft: draft, disabled: false)
-
-        BlockedProfileStrategySection(
-          draft: draft,
-          showingStrategyPicker: $showingStrategyPicker,
-          disabled: isBlocking
-        )
-
         BlockedProfileAppsSection(
-          draft: draft,
-          showingActivityPicker: $showingActivityPicker,
-          disabled: isBlocking
-        )
-
+          draft: draft, showingActivityPicker: $showingActivityPicker, disabled: isBlocking)
         BlockedProfileDomainsSection(
-          draft: draft,
-          showingDomainPicker: $showingDomainPicker,
-          disabled: isBlocking
-        )
-
+          draft: draft, showingDomainPicker: $showingDomainPicker, disabled: isBlocking)
+        BlockedProfileStrategySection(
+          draft: draft, showingStrategyPicker: $showingStrategyPicker, disabled: isBlocking)
         BlockedProfileStrictUnlocksSection(draft: draft, disabled: isBlocking)
-
         BlockedProfileScheduleSection(
-          draft: draft,
-          showingSchedulePicker: $showingSchedulePicker,
-          disabled: isBlocking
-        )
-
+          draft: draft, showingSchedulePicker: $showingSchedulePicker, disabled: isBlocking)
         BlockedProfileBreaksSection(draft: draft, disabled: isBlocking)
-
         BlockedProfileStrictSafeguardsSection(draft: draft, disabled: isBlocking)
-
         BlockedProfileSessionSafeguardsSection(draft: draft, disabled: isBlocking)
+        BlockedProfileNotificationsSection(draft: draft, profile: profile, disabled: isBlocking)
 
-        BlockedProfileNotificationsSection(
-          draft: draft,
-          profile: profile,
-          disabled: isBlocking
-        )
-
-        if !isBlocking {
-          Section {
-            Button(primaryCTATitle) {
-              isEditing ? saveProfile() : saveAndBegin()
-            }
-            .buttonStyle(BlueprintPrimaryButtonStyle())
-            .disabled(!draft.isValid)
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-          }
-        }
-
+        if isEditing && !isBlocking { editActions }
       }
-      .navigationTitle(isEditing ? "Edit Rule" : "New Session")
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button(action: { dismiss() }) {
-            Image(systemName: "xmark")
-          }
-          .accessibilityLabel("Cancel")
-        }
-
-        if isEditing, let validProfile = profile {
-          ToolbarItemGroup(placement: .topBarTrailing) {
-            if !isBlocking {
-              Menu {
-                Button {
-                  writeProfile()
-                } label: {
-                  Label("Write to NFC Tag", systemImage: "tag")
-                }
-
-                Button {
-                  showingGeneratedQRCode = true
-                } label: {
-                  Label("Generate QR code", systemImage: "qrcode")
-                }
-
-                Button {
-                  cloneName = validProfile.name + " Copy"
-                  showingClonePrompt = true
-                } label: {
-                  Label("Duplicate Profile", systemImage: "square.on.square")
-                }
-
-                Divider()
-
-                Button(role: .destructive) {
-                  alertIdentifier = AlertIdentifier(id: .deleteProfile)
-                } label: {
-                  Label("Delete Profile", systemImage: "trash")
-                }
-              } label: {
-                Image(systemName: "ellipsis.circle")
-              }
-              .accessibilityLabel("Profile Actions")
-            }
-
-            Button(action: { showingInsights = true }) {
-              Image(systemName: "chart.line.uptrend.xyaxis")
-            }
-            .accessibilityLabel("View Insights")
-          }
-        }
-
-        if #available(iOS 26.0, *) {
-          ToolbarSpacer(.flexible, placement: .topBarTrailing)
-        }
-
-        if !isBlocking {
-          ToolbarItem(placement: .topBarTrailing) {
-            Button(action: { saveProfile() }) {
-              Image(systemName: "checkmark")
-            }
-            .disabled(!draft.isValid)
-            .accessibilityLabel(isEditing ? "Update" : "Create")
-          }
-        }
-      }
-      .sheet(isPresented: $showingActivityPicker) {
-        AppPicker(
-          selection: $draft.selectedActivity,
-          isPresented: $showingActivityPicker,
-          allowMode: draft.enableAllowMode
-        )
-      }
-      .sheet(isPresented: $showingDomainPicker) {
-        DomainPicker(
-          domains: $draft.domains,
-          isPresented: $showingDomainPicker,
-          allowMode: draft.enableAllowModeDomain
-        )
-      }
-      .sheet(isPresented: $showingSchedulePicker) {
-        SchedulePicker(
-          schedule: $draft.schedule,
-          isPresented: $showingSchedulePicker
-        )
-      }
-      .sheet(isPresented: $showingStrategyPicker) {
-        StrategyPicker(
-          strategies: StrategyManager.availableStrategies,
-          selectedStrategy: $draft.selectedStrategy,
-          isPresented: $showingStrategyPicker
-        )
-      }
-      .sheet(isPresented: $showingGeneratedQRCode) {
-        if let profileToWrite = profile {
-          let url = BlockedProfiles.getProfileDeepLink(profileToWrite)
-          QRCodeView(
-            url: url,
-            profileName: profileToWrite
-              .name
-          )
-        }
-      }
-      .sheet(isPresented: $showingInsights) {
-        if let validProfile = profile {
-          ProfileInsightsView(profile: validProfile)
-        }
-      }
-      .sheet(isPresented: $showingStrictNFCWriteWarning) {
-        StrictNFCWriteWarningView(
-          profileName: profile?.name ?? "this profile",
-          onCancel: {
-            pendingNFCWriteURL = nil
-            showingStrictNFCWriteWarning = false
-          },
-          onContinue: {
-            continuePendingNFCWrite()
-          }
-        )
-        .presentationDetents([.height(520), .large])
-        .presentationDragIndicator(.visible)
-      }
-      .background(
-        TextFieldAlert(
-          isPresented: $showingClonePrompt,
-          title: "Duplicate Profile",
-          message: nil,
-          text: $cloneName,
-          placeholder: "Profile Name",
-          confirmTitle: "Create",
-          cancelTitle: "Cancel",
-          onConfirm: { enteredName in
-            let trimmed = enteredName.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmed.isEmpty else { return }
-            do {
-              if let source = profile {
-                let clonedProfile = try BlockedProfiles.cloneProfile(
-                  source, in: modelContext, newName: trimmed)
-                DeviceActivityCenterUtil.scheduleTimerActivity(for: clonedProfile)
-              }
-            } catch {
-              showError(message: error.localizedDescription)
-            }
-          }
-        )
-      )
-      .alert(item: $alertIdentifier) { alert in
-        switch alert.id {
-        case .error:
-          return Alert(
-            title: Text("Error"),
-            message: Text(alert.errorMessage ?? "An unknown error occurred"),
-            dismissButton: .default(Text("OK"))
-          )
-        case .deleteProfile:
-          return Alert(
-            title: Text("Delete Profile"),
-            message: Text(
-              "Are you sure you want to delete this profile? This action cannot be undone."),
-            primaryButton: .cancel(),
-            secondaryButton: .destructive(Text("Delete")) {
-              dismiss()
-              if let profileToDelete = profile {
-                do {
-                  try BlockedProfiles.deleteProfile(profileToDelete, in: modelContext)
-                } catch {
-                  showError(message: error.localizedDescription)
-                }
-              }
-            }
-          )
-        }
+    } bottom: {
+      if !isBlocking && !isEditing {
+        Button(primaryCTATitle) { saveAndBegin() }
+          .buttonStyle(BlueprintPrimaryButtonStyle())
+          .disabled(!draft.isValid)
       }
     }
   }
 
-  private func showError(message: String) {
-    alertIdentifier = AlertIdentifier(id: .error, errorMessage: message)
-  }
-
-  private func writeProfile() {
-    if let profileToWrite = profile {
-      let url = BlockedProfiles.getProfileDeepLink(profileToWrite)
-
-      if shouldWarnBeforeNFCWrite(for: profileToWrite) {
-        pendingNFCWriteURL = url
-        showingStrictNFCWriteWarning = true
-      } else {
-        nfcWriter.writeURL(url)
+  private var activeNotice: some View {
+    BlueprintCard {
+      VStack(alignment: .leading, spacing: 4) {
+        Text("A session is active")
+          .font(.sapientiaHeading(17))
+          .foregroundColor(SapientiaTheme.text)
+        Text("Stop it before editing this rule.")
+          .font(.sapientiaBody(13))
+          .foregroundColor(SapientiaTheme.text.opacity(0.62))
       }
     }
   }
 
-  private func shouldWarnBeforeNFCWrite(for profile: BlockedProfiles) -> Bool {
-    return profile.hasPhysicalUnblockItem(ofType: .nfc)
+  @ViewBuilder
+  private var editActions: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      SectionHeaderLabel(title: "This rule")
+      BlueprintListRow(title: "Write to an NFC tag", onTap: { writeProfile() }) {
+        BlueprintRowValue(value: "Tag")
+      }
+      BlueprintListRow(title: "Generate a QR code", onTap: { showingGeneratedQRCode = true }) {
+        BlueprintRowValue(value: "Code")
+      }
+      BlueprintListRow(
+        title: "Duplicate",
+        onTap: {
+          cloneName = (profile?.name ?? "Rule") + " Copy"
+          showingClonePrompt = true
+        }
+      ) { BlueprintRowValue(value: "Copy") }
+      BlueprintListRow(title: "Observance", onTap: { showingInsights = true }) {
+        BlueprintRowValue(value: "Record")
+      }
+      Button("Delete this rule") {
+        alertIdentifier = AlertIdentifier(id: .deleteProfile)
+      }
+      .font(.sapientiaBody(15))
+      .foregroundColor(SapientiaTheme.accent700)
+      .padding(.vertical, SapientiaTheme.space4)
+    }
   }
 
-  private func continuePendingNFCWrite() {
-    guard let url = pendingNFCWriteURL else {
-      showingStrictNFCWriteWarning = false
-      return
-    }
-
-    pendingNFCWriteURL = nil
-    showingStrictNFCWriteWarning = false
-
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-      nfcWriter.writeURL(url)
-    }
-  }
-
-  private var primaryCTATitle: String {
+  var primaryCTATitle: String {
     if isEditing { return "Save" }
     switch draft.strategyFamily {
     case .nfc: return "Begin — tap your tag"
@@ -360,7 +141,7 @@ struct BlockedProfileView: View {
     }
   }
 
-  private func saveProfile() {
+  func saveProfile() {
     do {
       _ = try draft.save(existingProfile: profile, in: modelContext)
       dismiss()
@@ -371,36 +152,52 @@ struct BlockedProfileView: View {
 
   /// Create-mode CTA: persist the profile, dismiss, and immediately start
   /// the session (leading into the scan stage for NFC/QR strategies).
-  private func saveAndBegin() {
+  func saveAndBegin() {
     do {
       let savedProfile = try draft.save(existingProfile: profile, in: modelContext)
       dismiss()
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-        strategyManager.toggleBlocking(
-          context: modelContext, activeProfile: savedProfile)
+        strategyManager.toggleBlocking(context: modelContext, activeProfile: savedProfile)
       }
     } catch {
       alertIdentifier = AlertIdentifier(id: .error, errorMessage: error.localizedDescription)
     }
   }
+
+  func showError(message: String) {
+    alertIdentifier = AlertIdentifier(id: .error, errorMessage: message)
+  }
+
+  func writeProfile() {
+    guard let profileToWrite = profile else { return }
+    let url = BlockedProfiles.getProfileDeepLink(profileToWrite)
+    if shouldWarnBeforeNFCWrite(for: profileToWrite) {
+      pendingNFCWriteURL = url
+      showingStrictNFCWriteWarning = true
+    } else {
+      nfcWriter.writeURL(url)
+    }
+  }
+
+  func shouldWarnBeforeNFCWrite(for profile: BlockedProfiles) -> Bool {
+    profile.hasPhysicalUnblockItem(ofType: .nfc)
+  }
+
+  func continuePendingNFCWrite() {
+    guard let url = pendingNFCWriteURL else {
+      showingStrictNFCWriteWarning = false
+      return
+    }
+    pendingNFCWriteURL = nil
+    showingStrictNFCWriteWarning = false
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+      nfcWriter.writeURL(url)
+    }
+  }
 }
 
-// Preview provider for SwiftUI previews
 #Preview {
   BlockedProfileView()
-    .environmentObject(NFCWriter())
-    .environmentObject(StrategyManager())
-    .modelContainer(for: BlockedProfiles.self, inMemory: true)
-}
-
-#Preview {
-  let previewProfile = BlockedProfiles(
-    name: "test",
-    selectedActivity: FamilyActivitySelection(),
-    reminderTimeInSeconds: 60
-  )
-
-  BlockedProfileView(profile: previewProfile)
     .environmentObject(NFCWriter())
     .environmentObject(StrategyManager())
     .modelContainer(for: BlockedProfiles.self, inMemory: true)

@@ -64,176 +64,108 @@ struct SchedulePicker: View {
   }
 
   var body: some View {
-    NavigationStack {
-      Form {
-        Section {
-          VStack(alignment: .leading, spacing: 12) {
-            HStack {
-              Spacer()
-              Image(systemName: "calendar.badge.clock")
-                .font(.largeTitle)
-                .foregroundStyle(.secondary)
-              Spacer()
-            }
-            .padding(.vertical, 12)
-
-            Text(
-              "Choose when this profile starts and ends. To end early, use the strategy you set up earlier. The schedule must be at least 1 hour long."
-            )
-            .font(.subheadline)
-            .foregroundStyle(.primary)
-            .multilineTextAlignment(.center)
-
-            if let message = nextStartMessage {
-              HStack(spacing: 8) {
-                Image(systemName: "info.circle")
-                  .foregroundStyle(.secondary)
-                  .font(.subheadline)
-
-                Text(message)
-                  .font(.subheadline)
-                  .foregroundStyle(.secondary)
-              }
-              .frame(maxWidth: .infinity, alignment: .center)
-              .padding(.vertical, 4)
-            }
-          }
-          .padding(.horizontal, 8)
-        }
-
-        Section {
-          HStack(spacing: 12) {
-            ForEach(Weekday.allCases, id: \.rawValue) { day in
-              let isSelected = selectedDays.contains(day)
-              Button(action: {
-                if isSelected {
-                  selectedDays.removeAll { $0 == day }
-                } else {
-                  selectedDays.append(day)
-                }
-
-                // Hide time pickers when no days are selected
-                if selectedDays.isEmpty {
-                  showStartPicker = false
-                  showEndPicker = false
-                }
-              }) {
-                Text(shortLabel(for: day))
-                  .font(.subheadline)
-                  .fontWeight(.semibold)
-                  .frame(width: 40, height: 40)
-                  .background(isSelected ? themeManager.themeColor : Color.clear)
-                  .foregroundStyle(isSelected ? Color.white : Color.primary)
-                  .overlay(
-                    Circle()
-                      .stroke(isSelected ? themeManager.themeColor : Color.secondary, lineWidth: 1)
-                  )
-                  .clipShape(Circle())
-                  .accessibilityLabel(day.name)
-                  .accessibilityAddTraits(isSelected ? .isSelected : [])
-              }
-              .buttonStyle(.plain)
-            }
-          }
-          .frame(maxWidth: .infinity, alignment: .center)
-        } header: {
-          Text("Days")
-        } footer: {
-          if !selectedDays.isEmpty {
-            Text("Schedules take 15 minutes to update")
-              .font(.caption)
-              .foregroundStyle(.secondary)
-          }
-        }
-
-        Section {
-          Button(action: toggleStartPicker) {
-            HStack {
-              Text("When to start")
-              Spacer()
-              Text(
-                formattedTimeString(hour: startDisplayHour, minute: startMinute, isPM: startIsPM)
-              )
-              .foregroundStyle(.secondary)
-            }
-          }
-          .buttonStyle(.plain)
-          .disabled(selectedDays.isEmpty)
-
-          if showStartPicker {
-            timePickers(hour: $startDisplayHour, minute: $startMinute, isPM: $startIsPM)
-          }
-        } header: {
-          Text("Start Time")
-        }
-
-        Section {
-          Button(action: toggleEndPicker) {
-            HStack {
-              Text("When to end")
-              Spacer()
-              Text(formattedTimeString(hour: endDisplayHour, minute: endMinute, isPM: endIsPM))
-                .foregroundStyle(.secondary)
-            }
-          }
-          .buttonStyle(.plain)
-          .disabled(selectedDays.isEmpty)
-
-          if showEndPicker {
-            timePickers(hour: $endDisplayHour, minute: $endMinute, isPM: $endIsPM)
-          }
-        } header: {
-          Text("End Time")
-        } footer: {
-          if let validationMessage {
-            Text(validationMessage)
-              .font(.caption)
-              .foregroundStyle(.orange)
-          }
-        }
-
-        Section {
-          Button("Remove Schedule") {
-            resetToDefault()
-
-            applySelection()
-            isPresented = false
-          }
-          .foregroundStyle(.red)
-          .frame(maxWidth: .infinity, alignment: .center)
-        } footer: {
-          VStack(alignment: .center, spacing: 4) {
-            Text(
-              "If you're looking for more granularity, you can use Shortcuts. \(Text("[Here is a quick video](https://youtube.com/shorts/1xZeO9lg5f8)").foregroundStyle(themeManager.themeColor))"
-            )
-            .font(.caption)
-            .foregroundStyle(.secondary)
-          }
-        }
+    BlueprintStage(
+      title: "Schedule",
+      leadingLabel: "Cancel",
+      leadingAction: { isPresented = false },
+      trailingLabel: "Done",
+      trailingAction: {
+        applySelection()
+        isPresented = false
       }
-      .navigationTitle("Schedule")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button(action: { isPresented = false }) {
-            Image(systemName: "xmark")
-          }
-          .accessibilityLabel("Cancel")
+    ) {
+      VStack(alignment: .leading, spacing: SapientiaTheme.space6) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text("Run on a schedule")
+            .font(.sapientiaHeading(20))
+            .foregroundColor(SapientiaTheme.text)
+          Text("The rule begins and ends without you.")
+            .font(.sapientiaBody(13))
+            .foregroundColor(SapientiaTheme.text.opacity(0.55))
         }
 
-        ToolbarItem(placement: .topBarTrailing) {
-          Button(action: {
-            applySelection()
-            isPresented = false
-          }) {
-            Image(systemName: "checkmark")
-          }
-          .disabled(!isValid)
-          .accessibilityLabel("Save")
+        BlueprintFormSection(title: "Days") { daysStrip }
+
+        BlueprintListRow(
+          title: "From",
+          onTap: selectedDays.isEmpty ? nil : toggleStartPicker
+        ) {
+          BlueprintRowValue(
+            value: formattedTimeString(
+              hour: startDisplayHour, minute: startMinute, isPM: startIsPM))
         }
+        if showStartPicker {
+          timePickers(hour: $startDisplayHour, minute: $startMinute, isPM: $startIsPM)
+        }
+
+        BlueprintListRow(
+          title: "Until",
+          onTap: selectedDays.isEmpty ? nil : toggleEndPicker
+        ) {
+          BlueprintRowValue(
+            value: formattedTimeString(
+              hour: endDisplayHour, minute: endMinute, isPM: endIsPM))
+        }
+        if showEndPicker {
+          timePickers(hour: $endDisplayHour, minute: $endMinute, isPM: $endIsPM)
+        }
+
+        if let validationMessage, !validationMessage.isEmpty {
+          Text(validationMessage)
+            .font(.sapientiaBody(13))
+            .foregroundColor(SapientiaTheme.accent700)
+        }
+
+        if let message = nextStartMessage {
+          BlueprintFormSection(title: "This week", footer: message) {
+            SwiftUI.EmptyView()
+          }
+        }
+
+        Button("Remove schedule") {
+          resetToDefault()
+          applySelection()
+          isPresented = false
+        }
+        .font(.sapientiaBody(15))
+        .foregroundColor(SapientiaTheme.accent700)
+        .padding(.top, SapientiaTheme.space2)
       }
-      .onAppear(perform: loadFromBinding)
     }
+    .onAppear(perform: loadFromBinding)
+  }
+
+  private var daysStrip: some View {
+    HStack(spacing: 1) {
+      ForEach(Weekday.allCases, id: \.rawValue) { day in
+        let isSelected = selectedDays.contains(day)
+        Button {
+          if isSelected {
+            selectedDays.removeAll { $0 == day }
+          } else {
+            selectedDays.append(day)
+          }
+          if selectedDays.isEmpty {
+            showStartPicker = false
+            showEndPicker = false
+          }
+        } label: {
+          Text(shortLabel(for: day))
+            .font(.sapientiaHeading(15))
+            .frame(maxWidth: .infinity)
+            .frame(height: 44)
+            .background(isSelected ? SapientiaTheme.accent : SapientiaTheme.background)
+            .foregroundColor(isSelected ? SapientiaTheme.paper : SapientiaTheme.text)
+            .contentShape(Rectangle())
+            .accessibilityLabel(day.name)
+            .accessibilityAddTraits(isSelected ? .isSelected : [])
+        }
+        .buttonStyle(.plain)
+      }
+    }
+    .background(SapientiaTheme.divider)
+    .border(SapientiaTheme.divider, width: 1)
+    .padding(.top, SapientiaTheme.space2)
   }
 
   @ViewBuilder
@@ -252,7 +184,7 @@ struct SchedulePicker: View {
 
       Text(":")
         .font(.headline)
-        .foregroundStyle(.secondary)
+        .foregroundColor(SapientiaTheme.text.opacity(0.55))
 
       Picker("Minute", selection: minute) {
         ForEach(minutes, id: \.self) { m in

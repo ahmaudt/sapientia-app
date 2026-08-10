@@ -1,14 +1,34 @@
 import SwiftUI
+import UIKit
 
 /// Design tokens for the Sapientia "Industry" design system.
 /// Source of truth: docs/design/_ds/industry-*/styles.css — keep values in sync.
+///
+/// Light and dark are the same two grounds swapped: the paper becomes the
+/// ink. Only the semantic tokens (`background`, `text`, `divider`, `surface`,
+/// the accent *type*) are appearance-aware; the accent fill and the steel
+/// `accent900` field are fixed, so the rite reads the same in either mode.
 enum SapientiaTheme {
-  // MARK: - Core colors
-  static let background = Color(hex: "#f2f2f3")
-  static let surface = Color(hex: "#e9e9ea")
-  static let text = Color(hex: "#1d1f20")
+  // MARK: - Fixed grounds (the two the system owns)
+  /// The light ground; also the reversed type on any accent or steel field.
+  static let paper = Color(hex: "#f2f2f3")
+  /// The dark ground; also the type on a light field.
+  static let ink = Color(hex: "#1d1f20")
+
+  /// Build an appearance-aware colour from a light/dark pair.
+  private static func dynamic(light: Color, dark: Color) -> Color {
+    Color(
+      UIColor { traits in
+        traits.userInterfaceStyle == .dark ? UIColor(dark) : UIColor(light)
+      })
+  }
+
+  // MARK: - Core colors (appearance-aware)
+  static let background = dynamic(light: paper, dark: ink)
+  static let surface = dynamic(light: Color(hex: "#e9e9ea"), dark: Color(hex: "#2b2b2d"))
+  static let text = dynamic(light: ink, dark: paper)
   static let accent = Color(hex: "#5980a6")
-  static let divider = Color(hex: "#1d1f20").opacity(0.16)
+  static let divider = dynamic(light: ink.opacity(0.16), dark: paper.opacity(0.18))
 
   // MARK: - Accent ramp (OKLCH-derived, shared lightness scale)
   static let accent100 = Color(hex: "#eef6ff")
@@ -17,9 +37,14 @@ enum SapientiaTheme {
   static let accent400 = Color(hex: "#94bce3")
   static let accent500 = Color(hex: "#749dc4")
   static let accent600 = Color(hex: "#597ea3")
-  static let accent700 = Color(hex: "#416180")
+  /// Accent *type* (links, labels): deep step on paper, light step on ink.
+  static let accent700 = dynamic(light: Color(hex: "#416180"), dark: Color(hex: "#b5d9fd"))
   static let accent800 = Color(hex: "#2c455d")
   static let accent900 = Color(hex: "#1d2d3d")
+
+  /// Pressed state for the accent fill: one step past the base per mode
+  /// (accent-600 on paper, accent-400 on ink).
+  static let accentPressed = dynamic(light: Color(hex: "#597ea3"), dark: Color(hex: "#94bce3"))
 
   // MARK: - Neutral ramp
   static let neutral100 = Color(hex: "#f5f5f8")
@@ -38,9 +63,10 @@ enum SapientiaTheme {
   static let space8: CGFloat = 27.2
 
   // MARK: - Text on dark (ritual screens)
-  /// Foreground on accent-900 backgrounds, per mockup color-mix values.
+  /// Foreground on the steel `accent900` field. Fixed to paper: the rite is
+  /// light-on-steel in both light and dark mode.
   static func onDark(_ opacity: Double = 1.0) -> Color {
-    background.opacity(opacity)
+    paper.opacity(opacity)
   }
 }
 

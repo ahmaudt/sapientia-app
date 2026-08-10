@@ -178,11 +178,11 @@ struct GuidedBlockedProfileCreationView: View {
         }
         .animation(stepAnimation, value: currentStep)
         .frame(maxWidth: .infinity)
-        .background(Color(.systemGroupedBackground))
+        .background(SapientiaTheme.background)
 
         stepControls
       }
-      .background(Color(.systemGroupedBackground).ignoresSafeArea())
+      .background(SapientiaTheme.background.ignoresSafeArea())
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button(action: handleBackAction) {
@@ -197,27 +197,27 @@ struct GuidedBlockedProfileCreationView: View {
           .accessibilityLabel("Cancel")
         }
       }
-      .sheet(isPresented: $showingActivityPicker) {
+      .fullScreenCover(isPresented: $showingActivityPicker) {
         AppPicker(
           selection: $draft.selectedActivity,
           isPresented: $showingActivityPicker,
           allowMode: draft.enableAllowMode
         )
       }
-      .sheet(isPresented: $showingDomainPicker) {
+      .fullScreenCover(isPresented: $showingDomainPicker) {
         DomainPicker(
           domains: $draft.domains,
           isPresented: $showingDomainPicker,
           allowMode: draft.enableAllowModeDomain
         )
       }
-      .sheet(isPresented: $showingSchedulePicker) {
+      .fullScreenCover(isPresented: $showingSchedulePicker) {
         SchedulePicker(
           schedule: $draft.schedule,
           isPresented: $showingSchedulePicker
         )
       }
-      .sheet(isPresented: $showingStrategyPicker) {
+      .fullScreenCover(isPresented: $showingStrategyPicker) {
         StrategyPicker(
           strategies: StrategyManager.availableStrategies,
           selectedStrategy: $draft.selectedStrategy,
@@ -235,31 +235,42 @@ struct GuidedBlockedProfileCreationView: View {
   }
 
   private var stepIntroHeader: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: SapientiaTheme.space3) {
+      progressBar
+
       Text("Step \(currentStepIndex + 1) of \(steps.count)")
-        .font(.caption)
-        .fontWeight(.semibold)
-        .foregroundStyle(.primary)
-        .padding(.leading, 1)
+        .font(.sapientiaHeading(13))
+        .kerning(1.0)
+        .textCase(.uppercase)
+        .foregroundColor(SapientiaTheme.text.opacity(0.55))
         .contentTransition(.numericText())
         .animation(.easeInOut(duration: 0.16), value: currentStepIndex)
 
       Text(currentStepIntroTitle)
-        .font(.largeTitle)
-        .fontWeight(.bold)
-        .foregroundStyle(.primary)
+        .font(.sapientiaHeading(30))
+        .foregroundColor(SapientiaTheme.text)
         .contentTransition(.interpolate)
 
       Text(currentStepIntroDescription)
-        .font(.body)
-        .foregroundStyle(.secondary)
+        .font(.sapientiaBody(15))
+        .foregroundColor(SapientiaTheme.text.opacity(0.62))
         .lineSpacing(3)
         .contentTransition(.interpolate)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(.horizontal, 20)
-    .padding(.top, 20)
-    .padding(.bottom, 28)
+    .padding(.top, SapientiaTheme.space6)
+    .padding(.bottom, SapientiaTheme.space8)
+  }
+
+  private var progressBar: some View {
+    HStack(spacing: 4) {
+      ForEach(steps.indices, id: \.self) { index in
+        Rectangle()
+          .fill(index <= currentStepIndex ? SapientiaTheme.accent : SapientiaTheme.divider)
+          .frame(height: 3)
+      }
+    }
   }
 
   private var currentStepIntroTitle: String {
@@ -383,31 +394,23 @@ struct GuidedBlockedProfileCreationView: View {
     title: String,
     @ViewBuilder content: () -> Content
   ) -> some View {
-    VStack(alignment: .leading, spacing: 14) {
-      VStack(alignment: .leading, spacing: 16) {
-        content()
-      }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(.horizontal, 20)
-      .padding(.vertical, 18)
-      .background(Color(.secondarySystemGroupedBackground))
-      .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+    VStack(alignment: .leading, spacing: SapientiaTheme.space4) {
+      content()
     }
+    .frame(maxWidth: .infinity, alignment: .leading)
     .padding(.horizontal, 20)
-    .padding(.bottom, 28)
+    .padding(.bottom, SapientiaTheme.space8)
   }
 
   private var stepControls: some View {
-    ActionButton(
-      title: isLastStep ? "Create Profile" : "Next",
-      backgroundColor: themeManager.themeColor,
-      isDisabled: !canContinue
-    ) {
+    Button(isLastStep ? "Create the rule" : "Continue") {
       handlePrimaryAction()
     }
+    .buttonStyle(BlueprintPrimaryButtonStyle())
+    .disabled(!canContinue)
     .padding(.horizontal, 20)
-    .padding(.top, 12)
-    .padding(.bottom, 16)
+    .padding(.top, SapientiaTheme.space3)
+    .padding(.bottom, SapientiaTheme.space4)
   }
 
   private func handlePrimaryAction() {
@@ -481,12 +484,12 @@ private struct GuidedProfileReviewContent: View {
       Text(title)
         .font(.body)
         .fontWeight(.medium)
-        .foregroundStyle(.primary)
+        .foregroundColor(SapientiaTheme.text)
         .frame(width: 118, alignment: .leading)
 
       Text(value)
         .font(.body)
-        .foregroundStyle(.secondary)
+        .foregroundColor(SapientiaTheme.text.opacity(0.55))
         .multilineTextAlignment(.trailing)
         .lineLimit(2)
         .minimumScaleFactor(0.85)

@@ -9,4 +9,4 @@
 - **Feature branches** (`feature/<name>`): used when implementing a new feature. Branch off `develop`, integrate back into `develop` (rebase or merge per feature), then delete.
 - **Release branches** (`release/x.y.z`): branch off `develop` when preparing a release ("Release branches method"). Version bumps and release-only fixes happen here. When done: tag the release, merge into `main`, merge back into `develop`, then delete the branch.
 
-Current release in progress: `release/3.0.0` (Sapientia rebrand + iOS redesign).
+Current release in progress: `release/1.0.0` (Sapientia rebrand + iOS redesign). Sapientia's version numbering restarts at `1.0.0` — the inherited Foqos `2.x`/`3.x` numbering does not carry over.

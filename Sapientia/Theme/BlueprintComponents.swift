@@ -70,11 +70,11 @@ struct BlueprintPrimaryButtonStyle: ButtonStyle {
       .font(.sapientiaHeading(fontSize))
       .kerning(fontSize * 0.06)
       .textCase(.uppercase)
-      .foregroundColor(SapientiaTheme.background)
+      .foregroundColor(SapientiaTheme.paper)
       .frame(maxWidth: .infinity)
       .padding(SapientiaTheme.space4)
       .background(
-        configuration.isPressed ? SapientiaTheme.accent700 : SapientiaTheme.accent
+        configuration.isPressed ? SapientiaTheme.accentPressed : SapientiaTheme.accent
       )
       .border(SapientiaTheme.accent, width: 1)
       .overlay(BlueprintCornerMarks())
@@ -126,7 +126,7 @@ struct SapientiaSegmentedPicker<Option: Hashable>: View {
             .padding(.vertical, 7)
             .foregroundColor(
               selected
-                ? SapientiaTheme.background
+                ? SapientiaTheme.paper
                 : SapientiaTheme.text.opacity(disabled ? 0.35 : 1)
             )
             .background(selected ? SapientiaTheme.accent : Color.clear)
@@ -159,7 +159,7 @@ struct BlueprintToggleStyle: ToggleStyle {
             configuration.isOn ? SapientiaTheme.accent : SapientiaTheme.divider,
             width: 1)
         Rectangle()
-          .fill(SapientiaTheme.background)
+          .fill(configuration.isOn ? SapientiaTheme.paper : SapientiaTheme.background)
           .border(
             configuration.isOn ? Color.clear : SapientiaTheme.divider, width: 1
           )

@@ -16,18 +16,18 @@ struct StrategyRow: View {
 
   private func backgroundColor(for tag: BlockingStrategyTag) -> Color {
     if tag == .beta {
-      return .orange.opacity(0.16)
+      return SapientiaTheme.accent100
     }
 
-    return .secondary.opacity(0.14)
+    return SapientiaTheme.accent100
   }
 
   private func foregroundColor(for tag: BlockingStrategyTag) -> Color {
     if tag == .beta {
-      return .orange
+      return SapientiaTheme.accent700
     }
 
-    return .secondary
+    return SapientiaTheme.accent800
   }
 
   var body: some View {
@@ -36,30 +36,30 @@ struct StrategyRow: View {
         HStack(alignment: .center, spacing: 8) {
           BlockingStrategyIconImage(strategy: strategy)
             .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .foregroundColor(SapientiaTheme.text.opacity(0.55))
             .frame(width: 34, height: 34)
 
           Text(strategy.name)
             .font(.headline)
             .foregroundStyle(
-              accessoryStyle == .selection && isSelected ? themeManager.themeColor : .primary)
+              accessoryStyle == .selection && isSelected ? SapientiaTheme.accent : SapientiaTheme.text)
 
           Spacer(minLength: 8)
 
           if accessoryStyle == .selection {
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-              .foregroundStyle(isSelected ? themeManager.themeColor : .secondary)
+              .foregroundColor(isSelected ? SapientiaTheme.accent : SapientiaTheme.text.opacity(0.55))
               .font(.system(size: 20))
           } else if accessoryStyle == .chevron {
             Image(systemName: "chevron.right")
-              .foregroundStyle(.secondary)
+              .foregroundColor(SapientiaTheme.text.opacity(0.55))
               .font(.system(size: 14, weight: .semibold))
           }
         }
 
         Text(strategy.description)
           .font(.subheadline)
-          .foregroundStyle(.secondary)
+          .foregroundColor(SapientiaTheme.text.opacity(0.55))
           .lineLimit(2)
 
         if !strategy.tags.isEmpty {
@@ -72,7 +72,7 @@ struct StrategyRow: View {
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
                 .background(backgroundColor(for: tag))
-                .clipShape(Capsule())
+                .border(SapientiaTheme.divider, width: 1)
             }
           }
         }

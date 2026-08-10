@@ -30,7 +30,6 @@ import SwiftUI
 @main
 struct sapientiaApp: App {
   @StateObject private var requestAuthorizer = RequestAuthorizer()
-  @StateObject private var donationManager = TipManager()
   @StateObject private var navigationManager = NavigationManager()
   @StateObject private var nfcWriter = NFCWriter()
   @StateObject private var ratingManager = RatingManager()
@@ -40,6 +39,10 @@ struct sapientiaApp: App {
   @StateObject private var liveActivityManager = LiveActivityManager.shared
   @StateObject private var themeManager = ThemeManager.shared
   @StateObject private var alertsManager = AlertsManager.shared
+
+  // Interface appearance: content screens follow this; the rite keeps steel.
+  @AppStorage(AppearanceSetting.storageKey) private var appearanceRaw =
+    AppearanceSetting.system.rawValue
 
   init() {
     TimersUtil.registerBackgroundTasks()
@@ -69,7 +72,6 @@ struct sapientiaApp: App {
 
         }
         .environmentObject(requestAuthorizer)
-        .environmentObject(donationManager)
         .environmentObject(alertsManager)
         .environmentObject(startegyManager)
         .environmentObject(navigationManager)
@@ -77,9 +79,11 @@ struct sapientiaApp: App {
         .environmentObject(ratingManager)
         .environmentObject(liveActivityManager)
         .environmentObject(themeManager)
-        // Fixed appearance (design decision): content screens are always
-        // light; ritual screens draw their own dark accent-900 backgrounds.
-        .preferredColorScheme(.light)
+        // Content screens follow the stored Light / Dark / System setting;
+        // ritual screens draw their own steel accent-900 ground regardless.
+        .preferredColorScheme(
+          (AppearanceSetting(rawValue: appearanceRaw) ?? .system).colorScheme
+        )
         .tint(SapientiaTheme.accent)
     }
     .modelContainer(container)

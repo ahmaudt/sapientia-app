@@ -56,7 +56,7 @@ struct SapientiaIntroView: View {
           .font(.sapientiaHeading(56))
           .kerning(1.1)
           .textCase(.uppercase)
-          .foregroundColor(SapientiaTheme.background)
+          .foregroundColor(SapientiaTheme.paper)
           .padding(.top, SapientiaTheme.space8)
         Text("Wisdom to perceive thee, diligence to seek thee, patience to wait for thee.")
           .font(.sapientiaBody(17))
@@ -83,7 +83,7 @@ struct SapientiaIntroView: View {
             VStack(alignment: .leading, spacing: 2) {
               Text(step.title)
                 .font(.sapientiaHeading(20))
-                .foregroundColor(SapientiaTheme.background)
+                .foregroundColor(SapientiaTheme.paper)
               Text(step.detail)
                 .font(.sapientiaBody(14))
                 .lineSpacing(3)

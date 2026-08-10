@@ -79,7 +79,8 @@ class LiveActivityManager: ObservableObject {
 
     // Create and start the activity
     let profileName = session.blockedProfile.name
-    let message = FocusMessages.getRandomMessage()
+    // The running session says one fixed sentence; nothing rotates.
+    let message = "Set aside until you tap out."
     let attributes = SapientiaWidgetAttributes(name: profileName, message: message)
     let contentState = makeContentState(for: session)
     let activityContent = ActivityContent(

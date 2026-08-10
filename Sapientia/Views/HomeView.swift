@@ -35,8 +35,6 @@ struct HomeView: View {
   // Dashboard insights sheet
   @State var dashboardInsightsContext: DashboardInsightsContext? = nil
 
-  // Donation View
-  @State var showDonationView = false
 
   // Settings View
   @State var showSettingsView = false
@@ -226,7 +224,6 @@ struct HomeView: View {
 #Preview {
   HomeView()
     .environmentObject(RequestAuthorizer())
-    .environmentObject(TipManager())
     .environmentObject(AlertsManager())
     .environmentObject(NavigationManager())
     .environmentObject(StrategyManager())

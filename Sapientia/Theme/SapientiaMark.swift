@@ -86,21 +86,23 @@ private struct FlaredCross: Shape {
 
 extension SapientiaMark {
   /// Steel field: paper rings + accent-300 cross on accent-900 ground.
+  /// Fixed colours — the steel field reads the same in either mode.
   static func steel(showLetters: Bool = true) -> some View {
     SapientiaMark(
-      ringColor: SapientiaTheme.background,
+      ringColor: SapientiaTheme.paper,
       crossColor: SapientiaTheme.accent300,
-      letterColor: SapientiaTheme.background,
+      letterColor: SapientiaTheme.paper,
       showLetters: showLetters
     )
   }
 
-  /// Paper field: ink rings + accent cross on paper ground.
+  /// Paper field: ink rings + accent cross on paper ground. Fixed colours —
+  /// this variant renders app-icon artwork, which does not follow appearance.
   static func paper(showLetters: Bool = true) -> some View {
     SapientiaMark(
-      ringColor: SapientiaTheme.text,
+      ringColor: SapientiaTheme.ink,
       crossColor: SapientiaTheme.accent,
-      letterColor: SapientiaTheme.text,
+      letterColor: SapientiaTheme.ink,
       showLetters: showLetters
     )
   }

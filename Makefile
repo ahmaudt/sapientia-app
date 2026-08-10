@@ -1,4 +1,4 @@
-.PHONY: app-release build clean lint lint-fix mac-build mac-clean mac-dev mac-install mac-logs mac-release mac-reset mac-test test test-all check help
+.PHONY: app-release archive export testflight build clean lint lint-fix mac-build mac-clean mac-dev mac-install mac-logs mac-release mac-reset mac-test test test-all check help
 
 # Default target
 .DEFAULT_GOAL := help
@@ -25,6 +25,15 @@ SPARKLE_KEY_ACCOUNT ?= ambitionsoftware
 GITHUB_REPOSITORY ?= ahmaudt/sapientia-app
 RELEASE_NOTES_FILE ?=
 LSREGISTER := /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+
+# TestFlight / App Store Connect distribution
+ARCHIVE_PATH ?= $(TMPDIR)Sapientia.xcarchive
+EXPORT_PATH ?= $(TMPDIR)Sapientia-export
+EXPORT_OPTIONS ?= Config/ExportOptions.plist
+IPA_PATH ?= $(EXPORT_PATH)/sapientia.ipa
+# App Store Connect API key (.p8 lives in ~/.appstoreconnect/private_keys/AuthKey_<ASC_KEY_ID>.p8)
+ASC_KEY_ID ?= 7342AH443J
+ASC_ISSUER_ID ?= a0d087ed-5a37-4f9f-9f1a-094e52ae641d
 
 help: ## Show this help message
 	@echo "Available commands:"
@@ -80,6 +89,23 @@ mac-release: ## Build, notarize, package, sign, and publish a Mac release (VERSI
 	GITHUB_REPOSITORY='$(GITHUB_REPOSITORY)' \
 	RELEASE_NOTES_FILE='$(RELEASE_NOTES_FILE)' \
 	./scripts/release-mac.sh
+
+archive: ## Archive the iOS app for distribution
+	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration Release \
+		-destination 'generic/platform=iOS' -archivePath '$(ARCHIVE_PATH)' \
+		-allowProvisioningUpdates archive
+
+export: ## Export a signed IPA from the archive
+	rm -rf '$(EXPORT_PATH)'
+	xcodebuild -exportArchive -archivePath '$(ARCHIVE_PATH)' \
+		-exportPath '$(EXPORT_PATH)' -exportOptionsPlist '$(EXPORT_OPTIONS)' \
+		-allowProvisioningUpdates
+
+testflight: archive export ## Build, export, and upload a beta to TestFlight (bump build first)
+	xcrun altool --validate-app -f '$(IPA_PATH)' -t ios \
+		--apiKey $(ASC_KEY_ID) --apiIssuer $(ASC_ISSUER_ID)
+	xcrun altool --upload-app -f '$(IPA_PATH)' -t ios \
+		--apiKey $(ASC_KEY_ID) --apiIssuer $(ASC_ISSUER_ID)
 
 clean: ## Clean build artifacts
 	xcodebuild -project $(PROJECT) -scheme $(SCHEME) clean

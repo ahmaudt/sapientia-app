@@ -1,76 +1,46 @@
 import SwiftUI
 
+/// The "Websites" row in the rule editor (flow 07): a blueprint row showing
+/// the blocked-domain count with an Edit action opening the Websites stage.
 struct BlockedProfileDomainSelector: View {
-  @EnvironmentObject var themeManager: ThemeManager
-
   var domains: [String]
   var buttonAction: () -> Void
   var allowMode: Bool = false
   var disabled: Bool = false
   var disabledText: String?
 
-  private var title: String {
-    return allowMode ? "Allowed" : "Blocked"
-  }
+  private var domainCount: Int { domains.count }
 
-  private var domainCount: Int {
-    return domains.count
-  }
-
-  private var buttonText: String {
-    return allowMode
-      ? "Select Domains to Allow"
-      : "Select Domains to Restrict"
+  private var caption: String {
+    if domainCount == 0 { return "None" }
+    return "\(domainCount) \(domainCount == 1 ? "domain" : "domains") \(allowMode ? "allowed" : "blocked")"
   }
 
   var body: some View {
-    Button(action: buttonAction) {
-      HStack {
-        Text(buttonText)
-          .foregroundStyle(themeManager.themeColor)
-        Spacer()
-        Image(systemName: "chevron.right")
-          .foregroundStyle(.gray)
+    BlueprintListRow(
+      title: "Websites",
+      caption: caption,
+      onTap: disabled ? nil : buttonAction
+    ) {
+      if !disabled {
+        BlueprintRowAction(label: domainCount == 0 ? "Add" : "Edit", action: buttonAction)
       }
     }
-    .disabled(disabled)
 
-    if let disabledText = disabledText, disabled {
+    if let disabledText, disabled {
       Text(disabledText)
-        .foregroundStyle(.red)
-        .padding(.top, 4)
-        .font(.caption)
-    } else if domainCount == 0 {
-      Text("No domains selected")
-        .foregroundStyle(.gray)
-    } else {
-      Text("\(domainCount) \(domainCount == 1 ? "domain" : "domains") selected")
-        .font(.footnote)
-        .foregroundStyle(.gray)
+        .font(.sapientiaBody(13))
+        .foregroundColor(SapientiaTheme.accent700)
         .padding(.top, 4)
     }
   }
 }
 
 #Preview {
-  VStack(spacing: 20) {
-    BlockedProfileDomainSelector(
-      domains: ["example.com", "test.org"],
-      buttonAction: {}
-    )
-
-    BlockedProfileDomainSelector(
-      domains: [],
-      buttonAction: {},
-      allowMode: true
-    )
-
-    BlockedProfileDomainSelector(
-      domains: ["example.com"],
-      buttonAction: {},
-      disabled: true,
-      disabledText: "Disable the current session to edit domains"
-    )
+  VStack(spacing: 0) {
+    BlockedProfileDomainSelector(domains: ["reddit.com", "x.com"], buttonAction: {})
+    BlockedProfileDomainSelector(domains: [], buttonAction: {}, allowMode: true)
   }
   .padding()
+  .background(SapientiaTheme.background)
 }
