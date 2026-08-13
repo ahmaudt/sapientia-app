@@ -49,6 +49,22 @@ struct SapientiaIntroView: View {
   }
 
   var body: some View {
+    // The hero is the only flexible block, so it absorbs slack when the
+    // screen is tall. The steps below take their ideal height first —
+    // otherwise SwiftUI compresses them and truncates the step details.
+    // If everything still cannot fit (small device, large Dynamic Type),
+    // the whole screen scrolls rather than clipping any text.
+    GeometryReader { proxy in
+      ScrollView {
+        content
+          .frame(minHeight: proxy.size.height)
+      }
+      .scrollBounceBehavior(.basedOnSize)
+    }
+    .background(SapientiaTheme.accent900.ignoresSafeArea())
+  }
+
+  private var content: some View {
     VStack(spacing: 0) {
       VStack(alignment: .leading, spacing: 0) {
         crossMark
@@ -57,6 +73,10 @@ struct SapientiaIntroView: View {
           .kerning(1.1)
           .textCase(.uppercase)
           .foregroundColor(SapientiaTheme.paper)
+          // The wordmark shrinks rather than breaking across lines at
+          // large Dynamic Type sizes.
+          .lineLimit(1)
+          .minimumScaleFactor(0.5)
           .padding(.top, SapientiaTheme.space8)
         Text("Wisdom to perceive thee, diligence to seek thee, patience to wait for thee.")
           .font(.sapientiaBody(17))
@@ -79,7 +99,10 @@ struct SapientiaIntroView: View {
             Text(step.number)
               .font(.sapientiaHeading(15))
               .foregroundColor(SapientiaTheme.onDark(0.5))
-              .frame(width: 20, alignment: .leading)
+              // minWidth, not a fixed width: the numeral must not clip
+              // when Dynamic Type scales it past the 20pt column.
+              .fixedSize()
+              .frame(minWidth: 20, alignment: .leading)
             VStack(alignment: .leading, spacing: 2) {
               Text(step.title)
                 .font(.sapientiaHeading(20))
@@ -89,6 +112,8 @@ struct SapientiaIntroView: View {
                 .lineSpacing(3)
                 .foregroundColor(SapientiaTheme.onDark(0.6))
             }
+            // Wrap to as many lines as the detail needs; never truncate.
+            .fixedSize(horizontal: false, vertical: true)
           }
           .padding(.vertical, SapientiaTheme.space4)
           if index < IntroViewModel.steps.count - 1 {
@@ -117,8 +142,9 @@ struct SapientiaIntroView: View {
         .padding(.bottom, SapientiaTheme.space6)
       }
       .padding(.horizontal, SapientiaTheme.space8)
+      // Claim the ideal height ahead of the hero above.
+      .layoutPriority(1)
     }
-    .background(SapientiaTheme.accent900.ignoresSafeArea())
   }
 
   private var crossMark: some View {

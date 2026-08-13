@@ -69,6 +69,23 @@ def configuration_values(section, selected_ids)
   values
 end
 
+def rewrite_setting(section, selected_ids, key, value)
+  pattern = /(\t\t([0-9A-F]+) \/\* [^*]+ \*\/ = \{\n)(.*?)(\t\t\};)/m
+
+  section.gsub(pattern) do
+    opening = Regexp.last_match(1)
+    id = Regexp.last_match(2)
+    body = Regexp.last_match(3)
+    closing = Regexp.last_match(4)
+
+    if selected_ids.include?(id)
+      body = body.gsub(/^([ \t]*#{key} = )[^;]+;$/) { "#{Regexp.last_match(1)}#{value};" }
+    end
+
+    "#{opening}#{body}#{closing}"
+  end
+end
+
 def write_project(path, contents)
   temporary_path = "#{path}.tmp.#{Process.pid}"
   File.write(temporary_path, contents)
@@ -84,12 +101,19 @@ if ARGV.first == "--current"
 elsif ARGV.first == "--check"
   mode = :check
   ARGV.shift
+elsif ARGV.first == "--bump-build"
+  mode = :bump
+  ARGV.shift
 end
 
-version = ARGV.shift unless mode == :current
+VERSIONLESS_MODES = %i[current bump].freeze
+
+version = ARGV.shift unless VERSIONLESS_MODES.include?(mode)
 project_file = File.expand_path(ARGV.shift || DEFAULT_PROJECT_FILE)
 fail "Unexpected arguments." unless ARGV.empty?
-fail "Version is required and must use x.y or x.y.z format." unless mode == :current || version&.match?(VERSION_PATTERN)
+unless VERSIONLESS_MODES.include?(mode) || version&.match?(VERSION_PATTERN)
+  fail "Version is required and must use x.y or x.y.z format."
+end
 fail "Project file was not found at #{project_file}." unless File.file?(project_file)
 
 project = File.read(project_file)
@@ -119,6 +143,29 @@ if mode == :check
   fail "iOS release settings do not match version #{version}, build 1:\n#{mismatches.join("\n")}" unless mismatches.empty?
 
   puts "Verified iOS app and extension versions: #{version} (1)"
+  exit 0
+end
+
+# Raise every iOS release target to one past the highest build number in the
+# project, leaving MARKETING_VERSION alone. Xcode Cloud assigns build numbers
+# itself for `make app-release`, but manual `make testflight` uploads need
+# this: App Store Connect rejects a repeated (version, build) pair.
+if mode == :bump
+  builds = values.transform_values { |settings| Integer(settings.fetch(:build_number), exception: false) }
+  unparsable = builds.select { |_id, build| build.nil? }.keys
+  fail "Non-numeric CURRENT_PROJECT_VERSION in: #{unparsable.join(', ')}." unless unparsable.empty?
+
+  next_build = builds.values.max + 1
+  updated_section = rewrite_setting(section, selected_ids, "CURRENT_PROJECT_VERSION", next_build)
+  updated_project = project[0...section_start] + updated_section + project[section_end..-1]
+  write_project(project_file, updated_project) unless updated_project == project
+
+  mismatches = configuration_values(updated_section, selected_ids).reject do |_id, settings|
+    settings.fetch(:build_number) == next_build.to_s
+  end
+  fail "Unable to bump every iOS release target." unless mismatches.empty?
+
+  puts "Bumped iOS app and extension build number to #{next_build} (version #{current_version})."
   exit 0
 end
 

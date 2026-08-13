@@ -1,4 +1,4 @@
-.PHONY: app-release archive export testflight build clean lint lint-fix mac-build mac-clean mac-dev mac-install mac-logs mac-release mac-reset mac-test test test-all check help
+.PHONY: app-release archive bump-build export testflight build clean lint lint-fix mac-build mac-clean mac-dev mac-install mac-logs mac-release mac-reset mac-test test test-all check help
 
 # Default target
 .DEFAULT_GOAL := help
@@ -90,6 +90,9 @@ mac-release: ## Build, notarize, package, sign, and publish a Mac release (VERSI
 	RELEASE_NOTES_FILE='$(RELEASE_NOTES_FILE)' \
 	./scripts/release-mac.sh
 
+bump-build: ## Raise the iOS build number (App Store Connect rejects a repeated version+build)
+	@./scripts/update-app-version.rb --bump-build
+
 archive: ## Archive the iOS app for distribution
 	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration Release \
 		-destination 'generic/platform=iOS' -archivePath '$(ARCHIVE_PATH)' \
@@ -101,7 +104,7 @@ export: ## Export a signed IPA from the archive
 		-exportPath '$(EXPORT_PATH)' -exportOptionsPlist '$(EXPORT_OPTIONS)' \
 		-allowProvisioningUpdates
 
-testflight: archive export ## Build, export, and upload a beta to TestFlight (bump build first)
+testflight: bump-build archive export ## Bump the build, then build, export, and upload a beta to TestFlight
 	xcrun altool --validate-app -f '$(IPA_PATH)' -t ios \
 		--apiKey $(ASC_KEY_ID) --apiIssuer $(ASC_ISSUER_ID)
 	xcrun altool --upload-app -f '$(IPA_PATH)' -t ios \
