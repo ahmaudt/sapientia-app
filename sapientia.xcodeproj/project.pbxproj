@@ -1019,7 +1019,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SapientiaDeviceMonitor/SapientiaDeviceMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaDeviceMonitor/Info.plist;
@@ -1052,7 +1052,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SapientiaDeviceMonitor/SapientiaDeviceMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaDeviceMonitor/Info.plist;
@@ -1207,7 +1207,7 @@
 				CODE_SIGN_ENTITLEMENTS = sapientia/sapientia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"sapientia/Preview Content\"";
 				DEVELOPMENT_TEAM = RPZS36M9VF;
@@ -1256,7 +1256,7 @@
 				CODE_SIGN_ENTITLEMENTS = sapientia/sapientia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"sapientia/Preview Content\"";
 				DEVELOPMENT_TEAM = RPZS36M9VF;
@@ -1394,7 +1394,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldConfig/SapientiaShieldConfig.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldConfig/Info.plist;
@@ -1422,7 +1422,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldConfig/SapientiaShieldConfig.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldConfig/Info.plist;
@@ -1453,7 +1453,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = SapientiaWidget/SapientiaWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaWidget/Info.plist;
@@ -1483,7 +1483,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = SapientiaWidget/SapientiaWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaWidget/Info.plist;
@@ -1512,7 +1512,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldAction/SapientiaShieldAction.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldAction/Info.plist;
@@ -1540,7 +1540,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SapientiaShieldAction/SapientiaShieldAction.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RPZS36M9VF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SapientiaShieldAction/Info.plist;
