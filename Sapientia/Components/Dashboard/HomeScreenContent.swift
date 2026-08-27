@@ -1,8 +1,9 @@
 import SwiftUI
 
 /// The Home screen's scrollable content (screen 02): date header, alerts,
-/// feast card, rules list, stats grid, and the New-session CTA. Pure
-/// presentation — all behavior arrives through `HomeScreenActions`.
+/// feast card, the day's Little Hours, rules list, stats grid, and the
+/// New-session CTA. Pure presentation — all behavior arrives through
+/// `HomeScreenActions`.
 struct HomeScreenActions {
   let onSettings: () -> Void
   let onAlertTapped: (HomeAlert) -> Void
@@ -15,6 +16,8 @@ struct HomeScreenActions {
   let onManage: () -> Void
   let onInsights: (BlockedProfiles) -> Void
   let onNewSession: () -> Void
+  let onOpenHours: () -> Void
+  let onPrayHour: (LittleHour) -> Void
 }
 
 struct HomeScreenContent: View {
@@ -62,6 +65,14 @@ struct HomeScreenContent: View {
 
         FeastCard(day: liturgicalDay)
           .padding(.horizontal, 16)
+
+        // The day's office sits beside the day's feast. Shown whether or not
+        // any rules exist — a user with no profiles still prays.
+        LittleHoursSection(
+          onOpenHours: actions.onOpenHours,
+          onPrayHour: actions.onPrayHour
+        )
+        .padding(.horizontal, 16)
 
         if profiles.isEmpty {
           Welcome(

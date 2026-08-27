@@ -1,0 +1,35 @@
+{
+  "_source": "http://prayer.covert.org/Sext/ — fetched 2026-08-27. These two devotions are NOT present in offices-data.js (which carries only the rubric naming them), so they are the one part of the bundled office text with no machine-checkable original. scripts/diff-office-text.py therefore cannot verify them; LittleHoursDatasetTests asserts them verbatim instead.",
+  "angelus": {
+    "title": "The Angelus",
+    "lines": [
+      { "speaker": "V", "text": "The Angel of the Lord announced unto Mary." },
+      { "speaker": "R", "text": "And she conceived by the Holy Ghost." },
+      { "speaker": "V", "text": "Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus." },
+      { "speaker": "R", "text": "Holy Mary, Mother of God, pray for us sinners now, and at the hour of our death." },
+      { "speaker": "V", "text": "Behold the handmaid of the Lord." },
+      { "speaker": "R", "text": "Be it unto me according to thy word." },
+      { "speaker": "V", "text": "Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus." },
+      { "speaker": "R", "text": "Holy Mary, Mother of God, pray for us sinners now, and at the hour of our death." },
+      { "speaker": "V", "text": "And the Word was made Flesh." },
+      { "speaker": "R", "text": "And dwelt among us." },
+      { "speaker": "V", "text": "Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus." },
+      { "speaker": "R", "text": "Holy Mary, Mother of God, pray for us sinners now, and at the hour of our death." },
+      { "speaker": "V", "text": "Pray for us, O holy Mother of God." },
+      { "speaker": "R", "text": "That we may be made worthy of the promises of Christ." }
+    ],
+    "collect": "WE beseech thee, O Lord, pour thy grace into our hearts: that, as we have known the Incarnation of thy Son Jesus Christ by the message of an Angel; so by his ✠ Cross and Passion we may be brought unto the glory of his Resurrection; through the same Jesus Christ thy Son our Lord. Amen."
+  },
+  "reginaCoeli": {
+    "title": "Regina Coeli",
+    "lines": [
+      { "speaker": "", "text": "O Queen of heaven, be joyful, alleluia;" },
+      { "speaker": "", "text": "Because he whom so meetly thou barest, alleluia," },
+      { "speaker": "", "text": "Hath arisen, as he promised, alleluia:" },
+      { "speaker": "", "text": "Pray for us to the Father, alleluia." },
+      { "speaker": "V", "text": "Rejoice and be glad, O Virgin Mary, alleluia." },
+      { "speaker": "R", "text": "For the Lord is risen indeed, alleluia." }
+    ],
+    "collect": "O GOD, who, by the resurrection of thy Son Jesus Christ didst vouchsafe to give gladness unto the world: Grant, we beseech thee, that we, being holpen by the Virgin Mary, his Mother, may attain unto the joys of everlasting life. Through the same Christ our Lord. Amen."
+  }
+}

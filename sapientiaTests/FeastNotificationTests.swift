@@ -102,11 +102,29 @@ final class TimersUtilNotificationScopeTests: XCTestCase {
     let center = NotificationCenterMock()
     center.pending = ["feast-2026-08-06", "feast-2026-08-07", "reminder-abc", "xyz"]
 
-    TimersUtil.cancelNonFeastNotifications(center: center)
+    TimersUtil.cancelNonSessionNotifications(center: center)
 
     XCTAssertTrue(center.removed.contains("reminder-abc"))
     XCTAssertTrue(center.removed.contains("xyz"))
     XCTAssertFalse(center.removed.contains("feast-2026-08-06"))
     XCTAssertFalse(center.removed.contains("feast-2026-08-07"))
+  }
+
+  /// Screen 29 promises the office is never blocked: "The notice still comes."
+  /// Session cleanup runs on every start and stop, so without this the day's
+  /// remaining hours would be silently deleted the moment a rule began.
+  func testCancelAllNotificationsSparesOfficeNotices() {
+    let center = NotificationCenterMock()
+    center.pending = [
+      "office-2026-08-27-terce", "office-2026-08-27-sext",
+      "feast-2026-08-27", "reminder-abc",
+    ]
+
+    TimersUtil.cancelNonSessionNotifications(center: center)
+
+    XCTAssertFalse(center.removed.contains("office-2026-08-27-terce"))
+    XCTAssertFalse(center.removed.contains("office-2026-08-27-sext"))
+    XCTAssertFalse(center.removed.contains("feast-2026-08-27"))
+    XCTAssertTrue(center.removed.contains("reminder-abc"))
   }
 }

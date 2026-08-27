@@ -35,9 +35,12 @@ struct HomeView: View {
   // Dashboard insights sheet
   @State var dashboardInsightsContext: DashboardInsightsContext? = nil
 
-
   // Settings View
   @State var showSettingsView = false
+
+  // The Little Hours
+  @State var showTheHoursView = false
+  @State var hourToPray: LittleHour? = nil
 
   // Active session view
   @State var showActiveProfileSessionView = false
@@ -132,7 +135,9 @@ struct HomeView: View {
             selectedDate: Date()
           )
         },
-        onNewSession: { showStartProfilePicker = true }
+        onNewSession: { showStartProfilePicker = true },
+        onOpenHours: { showTheHoursView = true },
+        onPrayHour: { hour in hourToPray = hour }
       )
     )
     .refreshable {
@@ -198,6 +203,7 @@ struct HomeView: View {
         loadApp()
         refreshAlerts()
         FeastNotificationScheduler().reschedule()
+        OfficeNotificationScheduler().reschedule()
       } else if newPhase == .background {
         unloadApp()
       }
@@ -206,9 +212,11 @@ struct HomeView: View {
       if !newValue {
         showActiveProfileSessionView = false
       }
-      // Session start/stop clears timer notifications — put the 6:00
-      // feast notices back afterwards.
+      // Session start/stop clears timer notifications. TimersUtil now spares
+      // both the feast and office prefixes, but rescheduling here keeps the
+      // windows fresh and restores anything an older build had removed.
       FeastNotificationScheduler().reschedule()
+      OfficeNotificationScheduler().reschedule()
     }
     .onReceive(strategyManager.$errorMessage) { errorMessage in
       guard let message = errorMessage, !showActiveProfileSessionView else { return }

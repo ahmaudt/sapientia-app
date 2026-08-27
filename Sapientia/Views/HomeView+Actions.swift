@@ -43,6 +43,13 @@ extension HomeView {
           )
         }
       }
+      .fullScreenCover(isPresented: $showTheHoursView) {
+        TheHoursView()
+      }
+      .fullScreenCover(item: $hourToPray) { hour in
+        // Praying straight from Home, without the intervening Hours screen.
+        OfficeReaderView(hour: hour)
+      }
       .sheet(item: $profileToShowStats) { profile in
         ProfileInsightsView(profile: profile)
       }
