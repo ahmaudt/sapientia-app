@@ -8,6 +8,18 @@ protocol UserNotificationCentering {
   func removePendingRequests(withIdentifiers identifiers: [String])
   func add(_ request: UNNotificationRequest)
   func requestAuthorization(completion: @escaping (Bool) -> Void)
+  /// Current permission, distinct from requesting it: iOS shows the prompt
+  /// only once per install, so a screen that offers to enable notices has to
+  /// be able to tell "not asked yet" from "already refused".
+  func authorizationStatus(completion: @escaping (UNAuthorizationStatus) -> Void)
+}
+
+extension UserNotificationCentering {
+  /// Default so existing conformances — including test doubles that predate
+  /// this requirement — need no change.
+  func authorizationStatus(completion: @escaping (UNAuthorizationStatus) -> Void) {
+    completion(.authorized)
+  }
 }
 
 struct SystemNotificationCenter: UserNotificationCentering {
@@ -31,6 +43,12 @@ struct SystemNotificationCenter: UserNotificationCentering {
       options: [.alert, .sound, .badge]
     ) { granted, _ in
       completion(granted)
+    }
+  }
+
+  func authorizationStatus(completion: @escaping (UNAuthorizationStatus) -> Void) {
+    UNUserNotificationCenter.current().getNotificationSettings { settings in
+      completion(settings.authorizationStatus)
     }
   }
 }

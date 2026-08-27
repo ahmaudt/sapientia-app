@@ -209,18 +209,31 @@ class TimersUtil {
   }
 
   func cancelAllNotifications() {
-    // Session cleanup must not wipe the 6:00 feast notices, which live
-    // outside the session lifecycle (identifiers prefixed "feast-").
-    Self.cancelNonFeastNotifications(center: SystemNotificationCenter())
+    Self.cancelNonSessionNotifications(center: SystemNotificationCenter())
   }
 
-  static func cancelNonFeastNotifications(center: UserNotificationCentering) {
+  /// Notices that live outside the session lifecycle and must survive a
+  /// session starting or stopping.
+  ///
+  /// - `feast-` — the 6:00 kalendar notices.
+  /// - `office-` — the Little Hours. Screen 29 is explicit that the office is
+  ///   never blocked ("The notice still comes; the office is never blocked"),
+  ///   so wiping these when a rule begins would break the promise the
+  ///   reminders screen makes.
+  private static let preservedPrefixes = [
+    FeastNotificationScheduler.identifierPrefix,
+    OfficeNotificationScheduler.identifierPrefix,
+  ]
+
+  /// Clear the session's own pending notifications, leaving everything in
+  /// `preservedPrefixes` alone.
+  static func cancelNonSessionNotifications(center: UserNotificationCentering) {
     center.pendingRequestIdentifiers { identifiers in
-      let nonFeast = identifiers.filter {
-        !$0.hasPrefix(FeastNotificationScheduler.identifierPrefix)
+      let sessionOwned = identifiers.filter { identifier in
+        !preservedPrefixes.contains { identifier.hasPrefix($0) }
       }
-      if !nonFeast.isEmpty {
-        center.removePendingRequests(withIdentifiers: nonFeast)
+      if !sessionOwned.isEmpty {
+        center.removePendingRequests(withIdentifiers: sessionOwned)
       }
     }
   }

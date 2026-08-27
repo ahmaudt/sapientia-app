@@ -1,0 +1,6 @@
+{
+  "//": "Marks this directory as ES modules so offices-data.js can keep the exact filename and contents it has in the Claude Design project, rather than being renamed .mjs to satisfy Node's CommonJS default. Nothing here ships in the app; these are build-time sources for little-hours.json.",
+  "name": "sapientia-liturgy-sources",
+  "private": true,
+  "type": "module"
+}
