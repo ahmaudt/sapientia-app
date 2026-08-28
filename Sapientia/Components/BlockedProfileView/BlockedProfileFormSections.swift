@@ -206,7 +206,8 @@ struct BlockedProfileDomainsFields: View {
     CustomToggle(
       title: "Block Adult Websites",
       description:
-        "Use Apple's adult-content filter during sessions. You can still add extra domains to block.",
+        "Use Apple's adult-content filter during sessions. Blocking any website turns this on too — "
+        + "it is the setting that closes Safari's Private Browsing.",
       isOn: $draft.enableAdultContentBlocking,
       isDisabled: disabled || draft.enableMacSync,
       errorMessage: draft.enableMacSync ? "Adult website blocking isn't supported on Mac." : nil
