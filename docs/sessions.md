@@ -2,6 +2,68 @@
 
 A running summary of coding sessions, newest first. See `CLAUDE.md` for what belongs in an entry.
 
+## 2026-08-27 — Hotfix 1.1.1: Safari Private Browsing bypassed the website block
+
+**Shipped** — `b2d6316`, merged to `release/1.1.0` (`8f2a9ef`) and `develop` (`17c8993`), uploaded
+as **1.1.1 (2)**.
+
+A tester reached a blocked site by opening a private tab. Root cause: `AppBlockerUtil` used
+`webContent.blockedByFilter = .specific(domains)`, and `.specific` is the only `FilterPolicy` with
+no counterpart in Screen Time's Web Content levels (Unrestricted / Limit Adult Websites / Only
+Approved Websites). A bare blocklist leaves the restriction reading as unrestricted, and Safari
+withdraws Private Browsing only at a *restricted* level. Blocks now go through `.auto`, the lowest
+such level; `.specific` is no longer used anywhere, and a test asserts it can never be produced.
+
+**Decided**
+
+- **Accepted an unrequested adult filter as the price.** `.auto` also applies Apple's adult-content
+  filter, which a profile with "Block Adult Websites" off did not ask for. There is no restricted
+  level without it — that filter *is* what "Limit Adult Websites" means — so the only alternatives
+  were inverting to an allow-list or leaving the hole open. The toggle's description was rewritten
+  to say so, because after this change it no longer controls anything whenever a site is blocked,
+  and its old copy claimed otherwise.
+- **`WebContentPolicy` lives inside `AppBlockerUtil.swift`**, not its own file: that file is
+  compiled into the widget, device-monitor and shield-action targets via membership exceptions, so
+  a new file would have needed adding to each one — `project.pbxproj` surgery not worth doing in a
+  hotfix.
+- **Branched off `release/1.1.0`, not `main`.** OneFlow puts hotfixes on `main`, but `main` is still
+  2.2.1 and has none of this code.
+
+**Mistakes worth remembering**
+
+- **The first diagnosis was wrong, and asking saved it.** The obvious asymmetry — picker-chosen
+  domains become opaque tokens that reach only the Shield, never the filter — fit the symptom
+  neatly. The tester had *typed* the domain, so that path was never involved. Confirming how the
+  site was added took one question and avoided shipping a fix for the wrong bug.
+- **Tried to switch branches while `make testflight` was archiving.** Git aborted the checkout
+  because bump-build had `project.pbxproj` dirty, so nothing broke, but the develop merge silently
+  did not happen and `git push origin develop` reported "Everything up-to-date" while pushing
+  nothing. Don't run git alongside a background build.
+
+**Facts worth not rediscovering**
+
+- **The app can block its own update.** Installing the fix to the device failed with
+  `Installation on this device is prohibited by ManagedConfiguration` — an active session with
+  `enableBlockAppInstallation` sets `store.application.denyAppInstallation`, which refuses *all*
+  installs including Xcode's and TestFlight's. **A tester with an active session cannot install the
+  fix for the bug they reported.** The setting is opt-in (default false) and a clean stop clears it,
+  but it deserves a rethink: scoping it, or exempting Sapientia's own updates.
+
+**Verified**
+
+- On device (iPhone 12 mini, iOS 26.6.1): typed domain blocked, "Block Adult Websites" off, session
+  running — `reddit.com` **could not** be reached in a private tab. This is the confirmation the
+  simulator could not give.
+
+**Open**
+
+- **1.1.1 (2) external is `READY_FOR_BETA_SUBMISSION`** — needs manual Beta App Review submission;
+  the API key cannot do it.
+- **1.1.0 (2) is sitting in `WAITING_FOR_BETA_REVIEW` and is now superseded.** Submitting 1.1.1
+  instead is probably what's wanted, rather than shipping testers a build with the loophole.
+- **1.0.0 (2) is still what external testers have installed.** Do not expire it until 1.1.1 clears
+  review.
+
 ## 2026-08-27 — The Little Hours: Terce, Sext and None
 
 **Shipped** — released as **1.1.0 (2)** to TestFlight
