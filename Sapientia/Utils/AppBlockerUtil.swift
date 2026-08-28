@@ -1,5 +1,57 @@
 import ManagedSettings
 
+/// Chooses the Screen Time web-content policy for a profile.
+///
+/// Lives here rather than in its own file because `AppBlockerUtil` is compiled
+/// into the widget, device-monitor and shield-action extensions as well as the
+/// app; a separate file would have to be added to each target's membership
+/// exceptions to stay in scope.
+enum WebContentPolicy {
+
+  /// Apple blocks at most 50 domains per policy and allows at most 50
+  /// exceptions. `DomainValidation.maxDomains` is held at this ceiling; past
+  /// it the system drops the excess without reporting anything.
+  static let appleDomainLimit = 50
+
+  /// - Parameters:
+  ///   - allowOnlyDomains: the profile permits only its listed domains.
+  ///   - blocksAdultContent: the profile's "Block Adult Websites" switch.
+  ///   - domains: the domains the profile blocks (or permits, in allow-only).
+  /// - Returns: the policy to install, or `nil` to leave web content alone.
+  static func filterPolicy(
+    allowOnlyDomains: Bool,
+    blocksAdultContent: Bool,
+    domains: Set<WebDomain>
+  ) -> WebContentSettings.FilterPolicy? {
+    // Allow-only is already the strictest level: everything but the list.
+    if allowOnlyDomains {
+      return .all(except: domains)
+    }
+
+    // Anything to enforce goes through `.auto`, never `.specific`.
+    //
+    // Screen Time's Web Content has three levels — Unrestricted, Limit Adult
+    // Websites, Only Approved Websites — and Safari withdraws Private
+    // Browsing only at a restricted one. `.specific` is a bare blocklist with
+    // no corresponding level, so the restriction reads as unrestricted and
+    // private tabs slip past it: a tester reached a listed site that way.
+    // `.auto` is the lowest restricted level, so blocks now go through it.
+    //
+    // The cost is real and deliberate: `.auto` also applies Apple's
+    // adult-content filter, which a profile with "Block Adult Websites" off
+    // did not ask for. There is no restricted level without it — that filter
+    // *is* what "Limit Adult Websites" means — so the alternatives were to
+    // invert to an allow-list or leave the hole open.
+    if blocksAdultContent || !domains.isEmpty {
+      return .auto(domains)
+    }
+
+    // Blocks no websites at all: leave web content untouched. Escalating here
+    // would filter the whole internet for someone who only blocked apps.
+    return nil
+  }
+}
+
 class AppBlockerUtil {
   let store = ManagedSettingsStore(
     named: ManagedSettingsStore.Name("sapientiaAppRestrictions")
@@ -81,15 +133,11 @@ class AppBlockerUtil {
       }
     }
 
-    if allowOnlyDomains {
-      store.webContent.blockedByFilter = .all(except: domains)
-    } else if enableAdultContentBlocking {
-      store.webContent.blockedByFilter = .auto(domains)
-    } else if !domains.isEmpty {
-      store.webContent.blockedByFilter = .specific(domains)
-    } else {
-      store.webContent.blockedByFilter = nil
-    }
+    store.webContent.blockedByFilter = WebContentPolicy.filterPolicy(
+      allowOnlyDomains: allowOnlyDomains,
+      blocksAdultContent: enableAdultContentBlocking,
+      domains: domains
+    )
 
     store.application.denyAppRemoval = strict
     store.application.denyAppInstallation = profile.enableBlockAppInstallation

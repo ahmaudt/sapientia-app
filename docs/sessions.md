@@ -4,7 +4,15 @@ A running summary of coding sessions, newest first. See `CLAUDE.md` for what bel
 
 ## 2026-08-27 — The Little Hours: Terce, Sext and None
 
-**Shipped** (on `feature/little-hours`, not yet committed)
+**Shipped** — released as **1.1.0 (2)** to TestFlight
+
+- `3548e4c` — ASC status hook and CLAUDE.md notes, carried over uncommitted from the 1.0.0 session.
+- `703a0c5` — The Little Hours (38 files). Merged to `develop` as `2c47c3b`.
+- `b5018e7` / `e1518ff` — version 1.1.0 on `release/1.1.0`, then build 2 for the manual upload.
+- Uploaded 1.1.0 (2); App Store Connect reports VALID, internal testers in beta testing, external
+  `READY_FOR_BETA_SUBMISSION`. **1.0.0 (2) was deliberately left VALID and in external testing** —
+  last session's lesson was that expiring the old build before the new one clears review strands
+  external testers with nothing installable.
 
 - The three Little Hours are prayable in the app: a bundled dataset, a paged reader on the steel
   ground, three editable reminders, a kept-hours record, and a "The Little Hours" section on Home.
@@ -64,7 +72,13 @@ A running summary of coding sessions, newest first. See `CLAUDE.md` for what bel
   (the latter needs Screen Time, which the simulator cannot grant). Both are unit-tested. They join
   the Task 6 device check still outstanding from the layout-pass plan — one device pass could clear
   all three.
-- **Nothing is committed.** The work sits uncommitted on `feature/little-hours`.
+- **Beta App Review not submitted for 1.1.0 (2).** External shows `READY_FOR_BETA_SUBMISSION`; the
+  ASC API key cannot submit it, so that step is manual in App Store Connect. Internal testers
+  already have the build.
+- **1.0.0 close-out is still open** and now overlaps a second release: tag `1.0.0`, merge
+  `release/1.0.0` into `main`, delete it. `release/1.1.0` also needs tagging and merging to `main`
+  and back to `develop` once its beta review clears. Two release branches are live at once.
+- **`feature/little-hours` is merged but not deleted.**
 - **Passiontide suppression of the Gloria Patri** is unimplemented: `prayer.covert.org/None/` says it
   is "restored beginning with Midafternoon Prayer on Holy Saturday" but never says where suppression
   begins, so this release always shows it.
