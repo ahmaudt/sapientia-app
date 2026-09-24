@@ -2,6 +2,31 @@
 
 A running summary of coding sessions, newest first. See `CLAUDE.md` for what belongs in an entry.
 
+## 2026-09-23 — PRD: collect reminders that keep the saints
+
+**Shipped** — `docs/prd/2026-09-23-saints-collect-reminders.md`, Status Final, committed on `develop`. No code.
+
+**Decided**
+
+- A saint's collect governs on non-protected weekdays, including Lent and Advent weekdays.
+  Sundays, principal feasts, Holy Week and the Easter Octave keep their own.
+- A feast on a Sunday is abrogated: the day is the Sunday of its season (e.g. "Trinity XV") and the
+  feast goes unnamed. Solemnities and Feasts of the Lord keep precedence over the Sunday, per the
+  Roman table of days. Among today's principal entries, this changes only the Conversion of
+  S. Paul and Michaelmas.
+- The sanctorale grows to the full North American Ordinariate calendar, with real ranks. Collects
+  come from public-domain sources only (1662/1928 BCP, pre-1929 missals, plus a common-of-saints
+  collect where there's no proper), each with its source recorded. Divine Worship's own texts are
+  in copyright, and the USCCB grants online use of single daily Roman Missal collects only.
+- One collect of the day across the app (home card, shield, Little Hours), so a notice never
+  opens onto a different collect.
+- The Feast day notice is absorbed into the new reminder. Users who had it on migrate to "every
+  day, 06:00". The settings are which days, 1–3 times a day, and the evening before (20:00).
+
+**Open** — ready for `/spec`. It depends on the uncommitted Matins/Evensong/Compline scheduler for
+the 64-notification budget arithmetic. `prayer.covert.org` was unreachable, so how it handles
+saints' collects is unchecked.
+
 ## 2026-09-23 — One type voice for the prayers
 
 **Shipped** — committed on `develop` (the staged Little Hours fix below was left out of it).
