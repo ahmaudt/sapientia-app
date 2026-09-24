@@ -44,9 +44,14 @@ final class OfficeNotificationTests: XCTestCase {
   private var calendar: Calendar!
   private var store: KeptHoursStore!
 
-  /// 2026-08-24 is a Monday, so a 10-day window from here spans exactly one
-  /// Sunday — the arithmetic below depends on that.
+  /// 2026-08-24 is a Monday. A 5-day window from here is Mon-Fri and spans
+  /// **no** Sunday at all, so tests about Sunday conduct cannot start here.
   private func monday() -> Date { date(2026, 8, 24) }
+
+  /// 2026-08-27 is a Thursday, so a 5-day window from here is Thu-Mon and
+  /// spans exactly one Sunday, 30 August. Every count that depends on the
+  /// Sunday skip starts here instead.
+  private func thursday() -> Date { date(2026, 8, 27) }
 
   private func date(_ year: Int, _ month: Int, _ day: Int, _ hour: Int = 12) -> Date {
     var components = DateComponents()
@@ -80,30 +85,52 @@ final class OfficeNotificationTests: XCTestCase {
 
   // MARK: - The window
 
-  func testMondayStartQuietSundaysSchedulesTwentySeven() {
+  func testThursdayStartQuietSundaysSchedulesTwelve() {
     let center = OfficeCenterMock()
-    scheduler(center).reschedule(from: monday())
-    // 10 days from a Monday contains 1 Sunday -> 9 days x 3 hours.
-    XCTAssertEqual(center.added.count, 27)
+    scheduler(center).reschedule(from: thursday())
+    // 5 days from a Thursday contains 1 Sunday -> 4 days x 3 hours.
+    XCTAssertEqual(center.added.count, 12)
   }
 
-  func testEnablingSundaysSchedulesThirty() {
+  func testEnablingSundaysSchedulesFifteen() {
     LittleHoursSettings.remindsOnSundays = true
     let center = OfficeCenterMock()
-    scheduler(center).reschedule(from: monday())
-    XCTAssertEqual(center.added.count, 30)
+    scheduler(center).reschedule(from: thursday())
+    XCTAssertEqual(center.added.count, 15)
   }
 
   /// iOS keeps at most 64 pending local notifications and silently drops the
-  /// rest. The office window has to leave room for the 14 feast notices and
-  /// whatever session timers are outstanding.
-  func testTheWindowLeavesHeadroomUnderTheSixtyFourCap() {
+  /// rest. All three schedulers share that one budget, so the assertion has
+  /// to span all three rather than the Little Hours alone - the Little Hours
+  /// window could shrink to nothing and the app would still overflow if the
+  /// other two grew.
+  ///
+  /// Derived from the `windowInDays` constants rather than literals, so
+  /// changing any window moves this assertion with it instead of leaving a
+  /// stale number that passes by accident.
+  func testTheThreeSchedulersTogetherLeaveHeadroomUnderTheSixtyFourCap() {
+    let littleHours = OfficeNotificationScheduler.windowInDays * LittleHour.allCases.count
+    let dailyOffice = DailyOfficeNotificationScheduler.windowInDays * DailyOffice.allCases.count
+    let feast = FeastNotificationScheduler.windowInDays
+    let worstCase = littleHours + dailyOffice + feast
+
+    XCTAssertEqual(worstCase, 56)
+    // At least 8 slots left for TimersUtil's session notices.
+    XCTAssertLessThanOrEqual(worstCase, OfficeNotificationScheduler.systemPendingLimit - 8)
+  }
+
+  /// The worst case above is only real if each scheduler actually schedules
+  /// its window x its offices. This pins the Little Hours half of it against
+  /// live behaviour rather than arithmetic.
+  func testTheLittleHoursWorstCaseMatchesItsShareOfTheBudget() {
     LittleHoursSettings.remindsOnSundays = true
     let center = OfficeCenterMock()
+    // A Monday start has no Sunday to skip, so this is the true maximum.
     scheduler(center).reschedule(from: monday())
 
-    let feastNotices = FeastNotificationScheduler.windowInDays
-    XCTAssertLessThan(center.added.count + feastNotices, 64)
+    XCTAssertEqual(
+      center.added.count,
+      OfficeNotificationScheduler.windowInDays * LittleHour.allCases.count)
   }
 
   func testEveryRequestIsACalendarTriggerWithTheOfficePrefix() {
@@ -136,8 +163,9 @@ final class OfficeNotificationTests: XCTestCase {
     scheduler(center).reschedule(from: monday())
 
     XCTAssertTrue(center.identifiers(containing: "-sext").isEmpty)
-    XCTAssertEqual(center.identifiers(containing: "-terce").count, 9)
-    XCTAssertEqual(center.identifiers(containing: "-none").count, 9)
+    // 5 days from a Monday, no Sunday to skip.
+    XCTAssertEqual(center.identifiers(containing: "-terce").count, 5)
+    XCTAssertEqual(center.identifiers(containing: "-none").count, 5)
   }
 
   func testChangingATimeMovesItsTriggers() {
@@ -158,13 +186,13 @@ final class OfficeNotificationTests: XCTestCase {
 
   func testQuietSundaysProduceNoSundayNotices() {
     let center = OfficeCenterMock()
-    scheduler(center).reschedule(from: monday())
-    // The only Sunday in a 10-day window from Mon 24 Aug is 30 Aug.
+    scheduler(center).reschedule(from: thursday())
+    // The only Sunday in a 5-day window from Thu 27 Aug is 30 Aug.
     XCTAssertTrue(center.identifiers(containing: "2026-08-30").isEmpty)
 
     LittleHoursSettings.remindsOnSundays = true
     let withSundays = OfficeCenterMock()
-    scheduler(withSundays).reschedule(from: monday())
+    scheduler(withSundays).reschedule(from: thursday())
     XCTAssertEqual(withSundays.identifiers(containing: "2026-08-30").count, 3)
   }
 

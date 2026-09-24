@@ -46,12 +46,14 @@ final class PrayerRemindersTests: XCTestCase {
   private var store: KeptHoursStore!
   private var center: RemindersCenterMock!
 
-  /// A Monday, so a 10-day window holds exactly one Sunday.
-  private var monday: Date {
+  /// A Thursday, so the Little Hours' 5-day window holds exactly one Sunday
+  /// (30 August). A Monday start would run Mon-Fri and reach no Sunday at
+  /// all, which would make the Sunday assertions below vacuous.
+  private var thursday: Date {
     var components = DateComponents()
     components.year = 2026
     components.month = 8
-    components.day = 24
+    components.day = 27
     components.hour = 12
     return calendar.date(from: components)!
   }
@@ -80,7 +82,7 @@ final class PrayerRemindersTests: XCTestCase {
       reschedule: { [self] in
         OfficeNotificationScheduler(
           center: center, calendar: calendar, store: store
-        ).reschedule(from: monday)
+        ).reschedule(from: thursday)
       })
   }
 
@@ -106,12 +108,13 @@ final class PrayerRemindersTests: XCTestCase {
 
     center = RemindersCenterMock()
     editor().setEnabled(true, for: .sext)
-    XCTAssertEqual(center.identifiers(containing: "-sext").count, 9)
+    // 5 days from Thursday, less the quiet Sunday -> 4 days x 1 hour.
+    XCTAssertEqual(center.identifiers(containing: "-sext").count, 4)
   }
 
   func testTogglingSundaysOnAddsSundayNotices() {
     editor().setRemindsOnSundays(true)
-    // 30 August 2026 is the only Sunday in a 10-day window from the 24th.
+    // 30 August 2026 is the only Sunday in a 5-day window from the 27th.
     XCTAssertEqual(center.identifiers(containing: "2026-08-30").count, 3)
   }
 

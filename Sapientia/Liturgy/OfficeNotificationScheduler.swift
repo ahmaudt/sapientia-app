@@ -8,17 +8,21 @@ import UserNotifications
 /// centre), a rolling window rebuilt on every foreground, and an identifier
 /// prefix that `TimersUtil` preserves through session cleanup.
 ///
-/// The window is deliberately shorter than the feast scheduler's. iOS keeps at
-/// most **64** pending local notifications per app and silently discards the
-/// rest; three hours a day for fourteen days would be 42, which together with
-/// the 14 feast notices leaves almost nothing for session timers. Ten days
-/// caps this at 30. Since the app reschedules whenever it comes to the
-/// foreground, the shorter horizon costs nothing in practice — with the same
-/// caveat the feast scheduler carries: an app left unopened past the window
-/// runs dry until next launch.
+/// The window is deliberately the shortest of the three. iOS keeps at most
+/// **64** pending local notifications per app and silently discards the rest,
+/// and that budget is now shared three ways: five days here is 15,
+/// `DailyOfficeNotificationScheduler`'s nine days is 27, and the feast
+/// scheduler holds 14 - 56 in all, leaving 8 for session timers.
+///
+/// The Little Hours take the smallest share on purpose. They are the only
+/// offices with a reader in the app, so praying one opens Sapientia and
+/// refreshes every window; Matins, Evensong and Compline have nothing to open
+/// and so need the longer unattended horizon. The same caveat the feast
+/// scheduler carries still applies: an app left unopened past the window runs
+/// dry until next launch.
 struct OfficeNotificationScheduler {
   static let identifierPrefix = "office-"
-  static let windowInDays = 10
+  static let windowInDays = 5
   /// iOS's documented ceiling on pending local notifications per app.
   static let systemPendingLimit = 64
 
