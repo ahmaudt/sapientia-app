@@ -1,6 +1,6 @@
 # Session log
 
-A running summary of coding sessions, newest first. See `CLAUDE.md` for what belongs in an entry.
+A running summary of coding sessions, newest first. See `AGENTS.md` for what belongs in an entry.
 
 ## 2026-09-23 — PRD: collect reminders that keep the saints
 
@@ -79,6 +79,63 @@ the user's request, ahead of the collect-reminders spec.
 
 - The RED run took ~10 min because the simulator's post-failure diagnostic collection timed out
   (600 s); the test itself took 0.3 s. A green run is ~25 s once built.
+
+## 2026-09-04 — PRD for Matins/Evensong/Compline notices; AGENTS.md made canonical
+
+**Shipped** — uncommitted working-tree changes only; nothing staged or committed this session.
+
+- `docs/prd/2026-09-04-matins-evensong-compline-notices.md` — PRD for notice-only reminders for the
+  three offices the app deliberately does not carry text for. Status Final, ready for `/spec`.
+- `AGENTS.md` absorbed CLAUDE.md's four process sections and became the single instruction source;
+  `CLAUDE.md` is now the 10-byte include `@AGENTS.md`.
+
+**Decided**
+
+- **Notices for Matins, Evensong and Compline, but no text and no reader.** Screen 29's "Matins and
+  Evensong belong to the parish" was right about where the office belongs and wrong about what
+  follows: belonging to the parish argues against shipping the *text*, not against ringing the
+  *bell*. Universalis and iBreviary compete on completeness of bundled text; this inverts that.
+- **"Matins", one `t`.** Reversed an earlier suggestion of "Mattins" after checking the source:
+  `prayer.covert.org` — which `scripts/liturgy/` already generates the Little Hours from — is an
+  approved implementation of *DW:DO **North American Edition***, which spells it "Morning Prayer
+  (Matins)". "Mattins" is the Commonwealth Edition, a different book with different rubrics. The
+  app's existing screen-29 copy was already correct.
+- **Defaults 08:45 / 17:30 / 21:00.** The first two are that same community's published daily
+  times, listed for all seven days — which independently corroborated the decision to default the
+  new offices' Sunday switch *on*. Compline's 21:00 has no source behind it; every reference
+  describes Compline as "before going to bed" rather than a canonical hour, so it is an admitted
+  convention and the one users are most likely to change.
+- **Body text names the day's liturgy, and that costs the cheap scheduling path.** A repeating
+  `UNCalendarNotificationTrigger` costs one pending slot per office regardless of horizon but can
+  only carry fixed text; daily-varying content forces a rolling reschedule. iOS's 64-request cap is
+  therefore now binding — current worst case is already 44 (30 Little Hours + 14 feast) and three
+  more offices at the existing 10-day window would be 74. Accepted deliberately: a notice that names
+  the day earns the slots. `/spec` decides the allocation; the Little Hours' 10-day window may have
+  to shorten alongside it.
+- **`AGENTS.md` canonical over `CLAUDE.md`.** Pilot's sync hook blocked session completion because
+  both files carried instructions and it refuses to guess a winner. The two never actually
+  overlapped — CLAUDE.md was process, AGENTS.md was Swift style — so nothing was lost by merging.
+  AGENTS.md wins because it is the portable Claude+Codex file; CLAUDE.md's path has a guard
+  requiring *byte-exact* `@AGENTS.md`, which rejected a first attempt that differed only by a
+  trailing newline.
+
+**Corrected** — two stale claims found while merging, both verified against the repo:
+
+- AGENTS.md said "This project currently does not have unit tests" — inherited from the Foqos era
+  (PRs #310/#313) and false since well before the Little Hours work: 30 files in `sapientiaTests/`
+  and three Makefile targets. It also listed no test command at all.
+- CLAUDE.md said "Current release in progress: `release/1.0.0`" — 1.0.0 and 1.1.0 have both shipped
+  and 1.1.1 is approved on TestFlight.
+
+**Open**
+
+- **Zero git tags exist**, across three shipped releases, while the OneFlow section states every
+  commit on `main` is "tagged `x.y.z`". Left untouched — either the step is being skipped or the
+  doc overstates intent, and that is a process call, not a doc bug.
+- The PRD's Compline default time is unverified against a physical DW:DO copy, as is the naming;
+  both rest on the approved online implementation the app already treats as its source.
+- Nothing committed. The reconciliation and the PRD both sit in the working tree alongside
+  pre-existing unrelated edits (`TimerDurationView.swift`, `StrategyManager.swift`, others).
 
 ## 2026-08-27 — Hotfix 1.1.1: Safari Private Browsing bypassed the website block
 
