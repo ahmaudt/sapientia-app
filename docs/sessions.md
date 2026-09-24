@@ -2,6 +2,60 @@
 
 A running summary of coding sessions, newest first. See `AGENTS.md` for what belongs in an entry.
 
+## 2026-09-24 — Collect reminders that keep the saints (spec, verified)
+
+**Shipped** — squash-merged to `develop` as `611cec4` (from `spec/collect-reminders-saints`, 7
+commits). Plan `docs/plans/2026-09-24-collect-reminders-saints.md`, status VERIFIED. Before the
+spec, the session also committed the outstanding `develop` work in five commits: `1460108`
+(Little Hours ordering fix), `5efa252` (AGENTS.md canonical plus the Matins PRD), `c28a0e4`
+(unwired Matins/Evensong/Compline scheduling, 3 of 38 tasks), `a780f32` (duration screen), and
+`a4e7466` (shield mark).
+
+- `OrdinariateCalendar.day(for:)` now ranks observances. A weekday saint governs with its own
+  collect. A feast on an ordinary Sunday is abrogated, but Solemnities and Feasts of the Lord keep
+  precedence. Holy Week, the Easter Octave, Ash Wednesday and Advent/Lent Sundays keep the
+  temporale. Ascension Day carries its own observance. The home card, shield and Little Hours all
+  read this one answer.
+- `ordinariate-calendar.json` now has 252 observances from the Ordinariate ORDO (2025 and 2026, US
+  coordination). Each carries a public-domain collect and a `collectSource` citing the book and the
+  archive.org OCR line; `SanctoraleDatasetTests` enforces both.
+- `CollectReminderScheduler` / `CollectReminderSettings` replace the 06:00 feast notice: "Today:
+  The memorial of S. Dominic, Priest" plus the collect, 1–3 times a day, which-days filter, and an
+  evening-before notice. The budget is 14 requests. Users who had the feast notice on migrate to
+  every day at 06:00. The settings live in The Collect section on Reminders, and Settings has a
+  Reminders row.
+
+**Decided**
+
+- **Sources.** The Anglican Missal (1921, `NOT_IN_COPYRIGHT` on archive.org) comes first: it
+  already prints the Prayer Book collects for red-letter days, and justus.anglican.org blocks
+  automated access. 1979 BCP Rite One (commonprayeronline.org) was approved by the user as the
+  second source. Where the Missal gives a saint no collect, the entry uses the Common the Missal
+  itself appoints. Post-1921 saints use a class Common with the name supplied. No Divine Worship
+  text is bundled. Existing collects of untraceable source (Assumption, Immaculate Conception,
+  SS. Peter & Paul, Presentation) were replaced.
+- **Calendar data.** A single ORDO year prints transferred observances on the new date and impeded
+  ones as unranked commemorations, so ranks were taken across both years, with a General Roman/US
+  calendar fallback. The Chair of S. Peter is a Solemnity here (the Ordinariate's Solemnity of
+  Title).
+- **Budget over window.** The collect reminder is capped at 14 requests, not a fixed number of
+  days (15 + 27 + 14 = 56 of iOS's 64). At the heaviest settings that covers about 3 days ahead;
+  the Reminders screen says so.
+
+**Open**
+
+- The in-progress Matins/Evensong/Compline plan (`docs/plans/2026-09-04-...`) still refers to
+  `FeastNotificationScheduler`, which is gone. Its remaining tasks should use
+  `CollectReminderScheduler`, and must add the `daily-` prefix to `TimersUtil.preservedPrefixes`
+  next to `collect-`.
+- UI review advisories, not fixed: the app-wide 55% caption token is 3.6:1 (text needs 4.5:1);
+  there is no Dynamic Type; screen 29's intro line ("one notice per hour") predates the collect
+  reminder's multiple times.
+- Collect texts were audited on a 20-entry sample against the OCR, not against page images
+  throughout. OCR drop-capitals and split words were corrected by rule.
+- A Debug build of `611cec4` is on the iPhone Bubo for hands-on testing; it replaces the
+  TestFlight copy there until the next TestFlight build.
+
 ## 2026-09-23 — PRD: collect reminders that keep the saints
 
 **Shipped** — `docs/prd/2026-09-23-saints-collect-reminders.md`, Status Final, committed on `develop`. No code.
