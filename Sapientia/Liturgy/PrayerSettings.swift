@@ -52,9 +52,11 @@ enum PrayerSettings {
     set { suite.set(newValue.rawValue, forKey: Key.calendarChoice.rawValue) }
   }
 
+  /// The retired 06:00 Feast day notice. Read only, so that
+  /// `CollectReminderSettings` can carry an existing user's choice over to
+  /// the collect reminder that replaced it.
   static var feastNoticeEnabled: Bool {
-    get { suite.bool(forKey: Key.feastNoticeEnabled.rawValue) }
-    set { suite.set(newValue, forKey: Key.feastNoticeEnabled.rawValue) }
+    suite.bool(forKey: Key.feastNoticeEnabled.rawValue)
   }
 
   /// Test hook: clear all stored prayer preferences.

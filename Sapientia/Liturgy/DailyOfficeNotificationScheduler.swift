@@ -22,7 +22,7 @@ import UserNotifications
 ///
 /// **The window is 9 days.** iOS keeps at most 64 pending local notifications
 /// per app and silently discards the rest. Nine days here is 27, the Little
-/// Hours' five days is 15, and the feast scheduler holds 14 - 56 in all,
+/// Hours' five days is 15, and collect reminders hold at most 14 - 56 in all,
 /// leaving 8 for session timers. The app reschedules whenever it comes to the
 /// foreground, and any notification tap brings it there, so the horizon only
 /// lapses for someone who ignores every notice and never opens the app.
@@ -90,7 +90,7 @@ struct DailyOfficeNotificationScheduler {
   /// `daily-2026-09-04-evensong` - unique per office per day, and greppable.
   ///
   /// Built from date components rather than a `DateFormatter`, matching
-  /// `FeastNotificationScheduler`, so no formatter is allocated per request.
+  /// `CollectReminderScheduler`, so no formatter is allocated per request.
   func identifier(for office: DailyOffice, year: Int, month: Int, day: Int) -> String {
     String(
       format: "%@%04d-%02d-%02d-%@",

@@ -215,13 +215,13 @@ class TimersUtil {
   /// Notices that live outside the session lifecycle and must survive a
   /// session starting or stopping.
   ///
-  /// - `feast-` — the 6:00 kalendar notices.
+  /// - `collect-` — the collect reminder and its evening-before notice.
   /// - `office-` — the Little Hours. Screen 29 is explicit that the office is
   ///   never blocked ("The notice still comes; the office is never blocked"),
   ///   so wiping these when a rule begins would break the promise the
   ///   reminders screen makes.
   private static let preservedPrefixes = [
-    FeastNotificationScheduler.identifierPrefix,
+    CollectReminderScheduler.identifierPrefix,
     OfficeNotificationScheduler.identifierPrefix,
   ]
 

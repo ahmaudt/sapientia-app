@@ -202,7 +202,7 @@ struct HomeView: View {
         requestAuthorizer.refreshAuthorizationStatus()
         loadApp()
         refreshAlerts()
-        FeastNotificationScheduler().reschedule()
+        CollectReminderScheduler().reschedule()
         OfficeNotificationScheduler().reschedule()
       } else if newPhase == .background {
         unloadApp()
@@ -213,9 +213,9 @@ struct HomeView: View {
         showActiveProfileSessionView = false
       }
       // Session start/stop clears timer notifications. TimersUtil now spares
-      // both the feast and office prefixes, but rescheduling here keeps the
+      // both the collect and office prefixes, but rescheduling here keeps the
       // windows fresh and restores anything an older build had removed.
-      FeastNotificationScheduler().reschedule()
+      CollectReminderScheduler().reschedule()
       OfficeNotificationScheduler().reschedule()
     }
     .onReceive(strategyManager.$errorMessage) { errorMessage in

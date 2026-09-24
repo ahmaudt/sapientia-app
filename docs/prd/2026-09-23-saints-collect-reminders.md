@@ -88,7 +88,8 @@ give notice the evening before.
   gives it. The notice's wording depends on it.
 - **A collect for every saint's day, from public-domain sources only.** Where a proper collect exists
   in a public-domain book of the Anglican tradition — the 1662 *Book of Common Prayer*, the 1928
-  American *Book of Common Prayer*, or a pre-1929 Anglican missal — that text is used. Where none
+  American *Book of Common Prayer*, the traditional-language (Rite One) collects of the 1979 American
+  *Book of Common Prayer*, or a pre-1929 Anglican missal — that text is used. Where none
   exists, the entry uses a public-domain **common of saints** collect matching the saint's class
   (martyr, bishop, doctor, virgin, abbot, holy man or woman, and so on). **Every collect records its
   source**, so provenance can be checked text by text.
@@ -205,6 +206,7 @@ Statements about the code as it stands; how to build the feature is `/spec`'s to
 | Easter Octave counts as protected | Yes | "Easter" in the chosen rule covers the whole Octave, whose days outrank every memorial. Approved at review. |
 | How far the saints go | The full North American Ordinariate calendar | User's choice. Collects for only the current 44 would leave most memorials, and the Ordinariate's own patroness, missing. |
 | Where the collect texts come from | Public-domain Anglican sources, with a common-of-saints collect where no proper exists | User's choice. Divine Worship's texts need written permission; public-domain texts can ship now. Common collects are the tradition's own answer for saints without a proper. |
+| 1979 BCP (Rite One) as a source | Allowed | Approved by the user on 2026-09-24 during planning. It is public domain and the one traditional-language book with propers for several observances the older books lack (S. Joseph, SS. Peter and Paul, S. Mary the Virgin); several collects already in the dataset came from it. |
 | One collect of the day across the app | Yes | A notice announcing S. Dominic that opens onto the Sunday's collect contradicts itself. Approved at review over changing the reminder only. |
 | Notice wording | "Today: The Feast of …" / "Tomorrow is the memorial of …", with rank | User's direction. Naming the rank tells the user what kind of day it is before they read the collect. |
 | Frequency controls | Which days, times per day (1–3), the evening before | User's choice. Days of the week was offered and not chosen. |

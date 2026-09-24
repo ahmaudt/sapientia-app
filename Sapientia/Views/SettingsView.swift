@@ -23,7 +23,6 @@ struct SettingsView: View {
 
   @State private var blockScreenPrayer = PrayerSettings.blockScreenPrayer
   @State private var calendarChoice = PrayerSettings.calendarChoice
-  @State private var feastNoticeEnabled = PrayerSettings.feastNoticeEnabled
 
   private var appearanceBinding: Binding<AppearanceSetting> {
     Binding(
@@ -35,6 +34,7 @@ struct SettingsView: View {
   @State private var showResetBlockingStateAlert = false
   @State private var showDebugView = false
   @State private var showAcknowledgements = false
+  @State private var showReminders = false
 
   private var appVersion: String {
     Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -76,6 +76,7 @@ struct SettingsView: View {
     }
     .sheet(isPresented: $showDebugView) { DebugView() }
     .sheet(isPresented: $showAcknowledgements) { AcknowledgementsView() }
+    .sheet(isPresented: $showReminders) { PrayerRemindersView() }
   }
 
   private var appearanceSection: some View {
@@ -123,19 +124,14 @@ struct SettingsView: View {
       )
       .padding(.vertical, SapientiaTheme.space3)
 
-      CustomToggle(
-        title: "Feast day notice",
-        description: "Each morning at 6:00.",
-        isOn: $feastNoticeEnabled
-      )
-      .onChange(of: feastNoticeEnabled) { _, enabled in
-        PrayerSettings.feastNoticeEnabled = enabled
-        let scheduler = FeastNotificationScheduler()
-        if enabled {
-          scheduler.center.requestAuthorization { _ in scheduler.reschedule() }
-        } else {
-          scheduler.reschedule()
-        }
+      BlueprintListRow(
+        title: "Reminders",
+        caption: "The collect of the day, and the hours.",
+        onTap: { showReminders = true }
+      ) {
+        Image(systemName: "chevron.right")
+          .font(.caption)
+          .foregroundColor(SapientiaTheme.text.opacity(0.4))
       }
     }
   }

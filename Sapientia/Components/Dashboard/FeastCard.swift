@@ -60,13 +60,13 @@ struct FeastCard: View {
 #Preview {
   FeastCard(
     day: LiturgicalDay(
-      dayName: "Friday after Trinity IX",
+      dayName: "Saturday after Trinity IX",
       season: .trinitytide,
-      commemorationText: "Commemoration of S. Sixtus II, Bishop & Martyr",
+      commemorationText: "The memorial of S. Dominic, Priest",
       collect: Collect(
-        title: "Trinity IX",
+        title: "S. Dominic, Priest",
         text:
-          "Grant to us, Lord, we beseech thee, the spirit to think and do always such things as are right; that we, who cannot do any thing that is good without thee, may by thee be enabled to live according to thy will; through Jesus Christ our Lord. Amen."
+          "O God, who hast vouchsafed to enlighten thy Church with the merits and teaching of blessed Dominic thy Confessor: grant, we pray thee; that by his intercession we may fail not of thy succour in all things temporal, and continually prosper in all spiritual advancement. Through Jesus Christ thy Son our Lord. Amen."
       )
     )
   )

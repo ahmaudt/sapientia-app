@@ -3,7 +3,7 @@ import UserNotifications
 
 /// Schedules the notice that names each Little Hour as it comes.
 ///
-/// Structure follows `FeastNotificationScheduler`: the same
+/// Structure follows `CollectReminderScheduler`: the same
 /// `UserNotificationCentering` seam (so this is testable without the real
 /// centre), a rolling window rebuilt on every foreground, and an identifier
 /// prefix that `TimersUtil` preserves through session cleanup.
@@ -11,14 +11,14 @@ import UserNotifications
 /// The window is deliberately the shortest of the three. iOS keeps at most
 /// **64** pending local notifications per app and silently discards the rest,
 /// and that budget is now shared three ways: five days here is 15,
-/// `DailyOfficeNotificationScheduler`'s nine days is 27, and the feast
-/// scheduler holds 14 - 56 in all, leaving 8 for session timers.
+/// `DailyOfficeNotificationScheduler`'s nine days is 27, and collect
+/// reminders hold at most 14 - 56 in all, leaving 8 for session timers.
 ///
 /// The Little Hours take the smallest share on purpose. They are the only
 /// offices with a reader in the app, so praying one opens Sapientia and
 /// refreshes every window; Matins, Evensong and Compline have nothing to open
-/// and so need the longer unattended horizon. The same caveat the feast
-/// scheduler carries still applies: an app left unopened past the window runs
+/// and so need the longer unattended horizon. The same caveat the collect
+/// reminder carries still applies: an app left unopened past the window runs
 /// dry until next launch.
 struct OfficeNotificationScheduler {
   static let identifierPrefix = "office-"

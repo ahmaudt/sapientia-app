@@ -60,10 +60,12 @@ final class ShieldContentTests: XCTestCase {
       blockedItemName: "Instagram",
       unblockPhrase: "until you tap your tag"
     )
+    // 7 August keeps SS. Sixtus II and Companions: the shield shows their
+    // collect, the same one the home card and the reminder carry.
     XCTAssertEqual(shield.title, "Collect — Friday after Trinity IX")
     XCTAssertTrue(
-      shield.subtitle.contains("Grant to us, Lord, we beseech thee"),
-      "Expected the Trinity IX collect, got: \(shield.subtitle.prefix(80))")
+      shield.subtitle.contains("thy holy Martyrs Sixtus and his Companions"),
+      "Expected the collect of SS. Sixtus II and Companions, got: \(shield.subtitle.prefix(80))")
     XCTAssertEqual(shield.buttonText, "Amen")
   }
 

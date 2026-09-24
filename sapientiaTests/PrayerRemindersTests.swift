@@ -173,6 +173,90 @@ final class PrayerRemindersTests: XCTestCase {
     XCTAssertEqual(PrayerRemindersModel.previewNotice().time, "13:37")
   }
 
+  // MARK: - The Collect section
+
+  /// An editor whose reschedules are only counted, so each test can tell the
+  /// collect reminder's reschedule from the Little Hours'.
+  private func countingEditor(
+    office: @escaping () -> Void = {}, collect: @escaping () -> Void
+  ) -> RemindersEditor {
+    RemindersEditor(reschedule: office, rescheduleCollect: collect)
+  }
+
+  func testGivenTheCollectReminder_WhenTurnedOn_ThenItPersistsAndReschedulesOnlyItself() {
+    CollectReminderSettings.reset()
+    defer { CollectReminderSettings.reset() }
+    var office = 0
+    var collect = 0
+    countingEditor(office: { office += 1 }, collect: { collect += 1 }).setCollectEnabled(true)
+
+    XCTAssertTrue(CollectReminderSettings.isEnabled)
+    XCTAssertEqual(collect, 1)
+    XCTAssertEqual(office, 0)
+  }
+
+  func testGivenThreeTimes_WhenAFourthIsAdded_ThenItIsRefusedWithoutRescheduling() {
+    CollectReminderSettings.reset()
+    defer { CollectReminderSettings.reset() }
+    var collect = 0
+    let editor = countingEditor(collect: { collect += 1 })
+
+    XCTAssertTrue(editor.addCollectTime(12 * 60))
+    XCTAssertTrue(editor.addCollectTime(18 * 60))
+    XCTAssertFalse(editor.addCollectTime(21 * 60))
+    XCTAssertFalse(editor.addCollectTime(12 * 60), "a duplicate time is refused too")
+
+    XCTAssertEqual(CollectReminderSettings.times, [360, 720, 1080])
+    XCTAssertEqual(collect, 2)
+  }
+
+  func testGivenOneTime_WhenItIsRemoved_ThenItIsRefused() {
+    CollectReminderSettings.reset()
+    defer { CollectReminderSettings.reset() }
+    var collect = 0
+    let editor = countingEditor(collect: { collect += 1 })
+
+    XCTAssertFalse(editor.removeCollectTime(at: 0))
+    XCTAssertEqual(collect, 0)
+
+    editor.addCollectTime(12 * 60)
+    XCTAssertTrue(editor.removeCollectTime(at: 0))
+    XCTAssertEqual(CollectReminderSettings.times, [720])
+  }
+
+  func testCollectEditsPersistAndEachReschedules() {
+    CollectReminderSettings.reset()
+    defer { CollectReminderSettings.reset() }
+    var collect = 0
+    let editor = countingEditor(collect: { collect += 1 })
+
+    editor.setCollectDays(.saintsAndFeasts)
+    editor.setCollectTime(7 * 60, at: 0)
+    editor.setEveningBefore(true)
+    editor.setEveningMinutes(19 * 60 + 30)
+
+    XCTAssertEqual(CollectReminderSettings.whichDays, .saintsAndFeasts)
+    XCTAssertEqual(CollectReminderSettings.times, [420])
+    XCTAssertTrue(CollectReminderSettings.eveningBeforeEnabled)
+    XCTAssertEqual(CollectReminderSettings.eveningBeforeMinutes, 1170)
+    XCTAssertEqual(collect, 4)
+  }
+
+  func testTheCollectSectionSaysHowTheBudgetBehaves() {
+    XCTAssertEqual(
+      PrayerRemindersModel.collectHorizonCaption,
+      "More reminders a day look fewer days ahead; opening Sapientia refills them.")
+    XCTAssertEqual(
+      CollectReminderDays.allCases.map(PrayerRemindersModel.label(for:)),
+      ["Every day", "Saints & feasts", "Feasts"])
+  }
+
+  func testANewTimeFollowsTheLastBySixHoursAndSkipsOnesAlreadySet() {
+    XCTAssertEqual(PrayerRemindersModel.nextCollectTime(after: [360]), 720)
+    XCTAssertEqual(PrayerRemindersModel.nextCollectTime(after: [360, 1080]), 0)
+    XCTAssertEqual(PrayerRemindersModel.nextCollectTime(after: [0, 360, 1080]), nil)
+  }
+
   // MARK: - Row copy
 
   func testRowsDescribeEachHour() {

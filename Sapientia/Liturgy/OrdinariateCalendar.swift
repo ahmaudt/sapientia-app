@@ -43,47 +43,75 @@ struct OrdinariateCalendar {
     let year = gregorian.component(.year, from: noon)
     let anchors = Anchors(year: year, calendar: gregorian)
 
-    let feast = sanctoraleEntry(for: noon)
-    let commemoration = feast.flatMap { entry in
-      entry.rank == "commemoration" ? "Commemoration of \(entry.name)" : nil
-    }
-
     let seasonalDay = seasonal(for: noon, anchors: anchors)
-
-    // Principal feasts rename the day and provide its collect — except on
-    // protected days (Holy Week, Easter Day, Sundays of Advent and Lent),
-    // where the temporale always wins. Feast transfer is not modeled.
-    let isProtected =
-      seasonalDay.season == .holyWeek
-      || seasonalDay.dayName == "Easter Day"
-      || (isSunday(noon)
-        && (seasonalDay.season == .advent || seasonalDay.season == .lent))
-
-    if let principal = feast, principal.rank == "principal", !isProtected {
-      return LiturgicalDay(
-        dayName: principal.name,
-        season: seasonalDay.season,
-        commemorationText: nil,
-        collect: Collect(
-          title: principal.name,
-          text: principal.collect ?? seasonalDay.collect.text)
-      )
-    }
-
-    return LiturgicalDay(
+    let temporal = LiturgicalDay(
       dayName: seasonalDay.dayName,
       season: seasonalDay.season,
-      commemorationText: commemoration,
-      collect: seasonalDay.collect
-    )
-  }
+      commemorationText: nil,
+      collect: seasonalDay.collect)
 
+    // Ascension Day is the one temporale day that carries an observance of
+    // its own, so "feasts only" reminders and the evening notice keep it.
+    if gregorian.isDate(noon, inSameDayAs: anchors.ascension) {
+      return LiturgicalDay(
+        dayName: temporal.dayName, season: temporal.season, commemorationText: nil,
+        collect: temporal.collect,
+        observance: Observance(
+          name: "Ascension Day", rank: .solemnity, isFeastOfTheLord: true,
+          noticeName: "Ascension Day"))
+    }
+
+    guard !isProtected(noon, anchors: anchors),
+      let entry = governingEntry(for: noon)
+    else { return temporal }
+
+    // Sundays: only a Solemnity or a Feast of the Lord displaces an ordinary
+    // Sunday — any lesser observance is abrogated for the year — and nothing
+    // displaces a Sunday of Advent or Lent. Feast transfer is not modeled.
+    if isSunday(noon) {
+      let isPenitentialSunday = seasonalDay.season == .advent || seasonalDay.season == .lent
+      let outranksSunday = entry.rank == .solemnity || entry.isFeastOfTheLord
+      if isPenitentialSunday || !outranksSunday { return temporal }
+    }
+
+    let collect = Collect(title: entry.name, text: entry.collect ?? seasonalDay.collect.text)
+    switch entry.rank {
+    case .solemnity, .feast:
+      // A feast renames the day.
+      return LiturgicalDay(
+        dayName: entry.name, season: seasonalDay.season, commemorationText: nil,
+        collect: collect, observance: entry.observance)
+    case .memorial, .optionalMemorial:
+      // A memorial keeps the temporal name and adds its own line beneath it.
+      return LiturgicalDay(
+        dayName: seasonalDay.dayName, season: seasonalDay.season,
+        commemorationText: entry.observance.phrase(capitalized: true),
+        collect: collect, observance: entry.observance)
+    }
+  }
 
   // MARK: - Sanctorale
 
-  private func sanctoraleEntry(for date: Date) -> LiturgicalDataset.Feast? {
+  /// Days on which the temporale governs and no saint is kept or named:
+  /// Holy Week, Easter Day through the Saturday of its octave, and Ash
+  /// Wednesday. (Ascension Day is handled before this is consulted.)
+  private func isProtected(_ date: Date, anchors: Anchors) -> Bool {
+    let octaveEnd = gregorian.date(byAdding: .day, value: 7, to: anchors.easter)!
+    return (date >= anchors.palmSunday && date < octaveEnd)
+      || gregorian.isDate(date, inSameDayAs: anchors.ashWednesday)
+  }
+
+  /// The highest-ranked entry on the date; between equal ranks, the first
+  /// listed.
+  private func governingEntry(for date: Date) -> LiturgicalDataset.Feast? {
     let md = monthDay(date)
-    return dataset.sanctorale.first { $0.month == md.month && $0.day == md.day }
+    var best: LiturgicalDataset.Feast?
+    for entry in dataset.sanctorale where entry.month == md.month && entry.day == md.day {
+      if entry.rank.precedence > (best?.rank.precedence ?? -1) {
+        best = entry
+      }
+    }
+    return best
   }
 
   // MARK: - Collect lookup

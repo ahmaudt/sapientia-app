@@ -15,6 +15,13 @@ struct PrayerRemindersView: View {
   @State private var authorization: UNAuthorizationStatus = .authorized
   @State private var hourBeingTimed: LittleHour?
 
+  @State private var collectEnabled = CollectReminderSettings.isEnabled
+  @State private var collectDays = CollectReminderSettings.whichDays
+  @State private var collectTimes = CollectReminderSettings.times
+  @State private var eveningEnabled = CollectReminderSettings.eveningBeforeEnabled
+  @State private var eveningMinutes = CollectReminderSettings.eveningBeforeMinutes
+  @State private var collectSlotBeingTimed: CollectTimeSlot?
+
   var body: some View {
     BlueprintStage(
       title: "Reminders",
@@ -35,15 +42,25 @@ struct PrayerRemindersView: View {
         }
 
         hoursSection
+        collectSection
         conductSection
         previewCard
       }
     }
     .onAppear(perform: refresh)
     .sheet(item: $hourBeingTimed) { hour in
-      HourTimePicker(hour: hour) { minutes in
+      ReminderTimePicker(initialMinutes: LittleHoursSettings.minutes(for: hour)) { minutes in
         editor.setTime(minutes, for: hour)
         rows = PrayerRemindersModel.rows()
+      }
+    }
+    .sheet(item: $collectSlotBeingTimed) { slot in
+      ReminderTimePicker(initialMinutes: minutes(for: slot)) { minutes in
+        switch slot {
+        case .time(let index): editor.setCollectTime(minutes, at: index)
+        case .evening: editor.setEveningMinutes(minutes)
+        }
+        refreshCollect()
       }
     }
   }
@@ -117,6 +134,125 @@ struct PrayerRemindersView: View {
           Rectangle().fill(SapientiaTheme.divider).frame(height: 1)
         }
       }
+    }
+  }
+
+  private var collectSection: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      SectionHeaderLabel(title: "The Collect")
+      CustomToggle(
+        title: "Collect reminder",
+        description: "The day's collect, naming its saint or feast.",
+        isOn: Binding(
+          get: { collectEnabled },
+          set: { newValue in
+            collectEnabled = newValue
+            editor.setCollectEnabled(newValue)
+          })
+      )
+
+      if collectEnabled {
+        SapientiaSegmentedPicker(
+          options: CollectReminderDays.allCases,
+          label: PrayerRemindersModel.label(for:),
+          selection: Binding(
+            get: { collectDays },
+            set: { newValue in
+              collectDays = newValue
+              editor.setCollectDays(newValue)
+            })
+        )
+        .padding(.vertical, SapientiaTheme.space3)
+
+        ForEach(Array(collectTimes.enumerated()), id: \.offset) { index, minutes in
+          reminderTimeRow(
+            title: collectTimes.count == 1 ? "Reminder" : "Reminder \(index + 1)",
+            minutes: minutes,
+            onTime: { collectSlotBeingTimed = .time(index: index) },
+            onRemove: collectTimes.count > 1
+              ? {
+                editor.removeCollectTime(at: index)
+                refreshCollect()
+              } : nil)
+        }
+
+        if let next = PrayerRemindersModel.nextCollectTime(after: collectTimes) {
+          Button {
+            editor.addCollectTime(next)
+            refreshCollect()
+          } label: {
+            Text("Add a time")
+              .font(.sapientiaHeading(15))
+              .kerning(1.2)
+              .textCase(.uppercase)
+              .foregroundColor(SapientiaTheme.accent700)
+          }
+          .buttonStyle(.plain)
+          .padding(.vertical, SapientiaTheme.space4)
+        }
+
+        CustomToggle(
+          title: "The evening before",
+          description: "Names tomorrow's saint or feast.",
+          isOn: Binding(
+            get: { eveningEnabled },
+            set: { newValue in
+              eveningEnabled = newValue
+              editor.setEveningBefore(newValue)
+            }),
+          showsDivider: !eveningEnabled
+        )
+        if eveningEnabled {
+          reminderTimeRow(
+            title: "Time",
+            accessibilityName: "the evening before",
+            minutes: eveningMinutes,
+            onTime: { collectSlotBeingTimed = .evening },
+            onRemove: nil)
+        }
+
+        Text(PrayerRemindersModel.collectHorizonCaption)
+          .font(.sapientiaBody(13))
+          .foregroundColor(SapientiaTheme.text.opacity(0.55))
+          .fixedSize(horizontal: false, vertical: true)
+          .padding(.top, SapientiaTheme.space3)
+      }
+    }
+  }
+
+  /// A ruled row with a time the user taps to change, in the Little Hours'
+  /// row style, and an optional remove control.
+  private func reminderTimeRow(
+    title: String, accessibilityName: String? = nil, minutes: Int,
+    onTime: @escaping () -> Void, onRemove: (() -> Void)?
+  ) -> some View {
+    HStack(alignment: .center, spacing: SapientiaTheme.space3) {
+      Text(title)
+        .font(.sapientiaBody(17))
+        .foregroundColor(SapientiaTheme.text)
+      Spacer(minLength: SapientiaTheme.space3)
+      Button(action: onTime) {
+        Text(LittleHoursRowModel.timeLabel(minutes))
+          .font(.sapientiaHeading(20))
+          .foregroundColor(SapientiaTheme.accent700)
+      }
+      .buttonStyle(.plain)
+      .accessibilityLabel("Change the time for \(accessibilityName ?? title)")
+      if let onRemove {
+        Button(action: onRemove) {
+          Image(systemName: "minus.circle")
+            // 55% ink is 3.6:1 on paper: a control needs 3:1, 45% was 2.75.
+            .foregroundColor(SapientiaTheme.text.opacity(0.55))
+            .frame(width: 44, height: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Remove \(accessibilityName ?? title)")
+      }
+    }
+    .padding(.vertical, SapientiaTheme.space4)
+    .overlay(alignment: .bottom) {
+      Rectangle().fill(SapientiaTheme.divider).frame(height: 1)
     }
   }
 
@@ -198,7 +334,23 @@ struct PrayerRemindersView: View {
 
   // MARK: - Behavior
 
+  private func refreshCollect() {
+    collectEnabled = CollectReminderSettings.isEnabled
+    collectDays = CollectReminderSettings.whichDays
+    collectTimes = CollectReminderSettings.times
+    eveningEnabled = CollectReminderSettings.eveningBeforeEnabled
+    eveningMinutes = CollectReminderSettings.eveningBeforeMinutes
+  }
+
+  private func minutes(for slot: CollectTimeSlot) -> Int {
+    switch slot {
+    case .time(let index): return collectTimes.indices.contains(index) ? collectTimes[index] : 360
+    case .evening: return eveningMinutes
+    }
+  }
+
   private func refresh() {
+    refreshCollect()
     rows = PrayerRemindersModel.rows()
     remindsOnSundays = LittleHoursSettings.remindsOnSundays
     remindsDuringSession = LittleHoursSettings.remindsDuringSession
@@ -237,9 +389,22 @@ private struct HatchBackdrop: View {
   }
 }
 
-/// A squared time picker for one hour.
-private struct HourTimePicker: View {
-  let hour: LittleHour
+/// Which collect reminder time a picker sheet is editing.
+private enum CollectTimeSlot: Identifiable {
+  case time(index: Int)
+  case evening
+
+  var id: String {
+    switch self {
+    case .time(let index): return "time-\(index)"
+    case .evening: return "evening"
+    }
+  }
+}
+
+/// A squared time picker for one reminder time.
+private struct ReminderTimePicker: View {
+  let initialMinutes: Int
   let onPick: (Int) -> Void
 
   @Environment(\.dismiss) private var dismiss
@@ -265,10 +430,9 @@ private struct HourTimePicker: View {
       .frame(maxWidth: .infinity)
     }
     .onAppear {
-      let minutes = LittleHoursSettings.minutes(for: hour)
       var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-      components.hour = minutes / 60
-      components.minute = minutes % 60
+      components.hour = initialMinutes / 60
+      components.minute = initialMinutes % 60
       time = Calendar.current.date(from: components) ?? Date()
     }
   }

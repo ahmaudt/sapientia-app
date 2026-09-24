@@ -105,14 +105,16 @@ final class OfficeNotificationTests: XCTestCase {
   /// window could shrink to nothing and the app would still overflow if the
   /// other two grew.
   ///
-  /// Derived from the `windowInDays` constants rather than literals, so
-  /// changing any window moves this assertion with it instead of leaving a
-  /// stale number that passes by accident.
+  /// Derived from the schedulers' own constants rather than literals, so
+  /// changing any window or budget moves this assertion with it instead of
+  /// leaving a stale number that passes by accident. The collect reminder is
+  /// capped by a request budget rather than a window, since its requests per
+  /// day vary with its settings.
   func testTheThreeSchedulersTogetherLeaveHeadroomUnderTheSixtyFourCap() {
     let littleHours = OfficeNotificationScheduler.windowInDays * LittleHour.allCases.count
     let dailyOffice = DailyOfficeNotificationScheduler.windowInDays * DailyOffice.allCases.count
-    let feast = FeastNotificationScheduler.windowInDays
-    let worstCase = littleHours + dailyOffice + feast
+    let collect = CollectReminderScheduler.requestBudget
+    let worstCase = littleHours + dailyOffice + collect
 
     XCTAssertEqual(worstCase, 56)
     // At least 8 slots left for TimersUtil's session notices.

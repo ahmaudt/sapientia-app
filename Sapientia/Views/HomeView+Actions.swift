@@ -188,7 +188,7 @@ extension HomeView {
     strategyManager.loadActiveSession(context: context)
     strategyManager.cleanUpGhostSchedules(context: context)
     refreshAlerts()
-    FeastNotificationScheduler().reschedule()
+    CollectReminderScheduler().reschedule()
   }
 
   func refreshAlerts() {
