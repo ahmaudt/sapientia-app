@@ -16,10 +16,25 @@ import UIKit
 class ShieldConfigurationExtension: ShieldConfigurationDataSource {
 
   private enum Palette {
-    static let ground = UIColor(Color(hex: "#1d2d3d"))  // accent-900
-    static let accent = UIColor(Color(hex: "#5980a6"))
-    static let kicker = UIColor(Color(hex: "#b5d9fd"))  // accent-300
-    static let foreground = UIColor(Color(hex: "#f2f2f3"))
+    // Taken from SapientiaTheme rather than restated as hex: the extension
+    // compiles the theme, and a second copy of the ramp is how the shield
+    // drifts out of step with the rest of the app.
+    static let ground = UIColor(SapientiaTheme.accent900)
+    static let accent = UIColor(SapientiaTheme.accent)
+    static let kicker = UIColor(SapientiaTheme.accent300)
+    static let foreground = UIColor(SapientiaTheme.paper)
+  }
+
+  private static var cachedMarkIcon: UIImage?
+
+  /// The mark is static, so render it once and hold it. Deliberately caches
+  /// only on success: `shieldIcon()` returns nil off the main thread, and a
+  /// plain `static let` would latch that nil for the life of the process,
+  /// permanently reinstating Apple's hourglass over one unlucky first call.
+  private static func markIcon() -> UIImage? {
+    if let cachedMarkIcon { return cachedMarkIcon }
+    cachedMarkIcon = SapientiaMarkImage.shieldIcon()
+    return cachedMarkIcon
   }
 
   override func configuration(shielding application: Application) -> ShieldConfiguration {
@@ -61,7 +76,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     return ShieldConfiguration(
       backgroundBlurStyle: .dark,
       backgroundColor: Palette.ground,
-      icon: nil,
+      icon: Self.markIcon(),
       title: ShieldConfiguration.Label(text: shield.title, color: Palette.kicker),
       subtitle: ShieldConfiguration.Label(
         text: shield.subtitle,
@@ -140,7 +155,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     return ShieldConfiguration(
       backgroundBlurStyle: .dark,
       backgroundColor: Palette.ground,
-      icon: nil,
+      icon: Self.markIcon(),
       title: ShieldConfiguration.Label(text: shield.title, color: Palette.kicker),
       subtitle: ShieldConfiguration.Label(
         text: shield.subtitle,

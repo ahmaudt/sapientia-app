@@ -195,6 +195,9 @@
 				Models/SoftUnblockGrant.swift,
 				Models/Strategies/Data/SoftUnblockStrategyData.swift,
 				"Resources/Liturgy/ordinariate-calendar.json",
+				Theme/SapientiaMark.swift,
+				Theme/SapientiaMarkImage.swift,
+				Theme/SapientiaTheme.swift,
 				Utils/SoftUnblockGrantStore.swift,
 				Utils/ThemeManager.swift,
 			);
