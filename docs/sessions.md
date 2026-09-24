@@ -2,6 +2,32 @@
 
 A running summary of coding sessions, newest first. See `CLAUDE.md` for what belongs in an entry.
 
+## 2026-09-23 — One type voice for the prayers
+
+**Shipped** — committed on `develop` (the staged Little Hours fix below was left out of it).
+
+- The office reader set spoken text in two families at nine sizes (Barlow 13–17, Barlow
+  Condensed 19–24), so a single page jumped face and size between chapter, versicle and collect.
+  Every spoken line — responsory, hymn, psalm, Gloria, chapter, versicle, collect, conclusion —
+  now uses `prayerText(_ opacity:)` (Barlow Regular 18, leading 6); rubrics and notes use
+  `rubricText()` (Barlow 14 at 0.45). Both live in `SapientiaTheme.swift`. The prayer
+  interstitial uses `prayerText()` too.
+- `Font.sapientiaDisplay` had no callers left and was removed. The `BarlowCondensed-Regular`
+  font file is still bundled and still asserted by `SapientiaThemeTests`.
+- Verified on the iPhone 17 simulator: Terce's opening, psalm and final pages render in the one
+  voice. Unit suite passes. A Debug build is installed on the iPhone Bubo for
+  hands-on review; it replaces the TestFlight copy there until the next TestFlight build.
+
+**Decided**
+
+- Prayer text is set in body Barlow, not Condensed: the design system gives Condensed to headings
+  (`styles.css` h1–h6) and body to reading text, and long prose reads better uncondensed.
+  Condensed stays with the kickers and V/R labels, which is the only family contrast left.
+- Voice (officiant/people, psalm lead verse, Gloria, collect intro) is carried by the existing
+  opacities alone; those values were kept as they were.
+
+**Open** — sizes are still fixed points and do not follow Dynamic Type.
+
 ## 2026-08-27 — Hotfix 1.1.1: Safari Private Browsing bypassed the website block
 
 **Shipped** — `b2d6316`, merged to `release/1.1.0` (`8f2a9ef`) and `develop` (`17c8993`), uploaded

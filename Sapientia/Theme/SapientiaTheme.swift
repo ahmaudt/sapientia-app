@@ -77,11 +77,6 @@ extension Font {
     .custom("BarlowCondensed-SemiBold", size: size)
   }
 
-  /// Barlow Condensed Regular — large display prayer text.
-  static func sapientiaDisplay(_ size: CGFloat) -> Font {
-    .custom("BarlowCondensed-Regular", size: size)
-  }
-
   /// Barlow Regular — body copy.
   static func sapientiaBody(_ size: CGFloat) -> Font {
     .custom("Barlow-Regular", size: size)
@@ -90,6 +85,26 @@ extension Font {
   /// Barlow Medium — emphasized body copy.
   static func sapientiaBodyMedium(_ size: CGFloat) -> Font {
     .custom("Barlow-Medium", size: size)
+  }
+}
+
+// MARK: - Prayer type
+extension View {
+  /// A spoken line of the rite — versicle, psalm, hymn, chapter or collect.
+  /// Every one is set in the same face, size and leading so a page reads as
+  /// one text; who is speaking is carried by `opacity` alone, never by a
+  /// change of font. Condensed Barlow stays with the kickers above it.
+  func prayerText(_ opacity: Double = 1.0) -> some View {
+    font(.sapientiaBody(18))
+      .lineSpacing(6)
+      .foregroundColor(SapientiaTheme.onDark(opacity))
+  }
+
+  /// A rubric or editorial note: read, not said, so it sits a step below.
+  func rubricText() -> some View {
+    font(.sapientiaBody(14))
+      .lineSpacing(3)
+      .foregroundColor(SapientiaTheme.onDark(0.45))
   }
 }
 

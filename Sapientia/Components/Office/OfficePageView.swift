@@ -41,9 +41,7 @@ struct OfficePageView: View {
       kicker(devotion.title)
 
       Text(note)
-        .font(.sapientiaBody(13))
-        .lineSpacing(3)
-        .foregroundColor(SapientiaTheme.onDark(0.45))
+        .rubricText()
         .fullyLaidOut()
 
       VStack(alignment: .leading, spacing: SapientiaTheme.space3) {
@@ -55,9 +53,7 @@ struct OfficePageView: View {
       rule()
 
       Text(devotion.collect)
-        .font(.sapientiaDisplay(20))
-        .lineSpacing(5)
-        .foregroundColor(SapientiaTheme.onDark())
+        .prayerText()
         .fullyLaidOut()
     }
   }
@@ -74,10 +70,8 @@ struct OfficePageView: View {
         // there it stands on its own rather than completing a versicle.)
         ForEach(Array((responsory + gloria).enumerated()), id: \.offset) { _, line in
           Text(line.text)
-            .font(.sapientiaDisplay(24))
-            .lineSpacing(6)
             // The officiant leads, the people answer: the response sits back.
-            .foregroundColor(SapientiaTheme.onDark(line.speaker == "People" ? 0.70 : 1.0))
+            .prayerText(line.speaker == "People" ? 0.70 : 1.0)
             .fullyLaidOut()
         }
       }
@@ -88,14 +82,11 @@ struct OfficePageView: View {
         kicker("Office Hymn · \(hymn.latin)")
         ForEach(Array(hymn.verses.enumerated()), id: \.offset) { _, verse in
           Text(verse)
-            .font(.sapientiaBody(17))
-            .lineSpacing(6)
-            .foregroundColor(SapientiaTheme.onDark())
+            .prayerText()
             .fullyLaidOut()
         }
         Text(hymn.note)
-          .font(.sapientiaBody(13))
-          .foregroundColor(SapientiaTheme.onDark(0.45))
+          .rubricText()
           .fullyLaidOut()
           .padding(.top, SapientiaTheme.space2)
       }
@@ -111,10 +102,8 @@ struct OfficePageView: View {
       VStack(alignment: .leading, spacing: SapientiaTheme.space2) {
         ForEach(Array(psalm.verses.enumerated()), id: \.offset) { index, verse in
           Text(verse)
-            .font(.sapientiaDisplay(22))
-            .lineSpacing(4)
             // The opening verse carries the psalm; the rest follow it.
-            .foregroundColor(SapientiaTheme.onDark(index == 0 ? 1.0 : 0.78))
+            .prayerText(index == 0 ? 1.0 : 0.78)
             .fullyLaidOut()
         }
       }
@@ -125,9 +114,7 @@ struct OfficePageView: View {
       VStack(alignment: .leading, spacing: SapientiaTheme.space2) {
         ForEach(Array(gloria.split(separator: "\n").enumerated()), id: \.offset) { _, line in
           Text(String(line))
-            .font(.sapientiaDisplay(22))
-            .lineSpacing(4)
-            .foregroundColor(SapientiaTheme.onDark(0.62))
+            .prayerText(0.62)
             .fullyLaidOut()
         }
       }
@@ -148,15 +135,6 @@ struct OfficePageView: View {
 
   // MARK: - Shared pieces
 
-  private func kicker(_ text: String) -> some View {
-    Text(text)
-      .font(.sapientiaHeading(13))
-      .kerning(2.0)
-      .textCase(.uppercase)
-      .foregroundColor(SapientiaTheme.accent300)
-      .fullyLaidOut()
-  }
-
   private func versicleLine(_ line: Versicle) -> some View {
     HStack(alignment: .firstTextBaseline, spacing: SapientiaTheme.space2) {
       if !line.speaker.isEmpty {
@@ -167,9 +145,7 @@ struct OfficePageView: View {
           .frame(width: 22, alignment: .leading)
       }
       Text(line.text)
-        .font(.sapientiaBody(16))
-        .lineSpacing(4)
-        .foregroundColor(SapientiaTheme.onDark(line.speaker == "R" ? 0.72 : 1.0))
+        .prayerText(line.speaker == "R" ? 0.72 : 1.0)
         .fullyLaidOut()
       Spacer(minLength: 0)
     }
@@ -191,64 +167,54 @@ extension OfficeFinalSection {
     case .chapter:
       VStack(alignment: .leading, spacing: SapientiaTheme.space3) {
         if let title {
-          Text(title)
-            .font(.sapientiaHeading(13))
-            .kerning(2.0)
-            .textCase(.uppercase)
-            .foregroundColor(SapientiaTheme.accent300)
-            .fullyLaidOut()
+          kicker(title)
         }
         Text(body)
-          .font(.sapientiaBody(17))
-          .lineSpacing(6)
-          .foregroundColor(SapientiaTheme.onDark())
+          .prayerText()
           .fullyLaidOut()
       }
 
     case .chapterVersicle:
       Text(body)
-        .font(.sapientiaDisplay(19))
-        .lineSpacing(4)
-        .foregroundColor(SapientiaTheme.onDark(0.85))
+        .prayerText(0.85)
         .fullyLaidOut()
 
     case .collectIntro:
       Text(body)
-        .font(.sapientiaBody(15))
-        .lineSpacing(4)
-        .foregroundColor(SapientiaTheme.onDark(0.62))
+        .prayerText(0.62)
         .fullyLaidOut()
 
     case .collect:
-      VStack(alignment: .leading, spacing: SapientiaTheme.space2) {
+      VStack(alignment: .leading, spacing: SapientiaTheme.space3) {
         if let title {
-          Text(title)
-            .font(.sapientiaHeading(13))
-            .kerning(2.0)
-            .textCase(.uppercase)
-            .foregroundColor(SapientiaTheme.accent300)
-            .fullyLaidOut()
+          kicker(title)
         }
         Text(body)
-          .font(.sapientiaDisplay(23))
-          .lineSpacing(5)
-          .foregroundColor(SapientiaTheme.onDark())
+          .prayerText()
           .fullyLaidOut()
       }
 
     case .faithfulDeparted:
       Text(body)
-        .font(.sapientiaBody(15))
-        .lineSpacing(4)
-        .foregroundColor(SapientiaTheme.onDark(0.62))
+        .prayerText(0.62)
         .fullyLaidOut()
 
     case .conclusion:
       Text(body)
-        .font(.sapientiaBody(15))
-        .lineSpacing(4)
-        .foregroundColor(SapientiaTheme.onDark(0.85))
+        .prayerText(0.85)
         .fullyLaidOut()
     }
   }
+}
+
+// MARK: - Kicker
+
+/// The section label over each part of the rite: condensed, tracked, accent.
+private func kicker(_ text: String) -> some View {
+  Text(text)
+    .font(.sapientiaHeading(13))
+    .kerning(2.0)
+    .textCase(.uppercase)
+    .foregroundColor(SapientiaTheme.accent300)
+    .fullyLaidOut()
 }

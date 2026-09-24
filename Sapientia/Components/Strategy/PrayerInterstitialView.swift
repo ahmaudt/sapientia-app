@@ -35,9 +35,7 @@ struct PrayerInterstitialView: View {
         .foregroundColor(SapientiaTheme.accent300)
 
       Text(prayer.text)
-        .font(.sapientiaDisplay(25))
-        .lineSpacing(8)
-        .foregroundColor(SapientiaTheme.paper)
+        .prayerText()
         .padding(.top, SapientiaTheme.space4)
 
       Spacer()
