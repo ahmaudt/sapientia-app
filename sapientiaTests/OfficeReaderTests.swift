@@ -157,7 +157,7 @@ final class OfficeReaderTests: XCTestCase {
       sections.map(\.kind),
       [
         .chapter, .chapterVersicle, .collectIntro, .collect, .collect, .collect,
-        .faithfulDeparted, .conclusion,
+        .conclusion, .faithfulDeparted,
       ],
       "the collect intro and the faithful departed must not be dropped — neither appears in the mockup"
     )

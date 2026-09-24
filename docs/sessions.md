@@ -53,6 +53,33 @@ saints' collects is unchecked.
 
 **Open** — sizes are still fixed points and do not follow Dynamic Type.
 
+## 2026-09-23 — Little Hours: "Let us bless the Lord" before the faithful departed
+
+**Shipped** — left staged by `/fix` (on `develop`, no worktree); committed later the same day at
+the user's request, ahead of the collect-reminders spec.
+
+- `OfficeReaderModel.finalPageSections()` now emits the conclusion ("Let us bless the Lord. /
+  Thanks be to God.") *before* "May ✠ the souls of all the faithful departed…". The reader renders
+  that list verbatim and all three hours share it, so Terce, Sext and None were all wrong.
+- `OfficeReaderTests.testFinalPageOrdersItsSectionsAsTheRiteDoes` had encoded the wrong order,
+  which is why nothing caught it; its expected order is corrected in place. Failed before the fix,
+  passes after; full unit suite 276/276. Verified on a simulator via Maestro: Terce's final page
+  shows the conclusion line above the faithful-departed prayer.
+
+**Decided**
+
+- Fixed at the one ordering point, not in the dataset: `little-hours.json` and
+  `offices-data.js` store the two as independent fields with no order between them, so the
+  generator needed no change.
+- The 2026-08-27 plan's "…the faithful-departed prayer, and the conclusion — in that order"
+  acceptance line is where the wrong order came from. Left as written — it is a dated plan record,
+  not current documentation.
+
+**Open**
+
+- The RED run took ~10 min because the simulator's post-failure diagnostic collection timed out
+  (600 s); the test itself took 0.3 s. A green run is ~25 s once built.
+
 ## 2026-08-27 — Hotfix 1.1.1: Safari Private Browsing bypassed the website block
 
 **Shipped** — `b2d6316`, merged to `release/1.1.0` (`8f2a9ef`) and `develop` (`17c8993`), uploaded

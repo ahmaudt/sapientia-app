@@ -118,13 +118,15 @@ enum OfficeReaderModel {
     }
 
     sections.append(
-      OfficeFinalSection(kind: .faithfulDeparted, title: nil, body: final.faithfulDeparted))
-
-    sections.append(
       OfficeFinalSection(
         kind: .conclusion,
         title: nil,
         body: final.conclusion.map(\.text).joined(separator: " ")))
+
+    // Said after "Thanks be to God", not before it: the office ends on the
+    // departed.
+    sections.append(
+      OfficeFinalSection(kind: .faithfulDeparted, title: nil, body: final.faithfulDeparted))
 
     return sections
   }
