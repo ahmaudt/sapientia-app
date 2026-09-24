@@ -1,239 +1,186 @@
 import SwiftUI
 
+/// Screen 16 — How long. The duration chosen before a timed session begins,
+/// on the accent-900 ground the rites share: a kicker, the span as a large
+/// Barlow numeral between two square steppers, the common presets, and what
+/// the choice commits you to.
+///
+/// Presented full-screen (`startViewUsesFullScreen`), not as a detent sheet.
 struct TimerDurationView: View {
-  @EnvironmentObject var themeManager: ThemeManager
   @Environment(\.dismiss) private var dismiss
 
   let profileName: String
   let onDurationSelected: (StrategyTimerData) -> Void
 
-  // State for slider-based duration selection
-  @State private var durationMinutes: Double = 60  // Default 1 hour
-  @State private var isSliding = false
-  @State private var hideStopButton = false  // Toggle for hiding stop button
+  @State private var minutes: Int = 60
+  @State private var hideStopButton = false
 
-  // Constants
-  private let minMinutes: Double = 15
-  private let maxMinutes: Double = 1439  // 23h 59m
-  private let smallIncrement: Double = 5
-  private let largeIncrement: Double = 15
-
-  // Common snap points (in minutes)
-  private let snapPoints: [Double] = [15, 30, 45, 60, 90, 120, 180, 240, 360, 480, 720, 1440]
-  private let snapThreshold: Double = 10  // How close to snap (in minutes)
+  private static let liftFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
+    formatter.timeStyle = .short
+    return formatter
+  }()
 
   var body: some View {
-    VStack(spacing: 32) {
-      // Header
-      VStack(alignment: .leading, spacing: 12) {
-        Text("Timer Settings")
-          .font(.title2).bold()
-
-        Text(
-          "Select how long you want \(profileName) to last."
-        )
-        .font(.callout)
-        .foregroundColor(.secondary)
-      }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(.top, 16)
-
-      // Large time display
-      timeDisplay
-
-      // Slider with +/- buttons
-      sliderControls
-
-      // Hide stop button toggle
-      hideStopButtonToggle
-
-      // Confirm button
-      ActionButton(
-        title: "Set Duration",
-        backgroundColor: themeManager.themeColor,
-        iconName: "checkmark.circle.fill"
-      ) {
-        handleConfirm()
-      }
+    BlueprintStage(
+      title: profileName,
+      field: .dark,
+      leadingLabel: "Cancel",
+      leadingAction: { dismiss() },
+      scrolls: false
+    ) {
+      chooser
+    } bottom: {
+      commitment
     }
-    .padding(24)
   }
 
-  private var timeDisplay: some View {
-    VStack(spacing: 8) {
-      Text(formattedDuration)
-        .font(.system(size: 56, weight: .bold, design: .rounded))
-        .contentTransition(.numericText())
-        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: durationMinutes)
+  // MARK: - Chooser
+
+  private var chooser: some View {
+    VStack(spacing: SapientiaTheme.space8) {
+      Spacer(minLength: 0)
+
+      Text("How long is it held")
+        .font(.sapientiaHeading(13))
+        .kerning(13 * 0.16)
+        .textCase(.uppercase)
+        .foregroundColor(SapientiaTheme.accent300)
+
+      HStack(spacing: SapientiaTheme.space6) {
+        stepper("minus", delta: -TimerDuration.stepMinutes)
+        span
+        stepper("plus", delta: TimerDuration.stepMinutes)
+      }
+
+      presets
+
+      Spacer(minLength: 0)
     }
     .frame(maxWidth: .infinity)
-    .padding(.vertical, 16)
+    .padding(.horizontal, SapientiaTheme.space6)
   }
 
-  private var sliderControls: some View {
-    VStack(spacing: 16) {
-      // +/- buttons with slider
-      HStack(spacing: 16) {
-        // Decrement button
+  private var span: some View {
+    VStack(spacing: SapientiaTheme.space2) {
+      Text(TimerDuration.clockText(minutes))
+        .font(.sapientiaHeading(68))
+        .foregroundColor(SapientiaTheme.paper)
+        .contentTransition(.numericText())
+      Text("Hours · minutes")
+        .font(.sapientiaHeading(13))
+        .kerning(1.0)
+        .textCase(.uppercase)
+        .foregroundColor(SapientiaTheme.onDark(0.55))
+    }
+    .frame(minWidth: 150)
+    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: minutes)
+  }
+
+  /// Square 52×52 outline button — the design's `.btn-icon` on a dark field.
+  private func stepper(_ symbol: String, delta: Int) -> some View {
+    let enabled = TimerDuration.stepped(minutes, by: delta) != minutes
+
+    return Button {
+      withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+        minutes = TimerDuration.stepped(minutes, by: delta)
+      }
+    } label: {
+      Image(systemName: symbol)
+        .font(.system(size: 20, weight: .regular))
+        .foregroundColor(SapientiaTheme.onDark(enabled ? 0.9 : 0.3))
+        .frame(width: 52, height: 52)
+        .contentShape(Rectangle())
+        .border(SapientiaTheme.onDark(enabled ? 0.45 : 0.18), width: 1)
+    }
+    .buttonStyle(.plain)
+    .disabled(!enabled)
+    .sensoryFeedback(.impact(flexibility: .soft, intensity: 0.5), trigger: minutes)
+  }
+
+  private var presets: some View {
+    HStack(spacing: SapientiaTheme.space2) {
+      ForEach(TimerDuration.presetMinutes, id: \.self) { preset in
+        let selected = minutes == preset
         Button {
-          decrementDuration()
-        } label: {
-          Image(systemName: "minus.circle.fill")
-            .font(.system(size: 32))
-            .foregroundColor(durationMinutes > minMinutes ? themeManager.themeColor : .gray)
-        }
-        .disabled(durationMinutes <= minMinutes)
-        .scaleEffect(durationMinutes <= minMinutes ? 0.9 : 1.0)
-        .sensoryFeedback(.impact(flexibility: .soft, intensity: 0.5), trigger: durationMinutes)
-
-        // Slider
-        VStack(spacing: 8) {
-          Slider(
-            value: $durationMinutes,
-            in: minMinutes...maxMinutes,
-            step: 5,
-            onEditingChanged: { editing in
-              isSliding = editing
-              if !editing {
-                snapToNearestPreset()
-              }
-            }
-          )
-          .tint(themeManager.themeColor)
-          .sensoryFeedback(.selection, trigger: durationMinutes)
-
-          // Min/Max labels
-          HStack {
-            Text("15m")
-              .font(.caption2)
-              .foregroundColor(.secondary)
-            Spacer()
-            Text("24h")
-              .font(.caption2)
-              .foregroundColor(.secondary)
+          withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+            minutes = preset
           }
-        }
-
-        // Increment button
-        Button {
-          incrementDuration()
         } label: {
-          Image(systemName: "plus.circle.fill")
-            .font(.system(size: 32))
-            .foregroundColor(durationMinutes < maxMinutes ? themeManager.themeColor : .gray)
+          Text(TimerDuration.compactText(preset))
+            .font(.sapientiaBody(13))
+            .padding(.vertical, SapientiaTheme.space2)
+            .padding(.horizontal, SapientiaTheme.space3)
+            .foregroundColor(
+              selected ? SapientiaTheme.accent800 : SapientiaTheme.paper
+            )
+            .background(selected ? SapientiaTheme.accent100 : Color.clear)
+            .border(selected ? Color.clear : SapientiaTheme.onDark(0.35), width: 1)
         }
-        .disabled(durationMinutes >= maxMinutes)
-        .scaleEffect(durationMinutes >= maxMinutes ? 0.9 : 1.0)
-        .sensoryFeedback(.impact(flexibility: .soft, intensity: 0.5), trigger: durationMinutes)
+        .buttonStyle(.plain)
       }
     }
+    .sensoryFeedback(.selection, trigger: minutes)
   }
 
-  // MARK: - Helper Functions
+  // MARK: - Commitment
 
-  private var formattedDuration: String {
-    let totalMinutes = Int(durationMinutes)
-    let hours = totalMinutes / 60
-    let minutes = totalMinutes % 60
+  private var commitment: some View {
+    VStack(alignment: .leading, spacing: SapientiaTheme.space4) {
+      Rectangle()
+        .fill(SapientiaTheme.onDark(0.16))
+        .frame(height: 1)
 
-    if hours == 0 {
-      return "\(minutes)m"
-    } else if minutes == 0 {
-      return "\(hours)h"
-    } else {
-      return "\(hours)h \(minutes)m"
-    }
-  }
-
-  private var descriptiveText: String {
-    let totalMinutes = Int(durationMinutes)
-    let hours = totalMinutes / 60
-    let minutes = totalMinutes % 60
-
-    if hours == 0 {
-      return "\(minutes) minutes"
-    } else if minutes == 0 {
-      return hours == 1 ? "1 hour" : "\(hours) hours"
-    } else {
-      let hourText = hours == 1 ? "hour" : "hours"
-      let minuteText = minutes == 1 ? "minute" : "minutes"
-      return "\(hours) \(hourText) and \(minutes) \(minuteText)"
-    }
-  }
-
-  private func incrementDuration() {
-    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-      durationMinutes = min(durationMinutes + smallIncrement, maxMinutes)
-    }
-  }
-
-  private func decrementDuration() {
-    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-      durationMinutes = max(durationMinutes - smallIncrement, minMinutes)
-    }
-  }
-
-  private func snapToNearestPreset() {
-    // Find the closest snap point
-    if let closest = snapPoints.min(by: { abs($0 - durationMinutes) < abs($1 - durationMinutes) }) {
-      let distance = abs(closest - durationMinutes)
-      if distance <= snapThreshold {
-        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-          durationMinutes = closest
+      Toggle(isOn: $hideStopButton) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text("Hide Stop Button")
+            .font(.sapientiaBody(15))
+            .foregroundColor(SapientiaTheme.paper)
+          Text("Prevent early stopping during timer sessions")
+            .font(.sapientiaBody(13))
+            .foregroundColor(SapientiaTheme.onDark(0.6))
+            .fixedSize(horizontal: false, vertical: true)
         }
       }
+      .toggleStyle(BlueprintToggleStyle.onDark)
+
+      Text(
+        TimerDuration.consequence(
+          endTime: liftTimeText,
+          canStopEarly: !hideStopButton)
+      )
+      .font(.sapientiaBody(14))
+      .foregroundColor(SapientiaTheme.onDark(0.6))
+      .fixedSize(horizontal: false, vertical: true)
+
+      Button("Begin") { handleConfirm() }
+        .buttonStyle(BlueprintPrimaryButtonStyle.onDark)
     }
+    .padding(.top, SapientiaTheme.space6)
   }
 
-  private var hideStopButtonToggle: some View {
-    HStack(spacing: 12) {
-      VStack(alignment: .leading, spacing: 2) {
-        Text("Hide Stop Button")
-          .font(.body)
-          .fontWeight(.medium)
-
-        Text("Prevent early stopping during timer sessions")
-          .font(.caption)
-          .foregroundColor(.secondary)
-          .lineLimit(1)
-      }
-
-      Spacer()
-
-      Toggle("", isOn: $hideStopButton)
-        .labelsHidden()
-        .tint(themeManager.themeColor)
-    }
+  private var liftTimeText: String {
+    Self.liftFormatter.string(from: TimerDuration.liftsAt(minutes, from: Date()))
   }
 
   private func handleConfirm() {
-    let data = StrategyTimerData(
-      durationInMinutes: Int(durationMinutes), hideStopButton: hideStopButton
-    )
-    onDurationSelected(data)
+    onDurationSelected(
+      StrategyTimerData(
+        durationInMinutes: minutes,
+        hideStopButton: hideStopButton))
     dismiss()
   }
 }
 
-struct TimerDurationPreviewSheetHost: View {
-  @State private var show: Bool = true
-
-  var body: some View {
-    Color.clear
-      .sheet(isPresented: $show) {
-        NavigationView {
-          TimerDurationView(
-            profileName: "Work Focus",
-            onDurationSelected: { timerData in
-              print("Selected duration: \(timerData.durationInMinutes) minutes")
-            }
-          )
-        }
-        .presentationDetents([.medium, .large])
-      }
-  }
-}
-
 #Preview {
-  TimerDurationPreviewSheetHost()
+  Color.clear
+    .fullScreenCover(isPresented: .constant(true)) {
+      TimerDurationView(
+        profileName: "Deep Work",
+        onDurationSelected: { data in
+          print("Selected \(data.durationInMinutes) minutes")
+        }
+      )
+    }
 }

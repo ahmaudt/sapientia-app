@@ -702,7 +702,7 @@ class StrategyManager: ObservableObject {
         presentCustomStrategyView(
           customView,
           presentationDetents: strategy.startViewPresentationDetents,
-          fullScreen: strategy is NFCScanningStrategy
+          fullScreen: strategy.startViewUsesFullScreen
         )
       }
     }

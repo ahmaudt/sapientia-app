@@ -24,6 +24,10 @@ protocol BlockingStrategy {
   var allowsTimedBreaks: Bool { get }
   var isBeta: Bool { get }
   var startViewPresentationDetents: Set<PresentationDetent> { get }
+  /// Whether the start view is presented via `.fullScreenCover` rather than a
+  /// detent `.sheet`. Rite screens (the scan stage, the duration screen) take
+  /// the whole display; `startViewPresentationDetents` is ignored when true.
+  var startViewUsesFullScreen: Bool { get }
 
   // Callback closures session creation
   var onSessionCreation: ((SessionStatus) -> Void)? {
@@ -132,6 +136,7 @@ extension BlockingStrategy {
   var allowsTimedBreaks: Bool { true }
   var isBeta: Bool { false }
   var startViewPresentationDetents: Set<PresentationDetent> { [.medium, .large] }
+  var startViewUsesFullScreen: Bool { false }
 
   var tags: [BlockingStrategyTag] {
     var tags: [BlockingStrategyTag] = []
@@ -185,6 +190,14 @@ extension BlockingStrategy {
       assetImageName: isPauseActive ? nil : "PauseStickerIcon"
     )
   }
+}
+
+/// Every NFC strategy opens on the scan stage, which is a rite screen and has
+/// always been presented full-screen. Pinning it here rather than at the call
+/// site keeps that behaviour when the presenter stops type-checking for
+/// `NFCScanningStrategy`.
+extension BlockingStrategy where Self: NFCScanningStrategy {
+  var startViewUsesFullScreen: Bool { true }
 }
 
 struct BlockingStrategyIconImage: View {

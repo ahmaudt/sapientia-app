@@ -64,6 +64,15 @@ struct BlueprintCard<Content: View>: View {
 /// Solid accent, uppercase condensed type, squared, with corner marks.
 struct BlueprintPrimaryButtonStyle: ButtonStyle {
   var fontSize: CGFloat = 20
+  /// Registration-mark colour. Defaults to the light-ground ink; on the
+  /// accent-900 rite screens that resolves to near-black and the marks vanish,
+  /// so those pass `.onDark`.
+  var markColor: Color = SapientiaTheme.text.opacity(0.55)
+
+  /// The variant for accent-900 grounds.
+  static var onDark: BlueprintPrimaryButtonStyle {
+    BlueprintPrimaryButtonStyle(markColor: SapientiaTheme.paper.opacity(0.55))
+  }
 
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
@@ -77,7 +86,7 @@ struct BlueprintPrimaryButtonStyle: ButtonStyle {
         configuration.isPressed ? SapientiaTheme.accentPressed : SapientiaTheme.accent
       )
       .border(SapientiaTheme.accent, width: 1)
-      .overlay(BlueprintCornerMarks())
+      .overlay(BlueprintCornerMarks(color: markColor))
   }
 }
 
@@ -148,20 +157,35 @@ struct SapientiaSegmentedPicker<Option: Hashable>: View {
 
 /// Squared 44×26 toggle matching the mockup's switch rows.
 struct BlueprintToggleStyle: ToggleStyle {
+  /// Off-state colours. The defaults are the light-ground ones; the accent-900
+  /// rite screens override them, since `surface` and `background` there render
+  /// as a pale blob against the steel field.
+  var offTrack: Color = SapientiaTheme.surface
+  var offBorder: Color = SapientiaTheme.divider
+  var offKnob: Color = SapientiaTheme.background
+
+  /// The on-dark variant used by the rite screens.
+  static var onDark: BlueprintToggleStyle {
+    BlueprintToggleStyle(
+      offTrack: .clear,
+      offBorder: SapientiaTheme.paper.opacity(0.45),
+      offKnob: SapientiaTheme.paper.opacity(0.85))
+  }
+
   func makeBody(configuration: Configuration) -> some View {
     HStack {
       configuration.label
       Spacer()
       ZStack(alignment: configuration.isOn ? .trailing : .leading) {
         Rectangle()
-          .fill(configuration.isOn ? SapientiaTheme.accent : SapientiaTheme.surface)
+          .fill(configuration.isOn ? SapientiaTheme.accent : offTrack)
           .border(
-            configuration.isOn ? SapientiaTheme.accent : SapientiaTheme.divider,
+            configuration.isOn ? SapientiaTheme.accent : offBorder,
             width: 1)
         Rectangle()
-          .fill(configuration.isOn ? SapientiaTheme.paper : SapientiaTheme.background)
+          .fill(configuration.isOn ? SapientiaTheme.paper : offKnob)
           .border(
-            configuration.isOn ? Color.clear : SapientiaTheme.divider, width: 1
+            configuration.isOn ? Color.clear : offBorder, width: 1
           )
           .frame(width: 18, height: 18)
           .padding(3)

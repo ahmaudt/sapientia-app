@@ -13,6 +13,9 @@ class QRTimerBlockingStrategy: BlockingStrategy {
 
   var usesQRCode: Bool = true
   var hasTimer: Bool = true
+  /// The duration screen is a rite screen; the NFC variant already showed it
+  /// full-screen, and this brings the QR path into line.
+  var startViewUsesFullScreen: Bool = true
 
   var onSessionCreation: ((SessionStatus) -> Void)?
   var onErrorMessage: ((String) -> Void)?

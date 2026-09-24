@@ -13,6 +13,9 @@ class ShortcutTimerBlockingStrategy: BlockingStrategy {
 
   var hasTimer: Bool = true
   var startsManually: Bool = true
+  /// The duration screen is a rite screen; the NFC variant already showed it
+  /// full-screen, and this brings the shortcut path into line.
+  var startViewUsesFullScreen: Bool = true
 
   var onSessionCreation: ((SessionStatus) -> Void)?
   var onErrorMessage: ((String) -> Void)?
